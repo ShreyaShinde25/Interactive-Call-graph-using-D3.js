@@ -1,0 +1,80 @@
+{
+    "name": "DemoJavaProgram",
+    "children": [
+        {
+            "name": "PackageDeclaration",
+            "children": [
+                {
+                    "name": "defaultPackage",
+                    "value": "com.example.demo"
+                }
+            ]
+        },
+        {
+            "name": "ImportStatements",
+            "children": [
+                {
+                    "name": "ListImport",
+                    "value": "java.util.List"
+                },
+                {
+                    "name": "ArrayListImport",
+                    "value": "java.util.ArrayList"
+                }
+            ]
+        },
+        {
+            "name": "ClassDeclaration",
+            "children": [
+                {
+                    "name": "DemoClass",
+                    "children": [
+                        {
+                            "name": "MethodDeclaration",
+                            "children": [
+                                {
+                                    "name": "mainMethod",
+                                    "callCount": 1,
+                                    "children": [
+                                        {
+                                            "name": "StringArrayType",
+                                            "value": "String[] args"
+                                        },
+                                        {
+                                            "name": "Statement",
+                                            "children": [
+                                                {
+                                                    "name": "printMethodCall",
+                                                    "value": "printHello()"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "printHelloMethod",
+                                    "callCount": 3,
+                                    "children": [
+                                        {
+                                            "name": "ReturnType",
+                                            "value": "void"
+                                        },
+                                        {
+                                            "name": "Statements",
+                                            "children": [
+                                                {
+                                                    "name": "SystemOutPrintln",
+                                                    "value": "Hello, World!"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
