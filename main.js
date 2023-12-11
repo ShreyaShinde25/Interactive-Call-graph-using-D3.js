@@ -9,6 +9,10 @@ fetch('./treedata.json')
    parentFunction(data);
 });
 
+function calculateRadius(d) {
+    return d.data.callCount && d.data.callCount > 4 ? 28 : 12;
+}
+
 function parentFunction(jsondata){
 
 
@@ -113,7 +117,7 @@ function updateCircles(data){
                         .attrs({
                             'cx':(d)=> mouseX,
                             'cy':(d) => d.x,
-                            'r':12,
+                            'r':(d) => calculateRadius(d),
                             'fill':(d) => {
                                 if(d.children == undefined){
                                     return 'red'
@@ -125,7 +129,8 @@ function updateCircles(data){
                         })
         },
         function(update){
-            return update;
+            return update
+            .attr('r', (d) => calculateRadius(d)); // Fixed radius for update as well
         },
         function(exit){
 
@@ -148,7 +153,7 @@ function updateCircles(data){
                'fill':'orange',
 
            })
-           .transition().duration(100).attr('r', 16);
+           .transition().duration(100).attr('r', (d) => calculateRadius(d));
     })
     .on('mouseout', function(d){
        d3.select(this)
@@ -158,7 +163,7 @@ function updateCircles(data){
                 }
                 return 'green'
            })
-           .transition().duration(100).attr('r', 12)
+           .transition().duration(100).attr('r', (d) => calculateRadius(d))
 
     })
     .on('click', async function(d){

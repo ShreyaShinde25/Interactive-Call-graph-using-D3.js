@@ -13,8 +13,9 @@
         {
             "name": "ImportStatements",
             "children": [
-                {
+                {   
                     "name": "ListImport",
+                    "callCount": 5,
                     "value": "java.util.List"
                 },
                 {
@@ -53,7 +54,7 @@
                                 },
                                 {
                                     "name": "printHelloMethod",
-                                    "callCount": 3,
+                                    "callCount": 6,
                                     "children": [
                                         {
                                             "name": "ReturnType",
