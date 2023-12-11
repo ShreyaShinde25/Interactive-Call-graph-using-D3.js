@@ -270,7 +270,13 @@ function updateText(data){
                             'y':(d) => d.x,
                             'font-size':0
                         })
-                        .text((d) => d.data.name);
+                        .text((d)=> {
+                            let label = d.data.name;
+                            if (d.data.callCount !== undefined) {
+                                label += ` (Calls: ${d.data.callCount})`;
+                            }
+                            return label;
+                        });
         },
         function(update){
             return update;
