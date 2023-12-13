@@ -1,77 +1,66 @@
 {
-    "name": "DemoJavaProgram",
+    "name": "RealisticJavaProgram",
     "children": [
         {
-            "name": "PackageDeclaration",
+            "name": "ClassDeclaration: UtilityClass",
             "children": [
                 {
-                    "name": "defaultPackage",
-                    "value": "com.example.demo"
-                }
-            ]
-        },
-        {
-            "name": "ImportStatements",
-            "children": [
-                {   
-                    "name": "ListImport",
-                    "callCount": 5,
-                    "value": "java.util.List"
-                },
-                {
-                    "name": "ArrayListImport",
-                    "value": "java.util.ArrayList"
-                }
-            ]
-        },
-        {
-            "name": "ClassDeclaration",
-            "children": [
-                {
-                    "name": "DemoClass",
+                    "name": "Method: calculateSum",
+                    "size": 35,
+                    "callCount": 10,
                     "children": [
                         {
-                            "name": "MethodDeclaration",
-                            "children": [
-                                {
-                                    "name": "mainMethod",
-                                    "callCount": 1,
-                                    "children": [
-                                        {
-                                            "name": "StringArrayType",
-                                            "value": "String[] args"
-                                        },
-                                        {
-                                            "name": "Statement",
-                                            "children": [
-                                                {
-                                                    "name": "printMethodCall",
-                                                    "value": "printHello()"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "printHelloMethod",
-                                    "callCount": 6,
-                                    "children": [
-                                        {
-                                            "name": "ReturnType",
-                                            "value": "void"
-                                        },
-                                        {
-                                            "name": "Statements",
-                                            "children": [
-                                                {
-                                                    "name": "SystemOutPrintln",
-                                                    "value": "Hello, World!"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
+                            "name": "ReturnType",
+                            "value": "int"
+                        },
+                        {
+                            "name": "Parameters",
+                            "value": "int a, int b"
+                        }
+                    ]
+                },
+                {
+                    "name": "Method: printMessage",
+                    "size": 20,
+                    "callCount": 5,
+                    "children": [
+                        {
+                            "name": "ReturnType",
+                            "value": "void"
+                        },
+                        {
+                            "name": "Parameters",
+                            "value": "String message"
+                        }
+                    ]
+                },
+                {
+                    "name": "Method: isValidNumber",
+                    "size": 40,
+                    "callCount": 8,
+                    "children": [
+                        {
+                            "name": "ReturnType",
+                            "value": "boolean"
+                        },
+                        {
+                            "name": "Parameters",
+                            "value": "int number"
+                        }
+                    ]
+                },
+                {
+                    "name": "Method: formatDate",
+                    "size": 50,
+                    "callCount": 3,
+                    "children": [
+                        {
+                            "name": "ReturnType",
+                            "value": "String"
+                        },
+                        {
+                            "name": "Parameters",
+                            "value": "Date date"
                         }
                     ]
                 }

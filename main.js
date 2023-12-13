@@ -10,7 +10,23 @@ fetch('./treedata.json')
 });
 
 function calculateRadius(d) {
-    return d.data.callCount && d.data.callCount > 4 ? 28 : 12;
+    // return d.data.callCount && d.data.callCount > 4 ? 28 : 12;
+    if (d.data.size>10)
+    {
+        return d.data.size
+    }
+    else return 10;
+}
+
+function hotspotColor(d){
+    if(d.children == undefined){
+        return 'white'
+    }
+    if(d.data.callCount > 5)
+    return 'maroon'
+    else if (d.data.callCount>3 && d.data.callCount<=5)
+    return 'red'
+    else return 'yellow'
 }
 
 function parentFunction(jsondata){
@@ -118,19 +134,15 @@ function updateCircles(data){
                             'cx':(d)=> mouseX,
                             'cy':(d) => d.x,
                             'r':(d) => calculateRadius(d),
-                            'fill':(d) => {
-                                if(d.children == undefined){
-                                    return 'red'
-                                }
-                                return 'green'
-                            },
+                            'fill':(d) => hotspotColor(d),
                             'id': (d,i) =>d.data.name,
                             'class':'sel'                           
                         })
         },
         function(update){
             return update
-            .attr('r', (d) => calculateRadius(d)); // Fixed radius for update as well
+            .attr('r', (d) => calculateRadius(d)) // Fixed radius for update as well
+            .attr('fill', (d)=> hotspotColor(d))
         },
         function(exit){
 
@@ -150,20 +162,15 @@ function updateCircles(data){
 
        d3.select(this)
            .attrs({                
-               'fill':'orange',
+               'fill': 'green',
 
            })
-           .transition().duration(100).attr('r', (d) => calculateRadius(d));
+           .transition().duration(100).attrs({'r':(d) => calculateRadius(d)});
     })
     .on('mouseout', function(d){
        d3.select(this)
-           .attr('fill', (d)=>{
-                if(d.children ==undefined){
-                    return 'red'
-                }
-                return 'green'
-           })
-           .transition().duration(100).attr('r', (d) => calculateRadius(d))
+           .attr('fill', (d)=>hotspotColor(d))
+           .transition().duration(100).attrs({'r':(d) => calculateRadius(d)});
 
     })
     .on('click', async function(d){
