@@ -19,9 +19,9 @@ function calculateRadius(d) {
 }
 
 function hotspotColor(d){
-    if(d.children == undefined){
-        return 'white'
-    }
+    // if(d.children == undefined){
+    //     return 'white'
+    // }
     if(d.data.callCount > 5)
     return 'maroon'
     else if (d.data.callCount>3 && d.data.callCount<=5)
@@ -51,7 +51,7 @@ var updateTextLinks;
 
 
 let dim = {
-    'width': window.screen.width/1.2, 
+    'width': window.screen.width/1.1, 
     'height':window.screen.height, 
     'margin':20    
 };
@@ -68,11 +68,11 @@ document.querySelector("#chart").classList.add("center");
 
 
 
-let g = svg.append('g')
+let g = svg.append('g') 
             .attr('transform', 'translate(140,50)');
 
-    let layout = d3.tree().size([dim.height-50, dim.width-320]);
-
+    // let layout = d3.tree().size([dim.height-50, dim.width-320]);
+    let layout = d3.tree().size([dim.width-320,dim.height-100]);
     layout(rootNode);
     console.log(rootNode.links());
     console.log("----------------------");
@@ -91,9 +91,11 @@ let group =  g.selectAll('path')
     function(enter){
         return enter.append('path')
                     .attrs({
-                        'd': d3.linkHorizontal()
-                        .x(d => mouseX)
-                         .y(d => d.x),
+                        'd': d3.linkVertical()
+                        // .x(d => mouseX)
+                        //  .y(d => d.x),
+                         .x(d => d.x)
+                         .y(d => mouseX),
                      'fill':'none',
                      'stroke':'white'
                     })
@@ -106,16 +108,20 @@ let group =  g.selectAll('path')
 
 
         return exit.call(path => path.transition().duration(300).remove()
-                                                .attr('d', d3.linkHorizontal()
-                                                              .x(d => mouseX)
-                                                              .y(d =>d.x)));
+                                                .attr('d', d3.linkVertical()
+                                                            //   .x(d => mouseX)
+                                                            //   .y(d =>d.x)
+                                                              .x(d => d.x)
+                                                              .y(d =>mouseX)));
     }
 
 
 )
-.call(path => path.transition().duration(1000).attr('d', d3.linkHorizontal()
-        .x(d => d.y)
-         .y(d => d.x))
+.call(path => path.transition().duration(1000).attr('d', d3.linkVertical()
+        // .x(d => d.y)
+        //  .y(d => d.x)
+         .x(d => d.x)
+         .y(d => d.y))
          .attr("id", function(d,i){return "path"+i}));
 
 
@@ -131,8 +137,10 @@ function updateCircles(data){
         function(enter){
             return enter.append('circle')
                         .attrs({
-                            'cx':(d)=> mouseX,
-                            'cy':(d) => d.x,
+                            // 'cx':(d)=> mouseX,
+                            // 'cy':(d) => d.x,
+                            'cx':(d)=> d.x,
+                            'cy':(d) => mouseX,
                             'r':(d) => calculateRadius(d),
                             'fill':(d) => hotspotColor(d),
                             'id': (d,i) =>d.data.name,
@@ -148,7 +156,8 @@ function updateCircles(data){
 
             return exit.call(path => path.transition().duration(300).remove()
             .attrs({
-                'cx':(d) =>mouseX,
+                // 'cx':(d) =>mouseX,
+                'cy':(d) =>mouseX,
                 'r':(d) => 0
             }));
 
@@ -156,8 +165,8 @@ function updateCircles(data){
 
 
     )
-    .call(circle => circle.transition().duration(1000).attr('cx', (d)=>d.y))
-
+    // .call(circle => circle.transition().duration(1000).attr('cx', (d)=>d.y))
+    .call(circle => circle.transition().duration(1000).attr('cy', (d)=>d.y))
     .on('mouseover', function(d){
 
        d3.select(this)
@@ -176,7 +185,7 @@ function updateCircles(data){
     .on('click', async function(d){
 
            let buttonId = d3.select(this)["_groups"][0][0]["attributes"].id.value;
-           mouseX = d3.select(this)["_groups"][0][0]["attributes"].cx.value;
+           mouseX = d3.select(this)["_groups"][0][0]["attributes"].cy.value;
            //check to see if button already exists aka has been clicked
            //if it does, we need to send that data to update function
            //and remove that object
@@ -271,15 +280,16 @@ updateCircles(rootNode.descendants());
  
 
 function updateText(data){
-
+    let offset = 10
     g.selectAll('text')
       .data(data, (d) =>d.data.name)
       .join(
         function(enter){
             return enter.append('text')
                         .attrs({
-                            'x': (d) =>mouseX,
-                            'y':(d) => d.x,
+                            
+                            'x': (d) =>d.x + calculateRadius(d)+offset,
+                            'y':(d) => mouseX ,
                             'font-size':0
                         })
                         .text((d)=> {
@@ -295,16 +305,18 @@ function updateText(data){
         },
         function(exit){
                 return exit.call(text => text.transition().duration(300).remove().attrs({
-                       'x':(d) => mouseX,
-                       'font-size':0 
+                    //    'x':(d) => mouseX,
+                       'y':(d) => mouseX,
+                       'font-size':0
                 }));   
         }
 
       )
       .call(text => text.transition().duration(1000).attrs({
-          'x':(d) =>d.y+20,
-          'font-size':15,
-          'fill':'yellow',
+        //   'x':(d) =>d.y+20,
+          'y':(d) =>d.y+20,
+          'font-size':20,
+          'fill':'white',
         }));
 }
 
