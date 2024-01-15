@@ -1,6 +1,6 @@
 
 
-fetch('./treedata.json')
+fetch('./example.json')
 .then(function(resp){
     return resp.json();
 })
@@ -9,6 +9,36 @@ fetch('./treedata.json')
    parentFunction(data);
 });
 
+// fetch('./example.json')
+// .then(resp => resp.json())
+// .then(data => parentFunction(data));
+
+function createHierarchy(data) {
+    let nodes = {};
+    data.forEach(d => {
+        let node = nodes[d.id] = nodes[d.id] || {};
+        node.id=d.id;
+        node.name = d.methodName;
+        node.classPath = d.classPath;
+        node.metrics = d.metrics;
+        node.callees = d.callees;
+        node.children = [];
+    });
+
+    data.forEach(d => {
+        d.callees?.forEach(callee => {
+            if (nodes[callee.id]) {
+                nodes[d.id].children.push(nodes[callee.id]);
+            }
+        });
+    });
+
+    let rootNodes = Object.values(nodes).filter(node => !data.some(d => d.callees?.some(callee => callee.id === node.id)));
+    return { name: "Root", children: rootNodes }; // Assuming no single root node, creating a virtual root
+}
+
+
+
 function calculateRadius(d) {
     // return d.data.callCount && d.data.callCount > 4 ? 28 : 12;
     if (d.data.size>10)
@@ -16,30 +46,45 @@ function calculateRadius(d) {
         return d.data.size
     }
     else return 10;
+    // let size = d.data.metrics?.find(m => m.key === "methodSize")?.value;
+    // return size > 10 ? size: 10;
+   
 }
 
 function hotspotColor(d){
     // if(d.children == undefined){
     //     return 'white'
     // }
+
+
     if(d.data.callCount > 5)
     return 'maroon'
     else if (d.data.callCount>3 && d.data.callCount<=5)
     return 'red'
     else return 'yellow'
+
+    // let callCount = d.data.callees?.reduce((total, callee) => total + callee.callCount, 0);
+    // if (callCount > 5) return 'maroon';
+    // else if (callCount > 3) return 'red';
+    // else return 'yellow';
+
+   
 }
 
 function parentFunction(jsondata){
 
+    let hierarchicalData = createHierarchy(jsondata);
+    let rootNode = d3.hierarchy(hierarchicalData, d => d.children);
+
 
 console.log("the data is")
-console.log(jsondata)
+console.log(hierarchicalData)
+
 
 
 let mouseX = 0;
-//these global variables I should later get via closure
 let buttonTracker = [];
-let rootNode = d3.hierarchy(jsondata, d=>d.children);
+// let rootNode = d3.hierarchy(jsondata, d=>d.children);
 var pathLinks = rootNode.links(); 
 var updatePathLinks;
 
@@ -86,7 +131,8 @@ let g = svg.append('g')
 function update(data){
 
 let group =  g.selectAll('path')
-    .data(data, (d,i) => d.target.data.name)
+    // .data(data, (d,i) => d.target.data.name)
+    .data(data, (d,i) => d.target.data.id)
     .join(
     function(enter){
         return enter.append('path')
@@ -132,7 +178,8 @@ update(pathLinks); //rootNode.links()
 
 function updateCircles(data){
     g.selectAll('circle')
-    .data(data, (d) => d.data.name)
+    // .data(data, (d) => d.data.name)
+    .data(data, (d) => d.data.id)
     .join(
         function(enter){
             return enter.append('circle')
@@ -143,7 +190,8 @@ function updateCircles(data){
                             'cy':(d) => mouseX,
                             'r':(d) => calculateRadius(d),
                             'fill':(d) => hotspotColor(d),
-                            'id': (d,i) =>d.data.name,
+                            // 'id': (d,i) =>d.data.name,
+                            'id': (d,i) =>d.data.id,
                             'class':'sel'                           
                         })
         },
@@ -218,30 +266,36 @@ function updateCircles(data){
            var valueArray = await processedlinks(d.links());   
 
            updatePathLinks = pathLinks.filter(function(item){        
-                   return !valueArray.includes(item.target.data.name);                                       
+                //    return !valueArray.includes(item.target.data.name)
+                   return !valueArray.includes(item.target.data.id);                                       
            });
 
            //now run the filter to get unfiltered items
            var clickedPathData = pathLinks.filter(function(item){
-            return valueArray.includes(item.target.data.name);
+            // return valueArray.includes(item.target.data.name)
+            return valueArray.includes(item.target.data.id);
             });
 
 
            updateCircleLinks = circleLinks.filter(function(item){
-                    return !valueArray.includes(item.data.name);
+                    // return !valueArray.includes(item.data.name)
+                    return !valueArray.includes(item.data.id);
            });
 
            var clickedCircleData = circleLinks.filter(function(item){
-                    return valueArray.includes(item.data.name);
+                    // return valueArray.includes(item.data.name)
+                    return valueArray.includes(item.data.id);
            });
         
         
            updateTextLinks = textLinks.filter(function(item){
-                    return !valueArray.includes(item.data.name);
+                    // return !valueArray.includes(item.data.name)
+                    return !valueArray.includes(item.data.id);
            });
 
            var clickedTextData = textLinks.filter(function(item){
-                    return valueArray.includes(item.data.name);
+                    // return valueArray.includes(item.data.name)
+                    return valueArray.includes(item.data.id);
            });
 
            //now we push the circleData to an array
@@ -261,7 +315,8 @@ function updateCircles(data){
     
                return new Promise((resolve, reject)=>{
                      dlinks.forEach(async(element) =>{
-                          valueArray.push(element.target.data.name); 
+                        //   valueArray.push(element.target.data.name)
+                          valueArray.push(element.target.data.id); 
                      });
                      resolve(valueArray);      
                });
@@ -282,7 +337,8 @@ updateCircles(rootNode.descendants());
 function updateText(data){
     let offset = 10
     g.selectAll('text')
-      .data(data, (d) =>d.data.name)
+    //   .data(data, (d) =>d.data.name)
+      .data(data, (d) =>d.data.id)
       .join(
         function(enter){
             return enter.append('text')
@@ -292,13 +348,16 @@ function updateText(data){
                             'y':(d) => mouseX ,
                             'font-size':0
                         })
-                        .text((d)=> {
-                            let label = d.data.name;
-                            if (d.data.callCount !== undefined) {
-                                label += ` (Calls: ${d.data.callCount})`;
-                            }
-                            return label;
-                        });
+                        // .text((d)=> {
+                        //     let label = d.data.name;
+                        //     if (d.data.callCount !== undefined) {
+                        //         label += ` (Calls: ${d.data.callCount})`;
+                        //     }
+                        //     return label;
+                        // })
+                        
+                        // .text((d) => d.data.name + (d.data.metrics?.length > 0 ? ` (${d.data.metrics[0].value})` : ''))
+                        .text((d) => d.data.id);
         },
         function(update){
             return update;
