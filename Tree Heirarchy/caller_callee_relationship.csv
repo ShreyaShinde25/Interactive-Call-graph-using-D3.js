@@ -1,0 +1,6 @@
+source,target,callcount
+com.example.ClassA.methodA,com.example.ClassA.methodB,1
+com.example.ClassA.methodA,com.example.ClassB.methodA,2
+com.example.ClassA.methodB,com.example.ClassB.methodA,1
+com.example.ClassC.methodA,com.example.ClassA.methodB,3
+com.example.ClassC.methodB,com.example.ClassC.methodA,1

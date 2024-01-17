@@ -1,0 +1,14 @@
+{
+  "name": "c6d855994f047ff3",
+  "main": "c6d855994f047ff3@256.js",
+  "version": "256.0.0",
+  "homepage": "https://observablehq.com/d/c6d855994f047ff3",
+  "author": {
+    "name": "Shreya Shinde's Workspace",
+    "url": "https://observablehq.com/@shreya-shinde-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "^5.9.7"
+  }
+}
