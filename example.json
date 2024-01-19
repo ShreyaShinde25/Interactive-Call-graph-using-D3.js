@@ -1,87 +1,104 @@
-[
-    {
-        "id": 0,
-        "classPath": "com.example.ClassA",
-        "methodName": "methodA",
-        "metrics": [
-            {
-                "key": "methodSize",
-                "value": 15
-            }
-        ],
-        "callees": [
-            {
-                "id": 1,
-                "callCount": 1
-            },
-            {
-                "id": 2,
-                "callCount": 2
-            }
-        ]
-  },
-  {
-    "id": 1,
-    "classPath": "com.example.ClassA",
-    "methodName": "methodB",
-    "metrics": [
+{
+    "methods":
+    [
         {
-            "key": "methodSize",
-            "value": 5
-        }
-    ],
-    "callees": [
-        {
-            "id": 2,
-            "callCount": 1
-        }
-    ]
-  },
-  {
-    "id": 2,
-    "classPath": "com.example.ClassB",
-    "methodName": "methodA",
-    "metrics": [
-        {
-            "key": "methodSize",
-            "value": 7
-        }
-    ],
-    "callees": [
-    ]
-  },
-  {
-    "id": 3,
-    "classPath": "com.example.ClassC",
-    "methodName": "methodA",
-    "metrics": [
-        {
-            "key": "methodSize",
-            "value": 10
-        }
-    ],
-    "callees": [
+            "id": 0,
+            "classPath": "com.example.ClassA",
+            "methodName": "methodA",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 15
+                }
+            ]
+        },
         {
             "id": 1,
-            "callCount": 3
-        }
-    ]
-  },
-  {
-    "id": 4,
-    "classPath": "com.example.ClassC",
-    "methodName": "methodB",
-    "metrics": [
+            "classPath": "com.example.ClassA",
+            "methodName": "methodB",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 5
+                }
+            ]
+        },
         {
-            "key": "methodSize",
-            "value": 3
-        }
-    ],
-    "callees": [
+            "id": 2,
+            "classPath": "com.example.ClassB",
+            "methodName": "methodA",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 7
+                }
+            ]
+        },
         {
             "id": 3,
-            "callCount": 1
+            "classPath": "com.example.ClassC",
+            "methodName": "methodA",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "classPath": "com.example.ClassC",
+            "methodName": "methodB",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 3
+                }
+            ]
+        }
+    ],
+    "paths": 
+    [
+        {
+            "id": 0,
+            "children": 
+            [
+                {
+                    "id": 1,
+                    "children": 
+                    [
+                    {
+                        "id": 2,
+                        "children": 
+                        [
+                            {
+                                "id": 2,
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "children": []
+                    }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "children": 
+                    [
+                        {
+                            "id": 3,
+                            "children": []
+                        }
+                    ]
+                }
+            ]
         }
     ]
-  }
-]
+}
