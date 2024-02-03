@@ -175,10 +175,9 @@ if __name__ == "__main__":
     parser.add_argument('--type', '-t', type=str, default='cct', help=f'type of visualization to generate, valid options: {VIS_TYPES}.')    
     args = parser.parse_args()
     out_dir = 'out'
-    json_dir = 'json'
     if os.path.isdir(out_dir) == False:
         os.mkdir(out_dir) 
-    with open(f'{json_dir}/{args.input}', 'r') as f:
+    with open(f'{args.input}', 'r') as f:
         data = json.load(f)
     methods = {m['id']: m for m in data['methods']}
     paths = data['paths']
