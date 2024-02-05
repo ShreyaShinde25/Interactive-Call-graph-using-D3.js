@@ -3,8 +3,8 @@
     [
         {
             "id": 0,
-            "classPath": "com.example.ClassA",
-            "methodName": "methodA",
+            "classPath": "",
+            "methodName": "M",
             "metrics": 
             [
                 {
@@ -15,8 +15,8 @@
         },
         {
             "id": 1,
-            "classPath": "com.example.ClassA",
-            "methodName": "methodB",
+            "classPath": "",
+            "methodName": "A",
             "metrics": 
             [
                 {
@@ -27,8 +27,8 @@
         },
         {
             "id": 2,
-            "classPath": "com.example.ClassB",
-            "methodName": "methodA",
+            "classPath": "",
+            "methodName": "B",
             "metrics": 
             [
                 {
@@ -39,8 +39,8 @@
         },
         {
             "id": 3,
-            "classPath": "com.example.ClassC",
-            "methodName": "methodA",
+            "classPath": "",
+            "methodName": "C",
             "metrics": 
             [
                 {
@@ -51,8 +51,8 @@
         },
         {
             "id": 4,
-            "classPath": "com.example.ClassC",
-            "methodName": "methodB",
+            "classPath": "",
+            "methodName": "D",
             "metrics": 
             [
                 {
@@ -74,18 +74,22 @@
                     [
                     {
                         "id": 2,
-                        "children": 
-                        [
-                            {
-                                "id": 2,
-                                "children": []
-                            }
-                        ]
+                        "children": []
                     },
                     {
                         "id": 3,
                         "children": []
                     }
+                    ]
+                }, 
+                {
+                    "id": 4,
+                    "children": 
+                    [
+                        {
+                            "id": 1,
+                            "children": []
+                        }
                     ]
                 },
                 {
@@ -95,6 +99,38 @@
                         {
                             "id": 3,
                             "children": []
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "children": 
+                    [
+                        {
+                            "id": 2,
+                            "children": []
+                        },
+                        {
+                            "id": 2,
+                            "children": []
+                        },
+                        {
+                            "id": 3,
+                            "children": []
+                        },
+                        {
+                            "id": 3,
+                            "children": 
+                            [
+                                {
+                                    "id": 1,
+                                    "children": []
+                                },
+                                {
+                                    "id": 3,
+                                    "children": []
+                                }
+                            ]
                         }
                     ]
                 }
