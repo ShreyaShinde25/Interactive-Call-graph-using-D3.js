@@ -84,11 +84,88 @@
             nodeColors[nodeId] = allNodes[nodeId].color;
             }
             allEdges = edges.get({ returnType: "Object" });
+            // CUSTOM START ###
+            outMap = {}; // for quick access to out-going edges (key=nodeId, value=edgeId)
+            inMap = {}; // for quick access to incoming edges (key=nodeId, value=edgeId)
+            for (edgeId in allEdges) {
+                // all edges hidden by default
+                edges.update([{id: edgeId, hidden: true}]);
+                // store outgoing edges from node
+                if ((allEdges[edgeId].from in outMap) == false) {
+                    outMap[allEdges[edgeId].from] = new Set([]);
+                }
+                outMap[allEdges[edgeId].from].add(allEdges[edgeId]);
+                // store incoming edges to node
+                if ((allEdges[edgeId].to in inMap) == false) {
+                    inMap[allEdges[edgeId].to] = new Set([]);
+                }
+                inMap[allEdges[edgeId].to].add(allEdges[edgeId]);
+            }
+            for (nodeId in allNodes) {
+                // only run on root nodes
+                if ((parseInt(nodeId) in inMap) == false) {
+                    // calc node depth starting from root
+                    updateDepth(allNodes[nodeId], 0, new Set([]));
+                    // delete all children
+                    deleteChildren(allNodes[nodeId]);
+                }
+                nodeColors[nodeId] = allNodes[nodeId].color;
+            }
+
+            function deleteChildren(currNode) {
+                if (nodes.get(currNode.id) != null)
+                    nodes.update([{id: currNode.id, displayChildren: false}]);
+                if (currNode.id in outMap) {
+                    for (const edge of outMap[currNode.id]) {
+                        edges.remove(edge.id);
+                        neighbourNode = allNodes[edge.to.toString()];
+                        if (neighbourNode.depth <= currNode.depth) 
+                            continue; // do not delete lower depth nodes (to handle recursion)
+                        if (nodes.get(neighbourNode.id) == null)
+                            continue; // already deleted
+                        nodes.remove(neighbourNode.id);
+                        deleteChildren(neighbourNode);
+                    }
+                }
+            }
+
+            function addChildren(currNode, depth, maxDepth) {
+                if (depth == maxDepth) {
+                    return;
+                }
+                nodes.update([{id: currNode.id, displayChildren: true}]);
+                if (currNode.id in outMap) {
+                    for (const edge of outMap[currNode.id]) {
+                        edges.add(edge);
+                        edges.update([{id: edge.id, physics: true}]);
+                        neighbourNode = allNodes[edge.to.toString()];
+                        if (neighbourNode.depth <= currNode.depth) 
+                            continue; // do not re-add lower depth nodes (to handle recursion)
+                        if (nodes.get(neighbourNode.id) != null)
+                            continue; // already added
+                        nodes.add(neighbourNode);
+                        nodes.update([{id: neighbourNode.id, displayChildren: false, physics: true}]);
+                        addChildren(neighbourNode, depth+1, maxDepth);
+                    }
+                }
+            }
+            
+            function updateDepth(currNode, depth, visited) {
+                if(visited.has(currNode.id)) {
+                    return; // reached a visited node; stop
+                }
+                currNode.depth = ((currNode.depth == undefined) ? depth : min(currNode.depth, depth));
+                visited.add(currNode.id);
+                if (currNode.id in outMap) {
+                    for (const edge of outMap[currNode.id]) {
+                        updateDepth(allNodes[edge.to.toString()], depth+1, visited);
+                    }
+                }
+            }
+            // CUSTOM END ###
             // adding nodes and edges to the graph
             data = {nodes: nodes, edges: edges};
-        
-            // adding nodes and edges to the graph
-            data = { nodes: nodes, edges: edges };
+            
 
             var options = {
                 "configure": {
@@ -109,13 +186,13 @@
                     "hideNodesOnDrag": false
                 },
                 "physics": {
-                    "enabled": false,
+                    "enabled": true,
                     "stabilization": {
-                        "enabled": true,
-                        "fit": true,
-                        "iterations": 1000,
+                        "enabled": false,
+                        "fit": false,
+                        "iterations": 10,
                         "onlyDynamicEdges": false,
-                        "updateInterval": 50
+                        "updateInterval": 10
                     }
                 }
             };
@@ -123,97 +200,19 @@
 
             network = new vis.Network(container, data, options);
             // CUSTOM START ###
-            outMap = {}; // for quick access to out-going edges (key=nodeId, value=edgeId)
-            inMap = {}; // for quick access to incoming edges (key=nodeId, value=edgeId)
-            for (edgeId in allEdges) {
-                // all edges hidden by default
-                edges.update([{id: edgeId, hidden: true}]);
-                // store outgoing edges from node
-                if ((allEdges[edgeId].from in outMap) == false) {
-                    outMap[allEdges[edgeId].from] = new Set([]);
-                }
-                outMap[allEdges[edgeId].from].add(allEdges[edgeId]);
-                // store incoming edges to node
-                if ((allEdges[edgeId].to in inMap) == false) {
-                    inMap[allEdges[edgeId].to] = new Set([]);
-                }
-                inMap[allEdges[edgeId].to].add(allEdges[edgeId]);
-            }
-            for (nodeId in allNodes) {
-                // all nodes set to hidden initially
-                nodes.update([{id: parseInt(nodeId), displayChildren: false}]);
-                // hide all non-root nodes 
-                if (parseInt(nodeId) in inMap) {
-                    nodes.update([{id: parseInt(nodeId), hidden: true}]);
-                } else {
-                    // calc node depth starting from root
-                    updateDepth(allNodes[nodeId], 0, new Set([]));
-                }
-                nodeColors[nodeId] = allNodes[nodeId].color;
-            }
-            function updateDepth(currNode, depth, visited) {
-                if(visited.has(currNode.id)) {
-                    return; // reached a visited node; stop
-                }
-                currNode.depth = ((currNode.depth == undefined) ? depth : min(currNode.depth, depth));
-                visited.add(currNode.id);
-                if (currNode.id in outMap) {
-                    for (const edge of outMap[currNode.id]) {
-                        updateDepth(allNodes[edge.to.toString()], depth+1, visited);
-                    }
-                }
-            }
-            function toggleChildren(currNode, currDepth, maxDepth, toggle, visitedNodes, clickedNode) {
-                if (currNode == undefined) {
-                    return; // max depth reached
-                } else if(currDepth === maxDepth) {
-                    // note: code for displaying recursive edges 1 depth ahead of time
-                    // for (const edge of outMap[currNode.id]) {
-                    //     // check for displaying recursive edges (i.e. edge to a visited node)
-                    //     if (visitedNodes.has(edge.to)) {
-                    //         edges.update([{id: edge.id, hidden: toggle}]);
-                    //     }
-                    // } 
-                    return; // max depth reached
-                }  
-                // make sure to not visit again
-                visitedNodes.add(currNode.id);
-                // visit each child
-                if (currNode.id in outMap) {
-                    for (const edge of outMap[currNode.id]) {
-                        // hide/display edge
-                        edges.update([{id: edge.id, hidden: toggle}]);
-                        // for recursion: do not update nodes with lower depth than current
-                        if(allNodes[edge.to.toString()].depth < currNode.depth || visitedNodes.has(edge.to)) 
-                            continue;
-                        // hide/display child node
-                        nodes.update([{id: edge.to, hidden: toggle}]);
-                        // also set displayChildren to false when displaying child node
-                        if (toggle === false) {
-                            nodes.update([{id: edge.to, displayChildren: false}]);
-                        }
-                        toggleChildren(allNodes[edge.to.toString()], currDepth+1, maxDepth, toggle, visitedNodes);
-                    }
-                }
-            } 
+            network.setOptions( { physics: true } );
             network.on('click', function (properties) {
                 var ids = properties.nodes;
                 var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
                 if (clickedNode !== undefined) {
                     // toggle display children
-                    console.log(JSON.parse(JSON.stringify(clickedNode)));
-
-                    clickedNode.displayChildren = !clickedNode.displayChildren;
-                    // maxDepth=1 if displaying, maxDepth=undefined if hiding
-                    var maxDepth = ((clickedNode.displayChildren) ? 1 : undefined);
-                    toggleChildren(clickedNode, 0, maxDepth, !clickedNode.displayChildren, new Set([]));
-                    // for (nodeId in allNodes) {
-                    //     console.log(JSON.parse(JSON.stringify(allNodes[nodeId])));
-                    // }
-                    console.log(JSON.parse(JSON.stringify(clickedNode)));
+                    if (clickedNode.displayChildren) {
+                        deleteChildren(clickedNode);
+                    } else {
+                        addChildren(clickedNode, 0, 1);
+                    }
                 }
             });
-            // CUSTOM END ###
             return network;
 
         }

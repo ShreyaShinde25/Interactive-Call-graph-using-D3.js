@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 import json
 from pyvis.network import Network
 
@@ -13,6 +14,9 @@ class Node:
     
     def get_uid(self):
         return self._uid
+
+    def get_depth(self):
+        return self.depth
 
     def add_child(self, child):
         self.children[child.get_uid()] = child
@@ -53,17 +57,36 @@ def build_context_tree(curr):
     # - occurs when recursion is not just a method calling itself
     #   but rather a method earlier in the exec path
 
-    # def process_recursions(curr_node, path):
-    #     if curr_node in path:
-    #         print('rec found!')
-    #         # 
-
-    #     path[curr_node.get_id()] = curr_node
-    #     for child_node in curr_node.get_children():
-    #         process_recursions(child_node, path)
-    #     path.pop(curr_node.get_id())
+    def process_recursions(curr_node, path):
+        path[curr_node.get_id()] = curr_node
+        delete_uids = list()
+        add_targets = list()
+        child_nodes = list(curr_node.get_children())
+        for child_node in child_nodes:
+            if child_node.get_id() in path and curr_node.get_child(child_node.get_uid()) is not None:
+                # print(f'found recursion from {curr_node.get_label()} to {child_node.get_label()}')
+                curr_node.remove_child(child_node)
+                for grand_child_node in child_node.get_children():
+                    path[child_node.get_id()].add_child(grand_child_node) 
+                curr_node.add_child(path[child_node.get_id()])                
+            else:
+                process_recursions(child_node, path)
+        # for uid in delete_uids:
+        #     child_node = curr_node.get_child(uid)
+        #     curr_node.remove_child_by_uid(uid)
+        #     if child_node is None:
+        #         continue
+        #     for grand_child_node in child_node.get_children():
+        #             path[child_node.get_id()].add_child(grand_child_node) 
+        # for child in add_targets:
+        #     curr_node.add_child(child)
+        path.pop(curr_node.get_id())
     
-    def prune_call_tree(curr_node):
+    def prune_call_tree(curr_node, visited):
+        if curr_node.get_uid() in visited:
+            return
+        visited.add(curr_node.get_uid())
+        # print(f'pruning {curr_node.get_label()}...')
         dups = {}
         # collect duplicates
         for child_node in curr_node.get_children():
@@ -80,6 +103,7 @@ def build_context_tree(curr):
             for i in range(1, len(dups[k]['leaf'])):
                 # remove duplicate leaf
                 curr_node.remove_child(dups[k]['leaf'][i])
+                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
             if len(dups[k]['nonleaf']) == 0:
                 continue
             first = dups[k]['nonleaf'][0]
@@ -88,26 +112,64 @@ def build_context_tree(curr):
                 # absorb child from sybling
                 for nephew_node in sybling.get_children():
                     first.add_child(nephew_node)
+                    # print(f'absorb: {nephew_node.get_label()} from {sybling.get_label()} in {first.get_label()}')
                 # remove sybling from parent
                 curr_node.remove_child(sybling)
+                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
+        
+        # prune lower level
+        for child_node in curr_node.get_children():
+            prune_call_tree(child_node, visited)
         return curr_node
     
     ct_root = build_call_tree(curr)
-    # process_recursions(ct_root, dict())
-    return prune_call_tree(ct_root)
+    ct_root = prune_call_tree(ct_root, set())
+    process_recursions(ct_root, dict())
+    return ct_root
 
-def visualize(curr_node, name, show=False):
-    def populate(curr_node):
-        color = 'blue' if curr_node.get_id() == root['id'] else 'red'
+def visualize(curr_node, name, max_depth=1000000000, max_edges=1000000000, show=False):
+    visited = set()
+    edge_count = 0
+    def populate(curr_node, depth):
+        nonlocal edge_count
+        if curr_node.get_uid() in visited:
+            return
+        if depth > max_depth:
+            return
+        visited.add(curr_node.get_uid())
+        color = 'blue'#'blue' if curr_node.get_id() == root['id'] else 'red'
         net.add_node(
             n_id=curr_node.get_uid(), 
             label=curr_node.get_label(), 
-            color=color,
-            physics=False)
+            physics=True,
+            color=color,)
         for child_node in curr_node.get_children():
-            populate(child_node)
-            net.add_edge(curr_node.get_uid(), child_node.get_uid(), color='black', physics=False)
-    net = Network(height="1000px", width="100%", directed=True)
+            populate(child_node, depth+1)
+            if child_node.get_uid() in visited:
+                net.add_edge(curr_node.get_uid(), 
+                             child_node.get_uid(), 
+                             physics=True,
+                             color='gray')
+                edge_count += 1
+                if edge_count >= max_edges:
+                    return
+    net = Network(height="1000px", width="100%", directed=True, filter_menu=True, select_menu=True)
+    # options can be generated from: https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
+#     options = """
+#     {
+#   "edges": {
+#     "smooth": {
+#       "forceDirection": "vertical"
+#     }
+#   },
+#   "physics": {
+#     "maxVelocity": 15,
+#     "minVelocity": 0.85,
+#     "solver": "repulsion",
+#     "timestep": 0.97
+#   }
+# }
+#     """
     options = """options = {
         "physics": {
             "enabled": false,
@@ -115,51 +177,52 @@ def visualize(curr_node, name, show=False):
         }
     }"""
     net.set_options(options)
-    populate(curr_node)
+    populate(curr_node, 0)
     # net.show_buttons(filter_=['physics'])
+    net.save_graph(name)
     if show:
         net.show(name, notebook=False)
-    else:
-        net.save_graph(name)
-
-
+    
+    
 def inject_custom_javascript(base_html, ref_html, out_html, START_TOKEN='CUSTOM START ###', END_TOKEN='CUSTOM END ###'):
     ref_html_content = None
-    target_html_content = None
     # extract custom javascript from ref_html based on START_TOKEN and END_TOKEN
     with open(ref_html,'r') as f:
         ref_html_content = f.readlines()
-    i = 0
-    start_index = 0
-    ref_inject_ref = i
-    # find start of custom javascript
-    while i < len(ref_html_content) and START_TOKEN not in ref_html_content[i]: 
-        if len(ref_html_content[i].strip()) > 0:
-            ref_inject_ref = i
-        i+=1
-    start_index = i
-    # find end of custom javascript
-    while i < len(ref_html_content) and END_TOKEN not in ref_html_content[i]: 
-        i+=1
-    if start_index >= i:
-        print(f'Error: could not find {START_TOKEN} and {END_TOKEN} in {ref_html}!')
-        return
-    custom_javascript = ref_html_content[start_index:i+1]
-    # locate proper insert position in target_html
     with open(base_html, 'r') as f:
         base_html_content = f.readlines()
-        inject_ref = -1
+    right = 0
+    left = 0
+    ref_inject_ref = 0
+    base_inject_ref = -1
+    n = len(ref_html_content)
+    while right < n:
+        # find start of custom javascript
+        while right < len(ref_html_content) and START_TOKEN not in ref_html_content[right]: 
+            if len(ref_html_content[right].strip()) > 0:
+                ref_inject_ref = right
+            right+=1
+        left = right
+        # find end of custom javascript
+        while right < len(ref_html_content) and END_TOKEN not in ref_html_content[right]: 
+            right+=1
+        if left >= right:
+            # print(f'Error: could not find {START_TOKEN} and {END_TOKEN} in {ref_html}!')
+            break
+        custom_javascript = ref_html_content[left:right+1]
+        # locate proper insert position in target_html
         for i in range(len(base_html_content)):
             if base_html_content[i].strip() == ref_html_content[ref_inject_ref].strip():
-                inject_ref = i
+                base_inject_ref = i
                 break
-        if inject_ref == -1:
-            print(f'Error: could not locate injection reference point: \n {ref_html_content[ref_inject_ref].strip()}')
-            return 
-        base_html_content = base_html_content[:inject_ref+1] + custom_javascript + base_html_content[inject_ref+1:]
+        if base_inject_ref == -1:
+            # print(f'Error: could not locate injection reference point: \n {ref_html_content[ref_inject_ref].strip()}')
+            break
+        base_html_content = base_html_content[:base_inject_ref+1] + custom_javascript + base_html_content[base_inject_ref+1:]
+        right += 1  
     with open(out_html, 'w') as f:
         f.writelines(base_html_content)
-    
+    return 0 
 
 
 if __name__ == "__main__":
@@ -172,7 +235,10 @@ if __name__ == "__main__":
     parser.add_argument('--input', '-i', type=str, required=True, help='input (.json) file to process with call graph info.') 
     parser.add_argument('--out', '-o', type=str, default='vis.html', help='output (.html) file containing call graph visualization.')    
     parser.add_argument('--ref', '-r', type=str, default='ref.html', help='reference (.html) file containing custom javascript to inject.')    
-    parser.add_argument('--type', '-t', type=str, default='cct', help=f'type of visualization to generate, valid options: {VIS_TYPES}.')    
+    parser.add_argument('--type', '-t', type=str, default='cct', help=f'type of visualization to generate, valid options: {VIS_TYPES}.')
+    parser.add_argument('--maxDepth', '-D', type=int, default=1000000000, help=f'max depth in call graph data to visualize.')    
+    parser.add_argument('--maxEdges', '-E', type=int, default=1000000000, help=f'max edges in call graph to visualize.')    
+
     args = parser.parse_args()
     out_dir = 'out'
     if os.path.isdir(out_dir) == False:
@@ -187,5 +253,13 @@ if __name__ == "__main__":
     json_name = args.input.split('.json')[0]
     base_html = f'{out_dir}/{args.type}-base-{args.out}'
     out_html = f'{out_dir}/{args.type}-{args.out}'
-    visualize(VIS_TYPES[args.type](root), base_html)
+    visualize(VIS_TYPES[args.type](root), base_html, args.maxDepth, args.maxEdges, show=False)
+    # move lib/ directory to out/ folder
+    p = os.path.dirname(os.path.abspath(__file__))
+    if os.path.isdir(f'{out_dir}/lib'):
+        shutil.rmtree(f'{out_dir}/lib')
+    os.rename('lib', f'{out_dir}/lib')
     inject_custom_javascript(base_html, args.ref, out_html)
+    print(f'base: {base_html}')
+    print(f'out: {out_html}')
+    
