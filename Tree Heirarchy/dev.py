@@ -164,8 +164,8 @@ def inject_custom_javascript(base_html, ref_html, out_html, START_TOKEN='CUSTOM 
 
 if __name__ == "__main__":
     VIS_TYPES = {
-        'cct': build_call_tree, 
-        'ct':build_context_tree, 
+        'cct': build_context_tree, 
+        'ct': build_call_tree, 
         'cg': None, #TODO: implement generating call graph
     }
     parser = argparse.ArgumentParser(description='Script for generating customizable call graph visualizations using pyvis.')
