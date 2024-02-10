@@ -138,11 +138,15 @@ def visualize(curr_node, name, max_depth=1000000000, max_edges=1000000000, show=
             return
         visited.add(curr_node.get_uid())
         color = 'blue'#'blue' if curr_node.get_id() == root['id'] else 'red'
+
+
         net.add_node(
             n_id=curr_node.get_uid(), 
             label=curr_node.get_label(), 
             physics=True,
-            color=color,)
+            color=color,
+            title=str(len(curr_node.get_children())))
+            
         for child_node in curr_node.get_children():
             populate(child_node, depth+1)
             if child_node.get_uid() in visited:
@@ -170,12 +174,28 @@ def visualize(curr_node, name, max_depth=1000000000, max_edges=1000000000, show=
 #   }
 # }
 #     """
-    options = """options = {
-        "physics": {
-            "enabled": false,
-            "minVelocity": 0.75
+    # options = """options = {
+    #     "physics": {
+    #         "enabled": false,
+    #         "minVelocity": 0.75
+    #     },
+    #     "interaction":{
+    #      "hover":true
+    #     }
+    # }"""
+
+    options=""" var options = {
+        "layout": {
+            "hierarchical": {
+            "direction": "UD",
+            "sortMethod": "directed",
+            "nodeSpacing": 400  
+            }
+  },
+        "interaction":{
+         "hover":true
         }
-    }"""
+  }"""
     net.set_options(options)
     populate(curr_node, 0)
     # net.show_buttons(filter_=['physics'])

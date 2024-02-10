@@ -213,6 +213,15 @@
                     }
                 }
             });
+            network.on("hoverNode", function (properties) {
+                from_keys=Object.keys(outMap)
+                network.canvas.body.container.style.cursor = 'default';
+                var id= properties.node;
+                if (from_keys.includes(id.toString()))
+                {
+                    network.canvas.body.container.style.cursor = 'pointer';
+                }
+            });
             return network;
 
         }
