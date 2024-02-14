@@ -40,11 +40,13 @@ class Node:
         return self._data['id']
     
     def get_label(self):
-        label = f"{self._data['classPath']}.{self._data['methodName']}"
+        label = f"{self._data['classPath'].split('.')[-1]}.{self._data['methodName']}"
         # label = str(self._data['id'])
         # label = self._data['classPath']
         return label
 
+    def get_title(self):
+        return f"{self._data['classPath']}.{self._data['methodName']}"
 
 def build_call_tree(curr):
     curr_node = Node(data=methods[curr['id']])
@@ -138,12 +140,9 @@ def visualize(curr_node, name, max_depth=1000000000, max_edges=1000000000, show=
             return
         visited.add(curr_node.get_uid())
         color = 'blue'#'blue' if curr_node.get_id() == root['id'] else 'red'
-
-
         net.add_node(
             n_id=curr_node.get_uid(), 
             label=curr_node.get_label(), 
-            physics=True,
             color=color,
             title=str(len(curr_node.get_children())))
             
@@ -152,53 +151,34 @@ def visualize(curr_node, name, max_depth=1000000000, max_edges=1000000000, show=
             if child_node.get_uid() in visited:
                 net.add_edge(curr_node.get_uid(), 
                              child_node.get_uid(), 
-                             physics=True,
                              color='gray')
                 edge_count += 1
                 if edge_count >= max_edges:
                     return
-    net = Network(height="1000px", width="100%", directed=True, filter_menu=True, select_menu=True)
+    net = Network(height="1000px", width="100%", directed=True, filter_menu=True, select_menu=False)
     # options can be generated from: https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
-#     options = """
-#     {
-#   "edges": {
-#     "smooth": {
-#       "forceDirection": "vertical"
-#     }
-#   },
-#   "physics": {
-#     "maxVelocity": 15,
-#     "minVelocity": 0.85,
-#     "solver": "repulsion",
-#     "timestep": 0.97
-#   }
-# }
-#     """
-    # options = """options = {
-    #     "physics": {
-    #         "enabled": false,
-    #         "minVelocity": 0.75
-    #     },
-    #     "interaction":{
-    #      "hover":true
-    #     }
-    # }"""
 
-    options=""" var options = {
-        "layout": {
-            "hierarchical": {
-            "direction": "UD",
-            "sortMethod": "directed",
-            "nodeSpacing": 400  
-            }
-  },
-        "interaction":{
-         "hover":true
-        }
-  }"""
+    options="""const options = {
+                "physics": {
+                    "repulsion": {
+                    "centralGravity": 0.3,
+                    "springLength": 100,
+                    "springConstant": 0.15,
+                    "nodeDistance": 140,
+                    "damping": 0.15
+                    },
+                    "maxVelocity": 119,
+                    "minVelocity": 0.69,
+                    "solver": "repulsion",
+                    "wind": {
+                    "y": 5
+                    }
+                },
+                "interaction": {"hover": true}
+            }"""
     net.set_options(options)
-    populate(curr_node, 0)
     # net.show_buttons(filter_=['physics'])
+    populate(curr_node, 0)
     net.save_graph(name)
     if show:
         net.show(name, notebook=False)

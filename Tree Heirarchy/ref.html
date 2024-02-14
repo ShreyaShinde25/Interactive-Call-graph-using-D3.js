@@ -113,8 +113,9 @@
             }
 
             function deleteChildren(currNode) {
-                if (nodes.get(currNode.id) != null)
-                    nodes.update([{id: currNode.id, displayChildren: false}]);
+                if (nodes.get(currNode.id) != null) {
+                    nodes.update([{id: currNode.id, displayChildren: false, fixed: {y: !(currNode.id in inMap)}}]);
+                }
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
                         edges.remove(edge.id);
@@ -133,18 +134,19 @@
                 if (depth == maxDepth) {
                     return;
                 }
-                nodes.update([{id: currNode.id, displayChildren: true}]);
+                pos = network.getPosition(currNode.id);
+                nodes.update([{id: currNode.id, displayChildren: true, fixed: {y: true}}]);
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
                         edges.add(edge);
-                        edges.update([{id: edge.id, physics: true}]);
+                        edges.update([{id: edge.id}]);
                         neighbourNode = allNodes[edge.to.toString()];
                         if (neighbourNode.depth <= currNode.depth) 
                             continue; // do not re-add lower depth nodes (to handle recursion)
                         if (nodes.get(neighbourNode.id) != null)
                             continue; // already added
                         nodes.add(neighbourNode);
-                        nodes.update([{id: neighbourNode.id, displayChildren: false, physics: true}]);
+                        nodes.update([{id: neighbourNode.id, displayChildren: false, x: pos.x, y: pos.y+50}]);
                         addChildren(neighbourNode, depth+1, maxDepth);
                     }
                 }
@@ -165,43 +167,31 @@
             // CUSTOM END ###
             // adding nodes and edges to the graph
             data = {nodes: nodes, edges: edges};
+                
+            const options = {
+                "physics": {
+                    "repulsion": {
+                    "centralGravity": 0.3,
+                    "springLength": 100,
+                    "springConstant": 0.15,
+                    "nodeDistance": 140,
+                    "damping": 0.15
+                    },
+                    "maxVelocity": 119,
+                    "minVelocity": 0.69,
+                    "solver": "repulsion",
+                    "wind": {
+                    "y": 10
+                    }
+                },
+                "interaction": {"hover": true}
+            }
             
 
-            var options = {
-                "configure": {
-                    "enabled": false
-                },
-                "edges": {
-                    "color": {
-                        "inherit": true
-                    },
-                    "smooth": {
-                        "enabled": true,
-                        "type": "dynamic"
-                    }
-                },
-                "interaction": {
-                    "dragNodes": true,
-                    "hideEdgesOnDrag": false,
-                    "hideNodesOnDrag": false,
-                    "hover":true
-                },
-                "physics": {
-                    "enabled": true,
-                    "stabilization": {
-                        "enabled": false,
-                        "fit": false,
-                        "iterations": 10,
-                        "onlyDynamicEdges": false,
-                        "updateInterval": 10
-                    }
-                }
-            };
             
 
             network = new vis.Network(container, data, options);
             // CUSTOM START ###
-            network.setOptions( { physics: true } );
             network.on('click', function (properties) {
                 var ids = properties.nodes;
                 var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
@@ -215,13 +205,12 @@
                 }
             });
             network.on("hoverNode", function (properties) {
-                from_keys=Object.keys(outMap)
-                network.canvas.body.container.style.cursor = 'default';
-                var id= properties.node;
-                if (from_keys.includes(id.toString()))
-                {
+                if (properties.node in outMap) {
                     network.canvas.body.container.style.cursor = 'pointer';
                 }
+            });
+            network.on("blurNode", function (params) {
+                network.canvas.body.container.style.cursor = 'default'
             });
             // CUSTOM END ###
             return network;
