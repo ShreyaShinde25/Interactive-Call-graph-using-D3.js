@@ -59,7 +59,7 @@ class Node:
         return "\n".join([
             f"{self._data['classPath']}.{self._data['methodName']}",
             f"callees: {len(self.children)}",
-            f"methodSize: {self._metrics['methodSize']}"
+            f"methodSize: {self._metrics['methodSize']} bytecode size"
         ])
         
     
@@ -217,7 +217,7 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
         net.show(file_name, notebook=False)
     
     
-def inject_custom_javascript(base_html, ref_html, out_html, 
+def inject_custom_code(base_html, ref_html, out_html, 
         START_TOKEN='CUSTOM START', END_TOKEN='CUSTOM END'):
     ref_html_content = None
     # extract custom javascript from ref_html based on START_TOKEN and END_TOKEN
@@ -298,9 +298,11 @@ if __name__ == "__main__":
                 break
 
     # scale node sizes
-    MAX_DISPLAY_SIZE = 50
+    MAX_DISPLAY_SIZE = 50 # maximum size of a node during visualization
+    MIN_DISPLAY_SIZE = 10 # minimum size of a node during visualization
     for k in NODE_SIZE:
-        NODE_SIZE[k] = MAX_DISPLAY_SIZE * (NODE_SIZE[k])/max_size
+        # calculate visualization size by mapping from size metric value to [MIN_DISPLAY_SIZE, MAX_DISPLAY_SIZE]
+        NODE_SIZE[k] = (MAX_DISPLAY_SIZE-MIN_DISPLAY_SIZE) * (NODE_SIZE[k]-min_size)/(max_size-min_size) + MIN_DISPLAY_SIZE
 
     # configure file names    
     base_html = f'{out_dir}/{args.type}-base-{args.out}'
@@ -331,7 +333,7 @@ if __name__ == "__main__":
     os.rename('lib', f'{out_dir}/lib')
     # inject custom javascript from args.ref
     print(f'generating: {out_html}...')
-    inject_custom_javascript(base_html, args.ref, out_html)
+    inject_custom_code(base_html, args.ref, out_html)
     print('generated:')
     print(f'- {base_html}')
     print(f'- {out_html}')
