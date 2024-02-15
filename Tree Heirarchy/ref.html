@@ -139,9 +139,8 @@
                 currNode.displayChildren = true;
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
-                        edges.add(edge);
                         edge.physics = false;
-                        // edges.update([{id: edge.id, physics: false}]);
+                        edges.add(edge);
                         neighbourNode = allNodes[edge.to];
                         if (neighbourNode.depth <= currNode.depth) {
                             continue; // do not re-add lower depth nodes (to handle recursion)
@@ -199,11 +198,17 @@
                     "selectionWidth": 0,
                     "width": 1
                 },
+                "nodes": {
+                    "labelHighlightBold": false
+                },
                 "interaction": {"hover": true}
             }
                 
             network = new vis.Network(container, data, options);
             // CUSTOM START ###
+            const DEFAULT_CURSOR = 'grab';
+            const ACTIVE_CURSOR = 'grabbing';
+            network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
             network.on('click', function (properties) {
                 var ids = properties.nodes;
                 var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
@@ -215,6 +220,8 @@
                     } else {
                         addChildren(clickedNode, 0, 1);
                     }
+                } else {
+                    network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
                 }
             });
             network.on("hoverNode", function (properties) {
@@ -223,10 +230,15 @@
                     network.canvas.body.container.style.cursor = 'pointer';
                     nodes.update([{id: id, size: allNodes[id].size+3}]);
                 }
-                
+            });
+            network.on("release", function(properties){
+                network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
+            });
+            network.on("dragStart", function(properties){
+                network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
             });
             network.on("blurNode", function (properties) {
-                network.canvas.body.container.style.cursor = 'default'
+                network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
                 var id = properties.node
                 if (id in outMap) {
                     nodes.update([{id: id, size: allNodes[id].size-3}]);
