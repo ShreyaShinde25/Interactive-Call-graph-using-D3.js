@@ -6,12 +6,16 @@ from pyvis.network import Network
 
 class Node:
     _id_gen = 0
+    MAX_LABEL_SIZE = 15
     def __init__(self, data, size):
         Node._id_gen += 1
         self._uid = Node._id_gen
         self._data = data
         self.children = dict()
         self._size = size
+        self._metrics = {}
+        for entry in self._data['metrics']:
+            self._metrics[entry['key']] = entry['value']
         
 
     def get_uid(self):
@@ -45,10 +49,19 @@ class Node:
         label = f"{self._data['classPath'].split('.')[-1]}.{self._data['methodName']}"
         # label = str(self._data['id'])
         # label = self._data['classPath']
+        if len(label) > Node.MAX_LABEL_SIZE:
+            label = label[:min(Node.MAX_LABEL_SIZE, len(label))]
+            label += '..' if label[-1] == '.' else '...'
         return label
 
     def get_title(self):
-        return f"{self._data['classPath']}.{self._data['methodName']}"
+        # return ""
+        return "\n".join([
+            f"{self._data['classPath']}.{self._data['methodName']}",
+            f"callees: {len(self.children)}",
+            f"methodSize: {self._metrics['methodSize']}"
+        ])
+        
     
     def get_size(self):
         return self._size
@@ -150,18 +163,19 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
             label=curr_node.get_label(), 
             color=color,
             size=curr_node.get_size(),
-            title=str(len(curr_node.get_children())))
+            shape='dot',
+            title=curr_node.get_title())
             
         for child_node in curr_node.get_children():
             populate(child_node, depth+1)
             if child_node.get_uid() in visited:
                 net.add_edge(curr_node.get_uid(), 
                              child_node.get_uid(), 
-                             color='gray')
+                             color='black')
                 edge_count += 1
                 if edge_count >= max_edges:
                     return
-    net = Network(height="1000px", width="100%", directed=True, filter_menu=True, select_menu=False)
+    net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
     # options can be generated from: https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
     options = """
         const options = {
@@ -177,7 +191,7 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
                     "edgeMinimization": true,
                     "parentCentralization": true,
                     "direction": "UD",        
-                    "sortMethod": "hubsize",  
+                    "sortMethod": "directed",  
                     "shakeTowards": "roots"  
                 }
             },
@@ -185,6 +199,11 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
                 "hoverWidth": 0,
                 "selectionWidth": 0,
                 "width": 1
+            },
+            "nodes": {
+                "font": {
+                    "color": "#000000"
+                }
             },
             "interaction": {"hover": true}
         }
@@ -198,7 +217,8 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
         net.show(file_name, notebook=False)
     
     
-def inject_custom_javascript(base_html, ref_html, out_html, START_TOKEN='CUSTOM START ###', END_TOKEN='CUSTOM END ###'):
+def inject_custom_javascript(base_html, ref_html, out_html, 
+        START_TOKEN='CUSTOM START', END_TOKEN='CUSTOM END'):
     ref_html_content = None
     # extract custom javascript from ref_html based on START_TOKEN and END_TOKEN
     with open(ref_html,'r') as f:
@@ -277,8 +297,7 @@ if __name__ == "__main__":
                 max_size = max(max_size, NODE_SIZE[k])
                 break
 
-    # scale node sizes (node with smallest size should have 
-    # the default display size)
+    # scale node sizes
     MAX_DISPLAY_SIZE = 50
     for k in NODE_SIZE:
         NODE_SIZE[k] = MAX_DISPLAY_SIZE * (NODE_SIZE[k])/max_size

@@ -1,255 +1,525 @@
 <html>
-
-<head>
-    <script src="lib/bindings/utils.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css"
-        integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"
-        integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-    <center>
-        <h1></h1>
-    </center>
-
-    <!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
-<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-
-
-    <center>
-        <h1></h1>
-    </center>
-    <style type="text/css">
-        #mynetwork {
-            width: 100%;
-            height: 750px;
-            background-color: #ffffff;
-            border: 1px solid lightgray;
-            position: relative;
-            float: left;
-        }
-    </style>
-</head>
-
-
-<body>
-    <div class="card" style="width: 100%">
-
-
-        <div id="mynetwork" class="card-body"></div>
-    </div>
-
-
-
-
-    <script type="text/javascript">
-
-        // initialize global variables.
-        var edges;
-        var nodes;
-        var allNodes;
-        var allEdges;
-        var nodeColors;
-        var originalNodes;
-        var network;
-        var container;
-        var options, data;
-        var filter = {
-            item: '',
-            property: '',
-            value: []
-        };
-
-        var nodeToggleStatus = {};
-
-
-        // This method is responsible for drawing the graph, returns the drawn network
-        function drawGraph() {
-            var container = document.getElementById('mynetwork');
-
-            // parsing and collecting nodes and edges from the python
-            nodes = new vis.DataSet([{"color": "blue", "id": 1, "label": ".M", "shape": "dot", "size": 50.0, "title": "2"}, {"color": "blue", "id": 2, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "3"}, {"color": "blue", "id": 3, "label": ".B", "shape": "dot", "size": 23.333333333333332, "title": "0"}, {"color": "blue", "id": 4, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}, {"color": "blue", "id": 13, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "2"}, {"color": "blue", "id": 5, "label": ".D", "shape": "dot", "size": 10.0, "title": "2"}, {"color": "blue", "id": 6, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "0"}, {"color": "blue", "id": 8, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}]);
-            edges = new vis.DataSet([{"arrows": "to", "color": "gray", "from": 2, "to": 3}, {"arrows": "to", "color": "gray", "from": 2, "to": 4}, {"arrows": "to", "color": "gray", "from": 13, "to": 2}, {"arrows": "to", "color": "gray", "from": 13, "to": 13}, {"arrows": "to", "color": "gray", "from": 2, "to": 13}, {"arrows": "to", "color": "gray", "from": 1, "to": 2}, {"arrows": "to", "color": "gray", "from": 5, "to": 6}, {"arrows": "to", "color": "gray", "from": 5, "to": 8}, {"arrows": "to", "color": "gray", "from": 1, "to": 5}]);
-
-            nodeColors = {};
-            allNodes = nodes.get({ returnType: "Object" });
-            for (nodeId in allNodes) {
-                nodeColors[nodeId] = allNodes[nodeId].color;
+    <head>
+        <script src="lib/bindings/utils.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css"
+            integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"
+            integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <center>
+            <h1></h1>
+        </center>
+        <!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+        <script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+        <center>
+            <h1></h1>
+        </center>
+        <style type="text/css">
+            #mynetwork {
+                width: 100%;
+                height: 750px;
+                background-color: #ffffff;
+                border: 1px solid lightgray;
+                position: relative;
+                float: left;
             }
-            allEdges = edges.get({ returnType: "Object" });
-            // CUSTOM START ###
-            outMap = {}; // for quick access to out-going edges (key=nodeId, value=edgeId)
-            inMap = {}; // for quick access to incoming edges (key=nodeId, value=edgeId)
-            backEdges = {}; // TODO: Implement custom backedge drawing to avoid messy default hierarchical layout
-            for (edgeId in allEdges) {
-                // all edges hidden by default
-                edges.update([{id: edgeId, hidden: true}]);
-                // store outgoing edges from node
-                if ((allEdges[edgeId].from in outMap) == false) {
-                    outMap[allEdges[edgeId].from] = new Set([]);
-                }
-                outMap[allEdges[edgeId].from].add(allEdges[edgeId]);
-                // store incoming edges to node
-                if ((allEdges[edgeId].to in inMap) == false) {
-                    inMap[allEdges[edgeId].to] = new Set([]);
-                }
-                inMap[allEdges[edgeId].to].add(allEdges[edgeId]);
+            /* CUSTOM START */
+            #container {
+                width: 100%;
+                height: 90vh;
+                border: 1px solid lightgray;
+                position: relative;
             }
-            for (nodeId in allNodes) {
-                // only run on root nodes
-                if ((parseInt(nodeId) in inMap) == false) {
-                    // calc node depth starting from root
-                    calcDepth(allNodes[nodeId], 0, new Set([]));
-                    // delete all children
-                    deleteChildren(allNodes[nodeId]);
-                }
+            #mynetwork, #overlay {
+                width: 100%;
+                height: 1000px;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
+            #overlay {
+                z-index: 0;
+                pointer-events: none;
+            }
+            .card-body { 
+                /* overwrite padding settings to draw overlay properly*/
+                padding: 0rem 0rem;
+                padding-top: 0rem;
+                padding-right: 0rem;
+                padding-bottom: 0rem;
+                padding-left: 0rem;
+            }
+            /* CUSTOM END */
+        </style>
+    </head>
+    <body>
+        <div id="container" style="width: 100%">
+            <div id="mynetwork" class="card-body"></div>
+            <!-- CUSTOM START -->
+            <!-- NOTE: This canvas is where the back edges and labels are drawn -->
+            <canvas id="overlay"></canvas>
+            <!-- CUSTOM END -->
+        </div>
+        <script type="text/javascript">
+            // initialize global variables.
+            var edges;
+            var nodes;
+            var allNodes;
+            var allEdges;
+            var nodeColors;
+            var originalNodes;
+            var network;
+            var container;
+            var options, data;
+            var filter = {
+                item: '',
+                property: '',
+                value: []
+            };
 
-            function deleteChildren(currNode) {
-                if (nodes.get(currNode.id) != null) {
-                    currNode.displayChildren = false;
+            var nodeToggleStatus = {};
+
+            // This method is responsible for drawing the graph, returns the drawn network
+            function drawGraph() {
+                var container = document.getElementById('mynetwork');
+
+                // parsing and collecting nodes and edges from the python
+                nodes = new vis.DataSet([{"color": "blue", "id": 1, "label": ".M", "shape": "dot", "size": 50.0, "title": "2"}, {"color": "blue", "id": 2, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "3"}, {"color": "blue", "id": 3, "label": ".B", "shape": "dot", "size": 23.333333333333332, "title": "0"}, {"color": "blue", "id": 4, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}, {"color": "blue", "id": 13, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "2"}, {"color": "blue", "id": 5, "label": ".D", "shape": "dot", "size": 10.0, "title": "2"}, {"color": "blue", "id": 6, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "0"}, {"color": "blue", "id": 8, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}]);
+                edges = new vis.DataSet([{"arrows": "to", "color": "black", "from": 2, "to": 3}, {"arrows": "to", "color": "black", "from": 2, "to": 4}, {"arrows": "to", "color": "black", "from": 13, "to": 2}, {"arrows": "to", "color": "black", "from": 13, "to": 13}, {"arrows": "to", "color": "black", "from": 2, "to": 13}, {"arrows": "to", "color": "black", "from": 1, "to": 2}, {"arrows": "to", "color": "black", "from": 5, "to": 6}, {"arrows": "to", "color": "black", "from": 5, "to": 8}, {"arrows": "to", "color": "black", "from": 1, "to": 5}]);
+
+                nodeColors = {};
+                allNodes = nodes.get({ returnType: "Object" });
+                for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
                 }
-                if (currNode.id in outMap) {
-                    for (const edge of outMap[currNode.id]) {
-                        edges.remove(edge.id);
-                        neighbourNode = allNodes[edge.to];
-                        if (neighbourNode.depth <= currNode.depth) {
-                            continue; // do not delete lower depth nodes (to handle recursion)
-                        }
-                        if (nodes.get(neighbourNode.id) == null)
-                            continue; // already deleted
-                        nodes.remove(neighbourNode.id);
-                        deleteChildren(neighbourNode);
+                allEdges = edges.get({ returnType: "Object" });
+                // CUSTOM START ###
+                outMap = {}; // for quick access to out-going edges (key=nodeId, value=set of edges)
+                inMap = {}; // for quick access to incoming edges (key=nodeId, value=set of edges)
+                backEdges = {}; // for accessing back edges (key=nodeId, value=set of edges)
+                nodeLabels = {};  // for accessing nodelabels (key=nodeId, value=node label string)
+                activeBackEdges = new Set(); // contains the set of active back edges that should be drawn on the overlay
+                activeNodes = new Set(); // contains the set of active node whose labels should be drawn on the overlay
+                for (edgeId in allEdges) {
+                    // store outgoing edges from node
+                    if ((allEdges[edgeId].from in outMap) == false) {
+                        outMap[allEdges[edgeId].from] = new Set([]);
+                    }
+                    outMap[allEdges[edgeId].from].add(allEdges[edgeId]);
+                    // store incoming edges to node
+                    if ((allEdges[edgeId].to in inMap) == false) {
+                        inMap[allEdges[edgeId].to] = new Set([]);
+                    }
+                    inMap[allEdges[edgeId].to].add(allEdges[edgeId]);
+                }
+
+                for (nodeId in allNodes) {
+                    // only run on root nodes
+                    if ((parseInt(nodeId) in inMap) == false) {
+                        activeNodes.add(nodeId);
+                        // setup:
+                        // - calc node depth
+                        // - collect node labels
+                        setup(allNodes[nodeId], 0, new Set([]));
+                        // delete all children
+                        deleteChildren(allNodes[nodeId]);
+                        // delete and collect back edges
+                        collectBackEdges(allNodes[nodeId]);
                     }
                 }
-            }
-
-            function addChildren(currNode, depth, maxDepth) {
-                if (depth == maxDepth) {
-                    return;
-                }
-                pos = network.getPosition(currNode.id);
-                currNode.displayChildren = true;
-                if (currNode.id in outMap) {
-                    for (const edge of outMap[currNode.id]) {
-                        edge.physics = false;
-                        edges.add(edge);
-                        neighbourNode = allNodes[edge.to];
-                        if (neighbourNode.depth <= currNode.depth) {
-                            continue; // do not re-add lower depth nodes (to handle recursion)
-                        }
-                        if (nodes.get(neighbourNode.id) != null) {
-                            continue; // already added
-                        }
-                        neighbourNode.fixed = true;
-                        neighbourNode.displayChildren = false;
-                        neighbourNode.x = pos.x;
-                        nodes.add(neighbourNode);
-                        addChildren(neighbourNode, depth+1, maxDepth);
-                    }
-                }
-            }
-
-            function calcDepth(currNode, depth, visited) {
-                if(visited.has(currNode.id)) {
-                    return; // reached a visited node; stop
-                }
-                currNode.depth = ((currNode.depth == undefined) ? depth : min(currNode.depth, depth));
-                currNode.level = depth;
-                currNode.minLevel = depth;
-                currNode.fixed = true;
-                visited.add(currNode.id);
-                if (currNode.id in outMap) {
-                    for (const edge of outMap[currNode.id]) {
-                        calcDepth(allNodes[edge.to], depth+1, visited);
-                    }
-                }
-            }
-            // CUSTOM END ###
-            // adding nodes and edges to the graph
-            data = {nodes: nodes, edges: edges};
                 
-            const options = {
-                "layout": {
-                    "improvedLayout":true,
-                    "clusterThreshold": 150,
-                    "hierarchical": {
-                        "enabled": true,
-                        "levelSeparation": 150,
-                        "nodeSpacing": 200,
-                        "treeSpacing": 200,
-                        "blockShifting": true,
-                        "edgeMinimization": true,
-                        "parentCentralization": true,
-                        "direction": "UD",        
-                        "sortMethod": "hubsize",  
-                        "shakeTowards": "roots"  
+                function setup(currNode, depth, visited) {
+                    if(visited.has(currNode.id)) {
+                        return; // reached a visited node; stop
                     }
-                },
-                "edges": {
-                    "hoverWidth": 0,
-                    "selectionWidth": 0,
-                    "width": 1
-                },
-                "nodes": {
-                    "labelHighlightBold": false
-                },
-                "interaction": {"hover": true}
-            }
+                    currNode.depth = ((currNode.depth == undefined) ? depth : min(currNode.depth, depth));
+                    // store node label
+                    nodeLabels[currNode.id] = currNode.label;
+                    currNode.label = null; // disable node label in vis.js
+                    /* 
+                    NOTE: we will draw node labels ourselves on the overlay; otherwise the bounding box for the nodes
+                        are not accurate, which will cause the back edges to render incorrectly! this 
+                        is because when labels are drawn outside of the node shape, it is considered as a part of 
+                        the bounding box. On the otherhand, if we use shapes that can fit labels within nodes, 
+                        then the 'size' attribute of the node no longer works ¯\_(ツ)_/¯.
+                    */
+                    currNode.fixed = true; // set nodes to fixed; i.e. nodes are not draggable
+                    visited.add(currNode.id);
+                    if (currNode.id in outMap) {
+                        for (const edge of outMap[currNode.id]) {
+                            setup(allNodes[edge.to], depth+1, visited);
+                        }
+                    }
+                }
+
+                function collectBackEdges(currNode) {
+                    if (currNode.id in outMap) {
+                        for (const edge of outMap[currNode.id]) {
+                            neighbourNode = allNodes[edge.to];
+                            if (neighbourNode.depth <= currNode.depth) {
+                                // found back edge!
+                                // remove it from edge dataset
+                                edges.remove(edge.id);
+                                // add it to back edge set
+                                if ((currNode.id in backEdges) == false ) {
+                                    backEdges[currNode.id] = new Set();
+                                }
+                                backEdges[currNode.id].add(edge);
+                                continue;
+                            }
+                            collectBackEdges(neighbourNode);
+                        }
+                        if (currNode.id in backEdges) {
+                            // remove back edges from edge set
+                            for(edge of backEdges[currNode.id]) {
+                                outMap[currNode.id].delete(edge);
+                            }
+                            // remove node from map if no out edges
+                            if (outMap[currNode.id].size == 0) {
+                                delete outMap[currNode.id];
+                            }
+                        }
+                    }
+                }
                 
-            network = new vis.Network(container, data, options);
-            // CUSTOM START ###
-            const DEFAULT_CURSOR = 'grab';
-            const ACTIVE_CURSOR = 'grabbing';
-            network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
-            network.on('click', function (properties) {
-                var ids = properties.nodes;
-                var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
-                if (clickedNode !== undefined) {
-                    console.log("clicked: " + JSON.stringify(clickedNode));
-                    // toggle display children
-                    if (clickedNode.displayChildren) {
-                        deleteChildren(clickedNode);
+                function deleteChildren(currNode) {
+                    if (nodes.get(currNode.id) != null) {
+                        currNode.displayChildren = false;
+                    }
+                    if (currNode.id in outMap) {
+                        for (const edge of outMap[currNode.id]) {
+                            edges.remove(edge.id);
+                            neighbourNode = allNodes[edge.to];
+                            if (neighbourNode.depth <= currNode.depth) {
+                                continue; // do not delete lower depth nodes (to handle recursion)
+                            }
+                            if (nodes.get(neighbourNode.id) == null)
+                                continue; // already deleted
+                            nodes.remove(neighbourNode.id);
+                            activeNodes.delete(neighbourNode.id);
+                            deleteChildren(neighbourNode);
+                        }
+                    }
+                    if (currNode.id in backEdges) {
+                        // deactivate back edges
+                        for (const edge of backEdges[currNode.id]) {
+                            activeBackEdges.delete(edge);
+                        }
+                    }
+                }
+
+                function addChildren(currNode, depth, maxDepth) {
+                    if (depth == maxDepth) {
+                        return;
+                    }
+                    pos = network.getPosition(currNode.id);
+                    currNode.displayChildren = true;
+                    if (currNode.id in outMap) {
+                        for (const edge of outMap[currNode.id]) {
+                            edges.add(edge);
+                            neighbourNode = allNodes[edge.to];
+                            if (neighbourNode.depth <= currNode.depth) {
+                                continue; // do not re-add lower depth nodes (to handle recursion)
+                            }
+                            if (nodes.get(neighbourNode.id) != null) {
+                                continue; // already added
+                            }
+                            activeNodes.add(neighbourNode.id);
+                            nodes.add(neighbourNode);
+                            nodes.update([{id: neighbourNode.id, displayChildren: false, fixed: true}]);
+                            addChildren(neighbourNode, depth+1, maxDepth);
+                        }
+                    }
+                    if (currNode.id in backEdges) {
+                        // activate back edges
+                        for (const edge of backEdges[currNode.id]) {
+                            activeBackEdges.add(edge);
+                        }
+                    }
+                }
+                // CUSTOM END ###
+                // adding nodes and edges to the graph
+                data = {nodes: nodes, edges: edges};
+                    
+                const options = {
+                    "layout": {
+                        "improvedLayout":true,
+                        "clusterThreshold": 150,
+                        "hierarchical": {
+                            "enabled": true,
+                            "levelSeparation": 150,
+                            "nodeSpacing": 200,
+                            "treeSpacing": 200,
+                            "blockShifting": true,
+                            "edgeMinimization": true,
+                            "parentCentralization": true,
+                            "direction": "UD",        
+                            "sortMethod": "directed",  
+                            "shakeTowards": "roots"  
+                        }
+                    },
+                    "edges": {
+                        "hoverWidth": 0,
+                        "selectionWidth": 0,
+                        "width": 1
+                    },
+                    "nodes": {
+                        "labelHighlightBold": false
+                    },
+                    "interaction": {"hover": true}
+                }
+                    
+                network = new vis.Network(container, data, options);
+                // CUSTOM START ###
+                const DEFAULT_CURSOR = "grab"; 
+                const ACTIVE_CURSOR = "grabbing"; 
+                const INTERACTABLE_CURSOR = "pointer";
+                const NODE_SIZE_DELTA = 3; // size increase when an interactible node is hovered
+                network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
+                network.on('click', function (properties) {
+                    var ids = properties.nodes;
+                    var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
+                    if (clickedNode !== undefined) {
+                        console.log("clicked: " + JSON.stringify(clickedNode));
+                        // toggle display children
+                        if (clickedNode.displayChildren) {
+                            numBackEdges = activeBackEdges.size;
+                            deleteChildren(clickedNode);
+                            // if number of back edges changed, we need to redraw overlay
+                            if (numBackEdges != activeBackEdges.size)
+                                drawOverlay();
+                        } else {
+                            addChildren(clickedNode, 0, 1);
+                        }
                     } else {
-                        addChildren(clickedNode, 0, 1);
+                        network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
                     }
-                } else {
+                });
+                network.on("hoverNode", function (properties) {
+                    var id = properties.node 
+                    if (id in outMap || id in backEdges) {
+                        network.canvas.body.container.style.cursor = INTERACTABLE_CURSOR;
+                        // increase size of node on hover
+                        const node = nodes.get(id);
+                        // NOTE: node size should be updated using node object from node dataset
+                        //      or else crash occurs (not really sure why?)
+                        nodes.update([{id: id, size: node.size+NODE_SIZE_DELTA}]);
+                    }
+                });
+                network.on("blurNode", function (properties) {
+                    network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
+                    const id = properties.node
+                    if (id in outMap || id in backEdges) {
+                        // restore size of node on exit
+                        const node = nodes.get(id);
+                        // NOTE: node size should be updated using node object from node dataset
+                        //      or else crash occurs (not really sure why?)
+                        nodes.update([{id: id, size: node.size-NODE_SIZE_DELTA}]);
+                        
+                    }
+                });
+                network.on("release", function(properties){
+                    if (properties.nodes.size == 0) {
+                        network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
+                    } else {
+                        var id = properties.nodes[0];
+                        if (id in outMap || id in backEdges){
+                            network.canvas.body.container.style.cursor = INTERACTABLE_CURSOR;
+                        } else {
+                            network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
+                        }
+                        
+                    }
+                });
+                network.on("dragStart", function(properties){
                     network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
-                }
-            });
-            network.on("hoverNode", function (properties) {
-                var id = properties.node 
-                if (id in outMap) {
-                    network.canvas.body.container.style.cursor = 'pointer';
-                    nodes.update([{id: id, size: allNodes[id].size+3}]);
-                }
-            });
-            network.on("release", function(properties){
-                network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
-            });
-            network.on("dragStart", function(properties){
-                network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
-            });
-            network.on("blurNode", function (properties) {
-                network.canvas.body.container.style.cursor = DEFAULT_CURSOR;
-                var id = properties.node
-                if (id in outMap) {
-                    nodes.update([{id: id, size: allNodes[id].size-3}]);
-                }
-            });
-            // CUSTOM END ###
-            return network;
+                });
+                
+                // referenced from: https://jsfiddle.net/7abovhtu/
+                // create an overlay for displaying back edges and node labels
+                const overlayCanvas = document.getElementById("overlay");
+                const overlayContext = overlayCanvas.getContext("2d");
+                const FONT_SIZE_PT = 18;
+                const FONT_TYPE = "sans-serif";
+                const TEXT_ALIGN = "center";
+                const TEXT_BASELINE = "middle";
+                const LINE_WIDTH = 1.5;
+                const FONT_COLOR = "#000000";
+                const LINE_COLOR = "#808080";
+                function drawOverlay() {
+                    // resize overlay canvas in case the continer has changed and configure other properties
+                    overlayCanvas.height = container.clientHeight;
+                    overlayCanvas.width = container.clientWidth;
+                    overlayContext.textAlign = TEXT_ALIGN;
+                    overlayContext.textBaseline = TEXT_BASELINE;
+                    overlayContext.font = `${FONT_SIZE_PT}pt ${FONT_TYPE}`;
+                    overlayContext.lineWidth = LINE_WIDTH;
+                    // begin drawing path on overlay canvas
+                    overlayContext.beginPath();
+                    // clear any existing lines from overlay canvas
+                    overlayContext.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+                    // current scale factor for the overlay based on scale of network
+                    const scale = network.getScale();
+                    overlayContext.scale(scale, scale);
+                    // draw back edges
+                    for(const edge of activeBackEdges) {
+                        // gather the necessary coordinates for the start and end shapres
+                        let startPos = network.canvasToDOM(network.getPosition(edge.from));
+                        startPos.x /= scale;
+                        startPos.y /= scale;
+                        const startBox = network.getBoundingBox(edge.from);
+                        let endPos = network.canvasToDOM(network.getPosition(edge.to));
+                        endPos.x /= scale;
+                        endPos.y /= scale;
+                        const endBox = network.getBoundingBox(edge.to);                    
+                        
+                        // determine the radius of the ellipses based on the scale of network
+                        const startRadiusX = ((startBox.right) - (startBox.left)) / 2;
+                        const startRadiusY = ((startBox.bottom) - (startBox.top)) / 2;
+                        const endRadiusX = ((endBox.right) - (endBox.left)) / 2;
+                        const endRadiusY = ((endBox.bottom) - (endBox.top)) / 2;
 
-        }
-        drawGraph();
-    </script>
-</body>
+                        // get the closest point on the end ellipse to the start point
+                        const endClosest = getEllipsePt(endPos.x, endPos.y, endRadiusX, endRadiusY, startPos.x, startPos.y);
+                        // now we have an end point get the point on the ellipse for the start
+                        var startClosest = null;
+                        if (edge.from == edge.to)
+                            startClosest = endClosest;
+                        else
+                            startClosest = getEllipsePt(startPos.x, startPos.y, startRadiusX, startRadiusY, endClosest.x, endClosest.y);
+                    
+                        // draw arrow on diagram
+                        drawArrow(overlayContext, startClosest.x, startClosest.y, endClosest.x, endClosest.y);
+                    }
+                    // apply color to overlay canvas context
+                    overlayContext.strokeStyle = LINE_COLOR;
+                    // make the lines dashed 
+                    // (input is an Array of numbers that specify distances to alternately 
+                    // draw a line and a gap (in coordinate space units).
+                    overlayContext.setLineDash([10, 3]);
+                    // apply back edges to overlay canvas
+                    overlayContext.stroke();
 
+                    // draw node labels
+                    for (const nodeId of activeNodes) {
+                        const node = allNodes[nodeId];
+                        var nodePos = network.canvasToDOM(network.getPosition(nodeId));
+                        nodePos.x /= scale;
+                        nodePos.y /= scale;
+                        const bounds = network.getBoundingBox(nodeId);
+                        const height = ((bounds.bottom) - (bounds.top)) / 2;
+                        overlayContext.fillText(nodeLabels[nodeId], nodePos.x, nodePos.y+height+FONT_SIZE_PT);
+                    }
+                    // apply color to overlay canvas context
+                    overlayContext.fillStyle = FONT_COLOR;
+                    // apply labels to overlay canvas
+                    overlayContext.stroke();
+                }
+
+                //////////////////////////////////////////////////////////////////////
+                // Elllipse closest point calculation
+                // https://stackoverflow.com/a/18363333/1620449
+                //////////////////////////////////////////////////////////////////////
+                const HALF_PI = Math.PI / 2;
+                const SEARCH_STEPS = 10; // larger == greater accuracy
+                // calc a point on the ellipse that is "near-ish" the target point (uses "brute force")
+                function getEllipsePt(cx, cy, radiusX, radiusY, targetPtX, targetPtY) {
+                    // if start and end point are the same (i.e. self-edge), just pick left side 
+                    if (cx == targetPtX && cy == targetPtY) {
+                        return ({
+                            x: cx + radiusX * Math.cos(2*HALF_PI),
+                            y: cy + radiusY * Math.sin(2*HALF_PI)
+                        }); 
+                    }
+                    // calculate which ellipse quadrant the targetPt is in
+                    var q;
+                    if (targetPtX > cx) {
+                        q = (targetPtY > cy) ? 0 : 3;
+                    } else {
+                        q = (targetPtY > cy) ? 1 : 2;
+                    }
+                    // calc beginning and ending radian angles to check
+                    var r1 = q * HALF_PI;
+                    var r2 = (q + 1) * HALF_PI;
+                    var dr = HALF_PI / SEARCH_STEPS;
+                    var minLengthSquared = 200000000;
+                    var minX, minY;
+
+                    // walk the ellipse quadrant and find a near-point
+                    for (var r = r1; r < r2; r += dr) {
+                        // get a point on the ellipse at radian angle == r
+                        var ellipseX = cx + radiusX * Math.cos(r);
+                        var ellipseY = cy + radiusY * Math.sin(r);
+                        // calc distance from ellipsePt to targetPt
+                        var dx = targetPtX - ellipseX;
+                        var dy = targetPtY - ellipseY;
+                        var lengthSquared = dx * dx + dy * dy;
+                        // if new length is shortest, save this ellipse point
+                        if (lengthSquared < minLengthSquared) {
+                            minX = ellipseX;
+                            minY = ellipseY;
+                            minLengthSquared = lengthSquared;
+                        }
+                    }
+                    return ({x: minX,y: minY});
+                }
+
+                //////////////////////////////////////////////////////////////////////
+                // Draw Arrow on Canvas Function
+                // https://stackoverflow.com/a/6333775/1620449
+                //////////////////////////////////////////////////////////////////////
+                function drawArrow(ctx, fromX, fromY, toX, toY) {
+                    // determine control points for bezier curve
+                    // TODO: improve calculation so its not as hard-coded (i.e. remove 50, 150, etc.)
+                    let dx = Math.max(50, Math.abs(fromX-toX));
+                    let dy = Math.max(50, Math.abs(fromY-toY));
+                    if (fromX == toX && fromY == toY) {
+                        dx = 150;
+                        dy = 150;
+                    }
+                    const adjustFactorX = 0.4; // adjustment factor for control point X value
+                    const adjustFactorY = 0.25; // adjustment factor for control point Y value
+                    const c1X = (fromX+toX)/2 - dx*adjustFactorX;
+                    const c1Y = (fromY+toY)/2 + dy*adjustFactorY;
+                    const c2X = (fromX+toX)/2 - dx*adjustFactorX;
+                    const c2Y = (fromY+toY)/2 - dy*adjustFactorY;
+                    // draw arrow curve
+                    ctx.moveTo(fromX, fromY);
+                    ctx.bezierCurveTo(c1X, c1Y, c2X, c2Y, toX, toY);
+                    // draw arrow head
+                    var headLength = 10; // length of head in pixels
+                    var arrowDx = toX - c2X;
+                    var arrowDy = toY - c2Y;
+                    var angle = Math.atan2(arrowDy, arrowDx);
+                    ctx.moveTo(toX, toY);
+                    ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
+                    ctx.moveTo(toX, toY);
+                    ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
+                    
+                }
+                /*
+                NOTE: when using 'hierarchical' layout in vis.js, back edges in the graph
+                    (i.e. edges that form a cycle in the graph) will cause the visualization
+                    to behave weirdly (e.g. shift a bunch of nodes side-ways to end up with
+                    a lot of criss-crossed edges when it is not necessary). The current workaround
+                    to this issue is to remove all back edges from the graph (see 'collectBackEdges(...)')
+                    and draw the back edges ourselves (see 'drawOverlay()')
+                */
+                //adjust overlay content each time the network is redrawn
+                network.on("afterDrawing", function (event) {
+                    drawOverlay();
+                });
+                // CUSTOM END ###
+                return network;
+
+            }
+            drawGraph();
+        </script>
+    </body>
 </html>
