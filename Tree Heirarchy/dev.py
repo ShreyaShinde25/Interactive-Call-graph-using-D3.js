@@ -55,7 +55,6 @@ class Node:
         return label
 
     def get_title(self):
-        # return ""
         return "\n".join([
             f"{self._data['classPath']}.{self._data['methodName']}",
             f"callees: {len(self.children)}",
@@ -157,26 +156,23 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
         if depth > max_depth:
             return
         visited.add(curr_node.get_uid())
-        color = 'blue'
         net.add_node(
             n_id=curr_node.get_uid(), 
             label=curr_node.get_label(), 
-            color=color,
             size=curr_node.get_size(),
-            shape='dot',
             title=curr_node.get_title())
-            
         for child_node in curr_node.get_children():
             populate(child_node, depth+1)
             if child_node.get_uid() in visited:
-                net.add_edge(curr_node.get_uid(), 
-                             child_node.get_uid(), 
-                             color='black')
+                net.add_edge(curr_node.get_uid(), child_node.get_uid())
                 edge_count += 1
                 if edge_count >= max_edges:
                     return
     net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
     # options can be generated from: https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
+    # TODO: instead of hard-coding values, we should load these options
+    #       automatically from some .json file and generate the 'options' 
+    #       string below
     options = """
         const options = {
             "layout": {
@@ -201,9 +197,9 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
                 "width": 1
             },
             "nodes": {
-                "font": {
-                    "color": "#000000"
-                }
+                "labelHighlightBold": false,
+                "chosen": false,
+                "borderWidth": 2
             },
             "interaction": {"hover": true}
         }

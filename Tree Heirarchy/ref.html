@@ -90,8 +90,8 @@
                 var container = document.getElementById('mynetwork');
 
                 // parsing and collecting nodes and edges from the python
-                nodes = new vis.DataSet([{"color": "blue", "id": 1, "label": ".M", "shape": "dot", "size": 50.0, "title": "2"}, {"color": "blue", "id": 2, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "3"}, {"color": "blue", "id": 3, "label": ".B", "shape": "dot", "size": 23.333333333333332, "title": "0"}, {"color": "blue", "id": 4, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}, {"color": "blue", "id": 13, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "2"}, {"color": "blue", "id": 5, "label": ".D", "shape": "dot", "size": 10.0, "title": "2"}, {"color": "blue", "id": 6, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "0"}, {"color": "blue", "id": 8, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}]);
-                edges = new vis.DataSet([{"arrows": "to", "color": "black", "from": 2, "to": 3}, {"arrows": "to", "color": "black", "from": 2, "to": 4}, {"arrows": "to", "color": "black", "from": 13, "to": 2}, {"arrows": "to", "color": "black", "from": 13, "to": 13}, {"arrows": "to", "color": "black", "from": 2, "to": 13}, {"arrows": "to", "color": "black", "from": 1, "to": 2}, {"arrows": "to", "color": "black", "from": 5, "to": 6}, {"arrows": "to", "color": "black", "from": 5, "to": 8}, {"arrows": "to", "color": "black", "from": 1, "to": 5}]);
+                nodes = new vis.DataSet([{"color": "#97c2fc", "id": 1, "label": ".M", "shape": "dot", "size": 50.0, "title": ".M\ncallees: 2\nmethodSize: 15 bytecode size"}, {"color": "#97c2fc", "id": 2, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": ".A\ncallees: 3\nmethodSize: 5 bytecode size"}, {"color": "#97c2fc", "id": 3, "label": ".B", "shape": "dot", "size": 23.333333333333336, "title": ".B\ncallees: 0\nmethodSize: 7 bytecode size"}, {"color": "#97c2fc", "id": 4, "label": ".C", "shape": "dot", "size": 33.33333333333333, "title": ".C\ncallees: 0\nmethodSize: 10 bytecode size"}, {"color": "#97c2fc", "id": 13, "label": ".C", "shape": "dot", "size": 33.33333333333333, "title": ".C\ncallees: 2\nmethodSize: 10 bytecode size"}, {"color": "#97c2fc", "id": 5, "label": ".D", "shape": "dot", "size": 10.0, "title": ".D\ncallees: 2\nmethodSize: 3 bytecode size"}, {"color": "#97c2fc", "id": 6, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": ".A\ncallees: 0\nmethodSize: 5 bytecode size"}, {"color": "#97c2fc", "id": 8, "label": ".C", "shape": "dot", "size": 33.33333333333333, "title": ".C\ncallees: 0\nmethodSize: 10 bytecode size"}]);
+                edges = new vis.DataSet([{"arrows": "to", "from": 2, "to": 3}, {"arrows": "to", "from": 2, "to": 4}, {"arrows": "to", "from": 13, "to": 2}, {"arrows": "to", "from": 13, "to": 13}, {"arrows": "to", "from": 2, "to": 13}, {"arrows": "to", "from": 1, "to": 2}, {"arrows": "to", "from": 5, "to": 6}, {"arrows": "to", "from": 5, "to": 8}, {"arrows": "to", "from": 1, "to": 5}]);
 
                 nodeColors = {};
                 allNodes = nodes.get({ returnType: "Object" });
@@ -120,8 +120,11 @@
                 }
 
                 for (nodeId in allNodes) {
+                    if ((nodeId in outMap) || (nodeId in backEdges)) {
+                        allNodes[nodeId].shapeProperties = {borderDashes: [10,5]};
+                    } 
                     // only run on root nodes
-                    if ((parseInt(nodeId) in inMap) == false) {
+                    if ((nodeId in inMap) == false) {
                         activeNodes.add(nodeId);
                         // setup:
                         // - calc node depth
@@ -232,7 +235,7 @@
                             }
                             activeNodes.add(neighbourNode.id);
                             nodes.add(neighbourNode);
-                            nodes.update([{id: neighbourNode.id, displayChildren: false, fixed: true}]);
+                            nodes.updateOnly({id: neighbourNode.id, displayChildren: false, fixed: true});
                             addChildren(neighbourNode, depth+1, maxDepth);
                         }
                     }
@@ -270,7 +273,9 @@
                         "width": 1
                     },
                     "nodes": {
-                        "labelHighlightBold": false
+                        "labelHighlightBold": false,
+                        "chosen": false,
+                        "borderWidth": 2
                     },
                     "interaction": {"hover": true}
                 }
@@ -306,10 +311,16 @@
                     if (id in outMap || id in backEdges) {
                         network.canvas.body.container.style.cursor = INTERACTABLE_CURSOR;
                         // increase size of node on hover
-                        const node = nodes.get(id);
+                        let node = nodes.get(id);
+                        if (node.borderWidth == undefined) 
+                            node.borderWidth = options.nodes.borderWidth;
                         // NOTE: node size should be updated using node object from node dataset
                         //      or else crash occurs (not really sure why?)
-                        nodes.update([{id: id, size: node.size+NODE_SIZE_DELTA}]);
+                        nodes.updateOnly({
+                            id: id, 
+                            size: node.size+NODE_SIZE_DELTA, 
+                            borderWidth: node.borderWidth+1
+                        });
                     }
                 });
                 network.on("blurNode", function (properties) {
@@ -317,11 +328,16 @@
                     const id = properties.node
                     if (id in outMap || id in backEdges) {
                         // restore size of node on exit
-                        const node = nodes.get(id);
+                        let node = nodes.get(id);
+                        if (node.borderWidth == undefined) 
+                            node.borderWidth = options.nodes.borderWidth;
                         // NOTE: node size should be updated using node object from node dataset
                         //      or else crash occurs (not really sure why?)
-                        nodes.update([{id: id, size: node.size-NODE_SIZE_DELTA}]);
-                        
+                        nodes.updateOnly({
+                            id: id, 
+                            size: node.size-NODE_SIZE_DELTA,
+                            borderWidth: node.borderWidth-1
+                        });
                     }
                 });
                 network.on("release", function(properties){
