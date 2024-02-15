@@ -75,18 +75,19 @@
             var container = document.getElementById('mynetwork');
 
             // parsing and collecting nodes and edges from the python
-            nodes = new vis.DataSet([{ "color": "blue", "id": 12, "label": "12", "shape": "dot"}, { "color": "red", "id": 13, "label": "13", "shape": "dot"}, { "color": "red", "id": 14, "label": "14", "shape": "dot"  }, { "color": "red", "id": 15, "label": "15", "shape": "dot"}, { "color": "red", "id": 16, "label": "16", "shape": "dot"}, { "color": "red", "id": 19, "label": "19", "shape": "dot"}, { "color": "red", "id": 20, "label": "20", "shape": "dot"}, { "color": "red", "id": 21, "label": "21", "shape": "dot"}]);
-            edges = new vis.DataSet([{ "arrows": "to", "color": "black", "from": 15, "to": 16 }, { "arrows": "to", "color": "black", "from": 14, "to": 15 }, { "arrows": "to", "color": "black", "from": 14, "to": 19 }, { "arrows": "to", "color": "black", "from": 13, "to": 14 }, { "arrows": "to", "color": "black", "from": 12, "to": 13 }, { "arrows": "to", "color": "blue", "from": 21, "to": 20 }, { "arrows": "to", "color": "black", "from": 20, "to": 21 }, { "arrows": "to", "color": "black", "from": 12, "to": 20 }]);
-            
+            nodes = new vis.DataSet([{"color": "blue", "id": 1, "label": ".M", "shape": "dot", "size": 50.0, "title": "2"}, {"color": "blue", "id": 2, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "3"}, {"color": "blue", "id": 3, "label": ".B", "shape": "dot", "size": 23.333333333333332, "title": "0"}, {"color": "blue", "id": 4, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}, {"color": "blue", "id": 13, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "2"}, {"color": "blue", "id": 5, "label": ".D", "shape": "dot", "size": 10.0, "title": "2"}, {"color": "blue", "id": 6, "label": ".A", "shape": "dot", "size": 16.666666666666668, "title": "0"}, {"color": "blue", "id": 8, "label": ".C", "shape": "dot", "size": 33.333333333333336, "title": "0"}]);
+            edges = new vis.DataSet([{"arrows": "to", "color": "gray", "from": 2, "to": 3}, {"arrows": "to", "color": "gray", "from": 2, "to": 4}, {"arrows": "to", "color": "gray", "from": 13, "to": 2}, {"arrows": "to", "color": "gray", "from": 13, "to": 13}, {"arrows": "to", "color": "gray", "from": 2, "to": 13}, {"arrows": "to", "color": "gray", "from": 1, "to": 2}, {"arrows": "to", "color": "gray", "from": 5, "to": 6}, {"arrows": "to", "color": "gray", "from": 5, "to": 8}, {"arrows": "to", "color": "gray", "from": 1, "to": 5}]);
+
             nodeColors = {};
             allNodes = nodes.get({ returnType: "Object" });
             for (nodeId in allNodes) {
-            nodeColors[nodeId] = allNodes[nodeId].color;
+                nodeColors[nodeId] = allNodes[nodeId].color;
             }
             allEdges = edges.get({ returnType: "Object" });
             // CUSTOM START ###
             outMap = {}; // for quick access to out-going edges (key=nodeId, value=edgeId)
             inMap = {}; // for quick access to incoming edges (key=nodeId, value=edgeId)
+            backEdges = {}; // TODO: Implement custom backedge drawing to avoid messy default hierarchical layout
             for (edgeId in allEdges) {
                 // all edges hidden by default
                 edges.update([{id: edgeId, hidden: true}]);
@@ -105,23 +106,23 @@
                 // only run on root nodes
                 if ((parseInt(nodeId) in inMap) == false) {
                     // calc node depth starting from root
-                    updateDepth(allNodes[nodeId], 0, new Set([]));
+                    calcDepth(allNodes[nodeId], 0, new Set([]));
                     // delete all children
                     deleteChildren(allNodes[nodeId]);
                 }
-                nodeColors[nodeId] = allNodes[nodeId].color;
             }
 
             function deleteChildren(currNode) {
                 if (nodes.get(currNode.id) != null) {
-                    nodes.update([{id: currNode.id, displayChildren: false, fixed: {y: !(currNode.id in inMap)}}]);
+                    currNode.displayChildren = false;
                 }
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
                         edges.remove(edge.id);
-                        neighbourNode = allNodes[edge.to.toString()];
-                        if (neighbourNode.depth <= currNode.depth) 
+                        neighbourNode = allNodes[edge.to];
+                        if (neighbourNode.depth <= currNode.depth) {
                             continue; // do not delete lower depth nodes (to handle recursion)
+                        }
                         if (nodes.get(neighbourNode.id) == null)
                             continue; // already deleted
                         nodes.remove(neighbourNode.id);
@@ -135,32 +136,40 @@
                     return;
                 }
                 pos = network.getPosition(currNode.id);
-                nodes.update([{id: currNode.id, displayChildren: true, fixed: {y: true}}]);
+                currNode.displayChildren = true;
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
                         edges.add(edge);
-                        edges.update([{id: edge.id}]);
-                        neighbourNode = allNodes[edge.to.toString()];
-                        if (neighbourNode.depth <= currNode.depth) 
+                        edge.physics = false;
+                        // edges.update([{id: edge.id, physics: false}]);
+                        neighbourNode = allNodes[edge.to];
+                        if (neighbourNode.depth <= currNode.depth) {
                             continue; // do not re-add lower depth nodes (to handle recursion)
-                        if (nodes.get(neighbourNode.id) != null)
+                        }
+                        if (nodes.get(neighbourNode.id) != null) {
                             continue; // already added
+                        }
+                        neighbourNode.fixed = true;
+                        neighbourNode.displayChildren = false;
+                        neighbourNode.x = pos.x;
                         nodes.add(neighbourNode);
-                        nodes.update([{id: neighbourNode.id, displayChildren: false, x: pos.x, y: pos.y+50}]);
                         addChildren(neighbourNode, depth+1, maxDepth);
                     }
                 }
             }
-            
-            function updateDepth(currNode, depth, visited) {
+
+            function calcDepth(currNode, depth, visited) {
                 if(visited.has(currNode.id)) {
                     return; // reached a visited node; stop
                 }
                 currNode.depth = ((currNode.depth == undefined) ? depth : min(currNode.depth, depth));
+                currNode.level = depth;
+                currNode.minLevel = depth;
+                currNode.fixed = true;
                 visited.add(currNode.id);
                 if (currNode.id in outMap) {
                     for (const edge of outMap[currNode.id]) {
-                        updateDepth(allNodes[edge.to.toString()], depth+1, visited);
+                        calcDepth(allNodes[edge.to], depth+1, visited);
                     }
                 }
             }
@@ -169,33 +178,37 @@
             data = {nodes: nodes, edges: edges};
                 
             const options = {
-                "physics": {
-                    "repulsion": {
-                    "centralGravity": 0.3,
-                    "springLength": 100,
-                    "springConstant": 0.15,
-                    "nodeDistance": 140,
-                    "damping": 0.15
-                    },
-                    "maxVelocity": 119,
-                    "minVelocity": 0.69,
-                    "solver": "repulsion",
-                    "wind": {
-                    "y": 10
+                "layout": {
+                    "improvedLayout":true,
+                    "clusterThreshold": 150,
+                    "hierarchical": {
+                        "enabled": true,
+                        "levelSeparation": 150,
+                        "nodeSpacing": 200,
+                        "treeSpacing": 200,
+                        "blockShifting": true,
+                        "edgeMinimization": true,
+                        "parentCentralization": true,
+                        "direction": "UD",        
+                        "sortMethod": "hubsize",  
+                        "shakeTowards": "roots"  
                     }
+                },
+                "edges": {
+                    "hoverWidth": 0,
+                    "selectionWidth": 0,
+                    "width": 1
                 },
                 "interaction": {"hover": true}
             }
-            
-
-            
-
+                
             network = new vis.Network(container, data, options);
             // CUSTOM START ###
             network.on('click', function (properties) {
                 var ids = properties.nodes;
                 var clickedNode = nodes.get(ids)[0]; // only pick first node in clicked nodes
                 if (clickedNode !== undefined) {
+                    console.log("clicked: " + JSON.stringify(clickedNode));
                     // toggle display children
                     if (clickedNode.displayChildren) {
                         deleteChildren(clickedNode);
@@ -205,12 +218,19 @@
                 }
             });
             network.on("hoverNode", function (properties) {
-                if (properties.node in outMap) {
+                var id = properties.node 
+                if (id in outMap) {
                     network.canvas.body.container.style.cursor = 'pointer';
+                    nodes.update([{id: id, size: allNodes[id].size+3}]);
                 }
+                
             });
-            network.on("blurNode", function (params) {
+            network.on("blurNode", function (properties) {
                 network.canvas.body.container.style.cursor = 'default'
+                var id = properties.node
+                if (id in outMap) {
+                    nodes.update([{id: id, size: allNodes[id].size-3}]);
+                }
             });
             // CUSTOM END ###
             return network;
