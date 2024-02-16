@@ -2,6 +2,7 @@ import argparse
 import os
 import shutil
 import json
+from collections import defaultdict
 from pyvis.network import Network
 
 class Node:
@@ -61,7 +62,6 @@ class Node:
             f"methodSize: {self._metrics['methodSize']} bytecode size"
         ])
         
-    
     def get_size(self):
         return self._size
 
@@ -72,78 +72,63 @@ def build_call_tree(curr, method_map, size_map):
     return curr_node
 
 def build_context_tree(curr, method_map, size_map):  
-    # TODO: Fix recursion preprocessing bug
-    # - occurs when recursion is not just a method calling itself
-    #   but rather a method earlier in the exec path
-
-    def process_recursions(curr_node, path):
-        path[curr_node.get_id()] = curr_node
-        delete_uids = list()
-        add_targets = list()
-        child_nodes = list(curr_node.get_children())
-        for child_node in child_nodes:
-            if child_node.get_id() in path and curr_node.get_child(child_node.get_uid()) is not None:
-                # print(f'found recursion from {curr_node.get_label()} to {child_node.get_label()}')
-                curr_node.remove_child(child_node)
-                for grand_child_node in child_node.get_children():
-                    path[child_node.get_id()].add_child(grand_child_node) 
-                curr_node.add_child(path[child_node.get_id()])                
-            else:
-                process_recursions(child_node, path)
-        # for uid in delete_uids:
-        #     child_node = curr_node.get_child(uid)
-        #     curr_node.remove_child_by_uid(uid)
-        #     if child_node is None:
-        #         continue
-        #     for grand_child_node in child_node.get_children():
-        #             path[child_node.get_id()].add_child(grand_child_node) 
-        # for child in add_targets:
-        #     curr_node.add_child(child)
-        path.pop(curr_node.get_id())
-    
-    def prune_call_tree(curr_node, visited):
-        if curr_node.get_uid() in visited:
-            return
+    # NOTE: based on the paper https://dl.acm.org/doi/pdf/10.1145/258916.258924
+    # two nodes v and w in a call tree are equivalent iff:
+    # - v and w represent the same procedure
+    # - if any of the following are true:
+    #   (1) the tree parent of v is equivalent to the tree parent of w,
+    #   (2) v === w (this case is trivial; i.e. no need to handle?)
+    #   (3) there is a vertex u such that u represents the same procedure 
+    #       as v and w, and u is an ancestor of both v and w (here, a vertex 
+    #       is an ancestor of itself)
+    def prune_call_tree(curr_node, prev_node, path: dict, visited: set):
+        if curr_node.get_id() in path:  
+            ancestor_node = path[curr_node.get_id()]
+            if ancestor_node:
+                # handle case (3) above
+                # have ancestor node adopt all of current node's children
+                for child_node in curr_node.get_children():
+                    ancestor_node.add_child(child_node)
+                if prev_node:
+                    # remove edge from previous node to current node
+                    prev_node.remove_child(curr_node)
+                    # add back edge between prev_node and ancestor node
+                    prev_node.add_child(ancestor_node)
+            return 1
+        prune_count = 0
+        # add uid to visited so that we don't visit the same node repeated
         visited.add(curr_node.get_uid())
+        # register current node in path; in case we run into an equivalent node later
+        path[curr_node.get_id()] = curr_node
         # print(f'pruning {curr_node.get_label()}...')
-        dups = {}
+        dups = defaultdict(list)
         # collect duplicates
         for child_node in curr_node.get_children():
-            if child_node.get_id() not in dups:
-                dups[child_node.get_id()] = {'leaf': list(), 'nonleaf': list()}
-            
-            if len(child_node.children) == 0:
-                dups[child_node.get_id()]['leaf'].append(child_node)
-            else:
-                dups[child_node.get_id()]['nonleaf'].append(child_node)
-
-        # prune duplicates
-        for k in dups:
-            for i in range(1, len(dups[k]['leaf'])):
-                # remove duplicate leaf
-                curr_node.remove_child(dups[k]['leaf'][i])
-                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
-            if len(dups[k]['nonleaf']) == 0:
-                continue
-            first = dups[k]['nonleaf'][0]
-            for i in range(1, len(dups[k]['nonleaf'])):
-                sybling = dups[k]['nonleaf'][i]
-                # absorb child from sybling
+            if child_node.get_uid() in visited:
+                continue # skip since we already added a back edge this child node
+            dups[child_node.get_id()].append(child_node)
+        # handle case (1) above
+        for method_id in dups:
+            first = dups[method_id][0]
+            for i in range(1, len(dups[method_id])):
+                sybling = dups[method_id][i]
+                # adopt children from equivalent sybling
                 for nephew_node in sybling.get_children():
                     first.add_child(nephew_node)
-                    # print(f'absorb: {nephew_node.get_label()} from {sybling.get_label()} in {first.get_label()}')
+                    # print(f'adopt: {nephew_node.get_label()} from {sybling.get_label()} in {first.get_label()}')
                 # remove sybling from parent
                 curr_node.remove_child(sybling)
-                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
-        
-        # prune lower level
-        for child_node in curr_node.get_children():
-            prune_call_tree(child_node, visited)
-        return curr_node
-    
+                # print(f'pruned: {child_node.get_label()} from {curr_node.get_label()}')
+                prune_count += 1
+            prune_count += prune_call_tree(first, curr_node, path, visited)
+        # unregister current node from path
+        path.pop(curr_node.get_id())
+        return prune_count
+    # build call tree first
     ct_root = build_call_tree(curr, method_map, size_map)
-    ct_root = prune_call_tree(ct_root, set())
-    process_recursions(ct_root, dict())
+    # repeatedly prune call tree until there is only 1 copy of each equivalent node from the call tree
+    while prune_call_tree(ct_root, None, dict(), set()) > 0:
+        pass
     return ct_root
 
 
@@ -196,7 +181,7 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
     visited = set()
     edge_count = 0
     def populate(curr_node, depth):
-        print(curr_node.get_id())
+        # print(curr_node.get_id())
         nonlocal edge_count
         if curr_node.get_uid() in visited:
             return
