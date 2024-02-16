@@ -111,12 +111,12 @@
                     if ((allEdges[edgeId].from in outMap) == false) {
                         outMap[allEdges[edgeId].from] = new Set([]);
                     }
-                    outMap[allEdges[edgeId].from].add(allEdges[edgeId]);
+                    outMap[allEdges[edgeId].from].add(edgeId);
                     // store incoming edges to node
                     if ((allEdges[edgeId].to in inMap) == false) {
                         inMap[allEdges[edgeId].to] = new Set([]);
                     }
-                    inMap[allEdges[edgeId].to].add(allEdges[edgeId]);
+                    inMap[allEdges[edgeId].to].add(edgeId);
                 }
 
                 for (nodeId in allNodes) {
@@ -155,15 +155,16 @@
                     currNode.fixed = true; // set nodes to fixed; i.e. nodes are not draggable
                     visited.add(currNode.id);
                     if (currNode.id in outMap) {
-                        for (const edge of outMap[currNode.id]) {
-                            setup(allNodes[edge.to], depth+1, visited);
+                        for (const edgeId of outMap[currNode.id]) {
+                            setup(allNodes[allEdges[edgeId].to], depth+1, visited);
                         }
                     }
                 }
 
                 function collectBackEdges(currNode) {
                     if (currNode.id in outMap) {
-                        for (const edge of outMap[currNode.id]) {
+                        for (const edgeId of outMap[currNode.id]) {
+                            const edge = allEdges[edgeId];
                             neighbourNode = allNodes[edge.to];
                             if (neighbourNode.depth <= currNode.depth) {
                                 // found back edge!
@@ -173,15 +174,15 @@
                                 if ((currNode.id in backEdges) == false ) {
                                     backEdges[currNode.id] = new Set();
                                 }
-                                backEdges[currNode.id].add(edge);
+                                backEdges[currNode.id].add(edgeId);
                                 continue;
                             }
                             collectBackEdges(neighbourNode);
                         }
                         if (currNode.id in backEdges) {
                             // remove back edges from edge set
-                            for(edge of backEdges[currNode.id]) {
-                                outMap[currNode.id].delete(edge);
+                            for(const edgeId of backEdges[currNode.id]) {
+                                outMap[currNode.id].delete(edgeId);
                             }
                             // remove node from map if no out edges
                             if (outMap[currNode.id].size == 0) {
@@ -196,7 +197,8 @@
                         currNode.displayChildren = false;
                     }
                     if (currNode.id in outMap) {
-                        for (const edge of outMap[currNode.id]) {
+                        for (const edgeId of outMap[currNode.id]) {
+                            const edge = allEdges[edgeId];
                             edges.remove(edge.id);
                             neighbourNode = allNodes[edge.to];
                             if (neighbourNode.depth <= currNode.depth) {
@@ -211,8 +213,8 @@
                     }
                     if (currNode.id in backEdges) {
                         // deactivate back edges
-                        for (const edge of backEdges[currNode.id]) {
-                            activeBackEdges.delete(edge);
+                        for (const edgeId of backEdges[currNode.id]) {
+                            activeBackEdges.delete(edgeId);
                         }
                     }
                 }
@@ -224,7 +226,8 @@
                     pos = network.getPosition(currNode.id);
                     currNode.displayChildren = true;
                     if (currNode.id in outMap) {
-                        for (const edge of outMap[currNode.id]) {
+                        for (const edgeId of outMap[currNode.id]) {
+                            const edge = allEdges[edgeId];
                             edges.add(edge);
                             neighbourNode = allNodes[edge.to];
                             if (neighbourNode.depth <= currNode.depth) {
@@ -241,8 +244,8 @@
                     }
                     if (currNode.id in backEdges) {
                         // activate back edges
-                        for (const edge of backEdges[currNode.id]) {
-                            activeBackEdges.add(edge);
+                        for (const edgeId of backEdges[currNode.id]) {
+                            activeBackEdges.add(edgeId);
                         }
                     }
                 }
@@ -361,6 +364,10 @@
                 // create an overlay for displaying back edges and node labels
                 const overlayCanvas = document.getElementById("overlay");
                 const overlayContext = overlayCanvas.getContext("2d");
+                /* 
+                TODO: load the config/settings values below based on 
+                      contents in 'options' variable
+                */
                 const FONT_SIZE_PT = 18;
                 const FONT_TYPE = "sans-serif";
                 const TEXT_ALIGN = "center";
@@ -384,7 +391,8 @@
                     const scale = network.getScale();
                     overlayContext.scale(scale, scale);
                     // draw back edges
-                    for(const edge of activeBackEdges) {
+                    for(const edgeId of activeBackEdges) {
+                        const edge = allEdges[edgeId];
                         // gather the necessary coordinates for the start and end shapres
                         let startPos = network.canvasToDOM(network.getPosition(edge.from));
                         startPos.x /= scale;
@@ -413,14 +421,6 @@
                         // draw arrow on diagram
                         drawArrow(overlayContext, startClosest.x, startClosest.y, endClosest.x, endClosest.y);
                     }
-                    // apply color to overlay canvas context
-                    overlayContext.strokeStyle = LINE_COLOR;
-                    // make the lines dashed 
-                    // (input is an Array of numbers that specify distances to alternately 
-                    // draw a line and a gap (in coordinate space units).
-                    overlayContext.setLineDash([10, 3]);
-                    // apply back edges to overlay canvas
-                    overlayContext.stroke();
 
                     // draw node labels
                     for (const nodeId of activeNodes) {
@@ -434,6 +434,12 @@
                     }
                     // apply color to overlay canvas context
                     overlayContext.fillStyle = FONT_COLOR;
+                    // apply color to overlay canvas context
+                    overlayContext.strokeStyle = LINE_COLOR;
+                    // make the lines dashed 
+                    // (input is an Array of numbers that specify distances to alternately 
+                    // draw a line and a gap (in coordinate space units).
+                    overlayContext.setLineDash([10, 3]);
                     // apply labels to overlay canvas
                     overlayContext.stroke();
                 }
