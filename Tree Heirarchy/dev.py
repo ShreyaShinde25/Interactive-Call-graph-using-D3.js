@@ -147,11 +147,56 @@ def build_context_tree(curr, method_map, size_map):
     return ct_root
 
 
+# method to visualize call graph
+def visualize_call_tree(methods, node_sizes, paths, file_name, max_depth=1000000000, max_edges=1000000000, show=False):
+    visited = set()
+    edge_count = 0
+
+    def populate(net, curr_node, depth):
+        nonlocal edge_count
+        if curr_node['id'] in visited:
+            return
+        if depth > max_depth:
+            return
+        visited.add(curr_node['id'])
+        net.add_node(
+            n_id=curr_node['id'],
+            title=f"{methods[curr_node['id']]['methodName']}\nSize: {node_sizes[curr_node['id']]}",
+            size=node_sizes[curr_node['id']],
+            label=methods[curr_node['id']]['methodName']
+        )
+        for child_node in curr_node.get('children', []):
+            populate(net, child_node, depth + 1)
+            if child_node['id'] in visited:
+                net.add_edge(curr_node['id'], child_node['id'])
+                edge_count += 1
+                if edge_count >= max_edges:
+                    return
+
+    net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
+    with open('options.json', 'r') as f:
+        options_data = json.load(f)
+    options = f'''const options = {json.dumps(options_data, indent=1)}''' 
+    net.set_options(options)
+
+    for root_node_data in paths:
+        populate(net, root_node_data, 0)
+
+    net.save_graph(file_name)
+
+    if show:
+        net.show(file_name, notebook=False)
+
+
+
+
+
 
 def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, show=False):
     visited = set()
     edge_count = 0
     def populate(curr_node, depth):
+        print(curr_node.get_id())
         nonlocal edge_count
         if curr_node.get_uid() in visited:
             return
@@ -233,7 +278,8 @@ if __name__ == "__main__":
     VIS_TYPES = {
         'cct': build_context_tree, 
         'ct': build_call_tree, 
-        'cg': None, #TODO: implement generating call graph
+        # 'cg': None, #TODO: implement generating call graph
+        'cg':build_call_tree
     }
     parser = argparse.ArgumentParser(description='Script for generating customizable call graph visualizations using pyvis.')
     parser.add_argument('--input', '-i', type=str, required=True, help='input (.json) file to process with call graph info.') 
@@ -291,12 +337,17 @@ if __name__ == "__main__":
     print(f'generating: {base_html}...')
     # create vis.js output
     
-    visualize(
-        root_list=root_list, 
-        file_name=base_html, 
-        max_depth=args.maxDepth, 
-        max_edges=args.maxEdges, 
-        show=False)
+    if args.type == 'cg':
+        visualize_call_tree( METHODS, NODE_SIZE, PATHS, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
+    else:
+        visualize(root_list=root_list, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
+    
+    # visualize(
+    #     root_list=root_list, 
+    #     file_name=base_html, 
+    #     max_depth=args.maxDepth, 
+    #     max_edges=args.maxEdges, 
+    #     show=False)
     # move lib/ directory to out/ folder
     p = os.path.dirname(os.path.abspath(__file__))
     if os.path.isdir(f'{out_dir}/lib'):
