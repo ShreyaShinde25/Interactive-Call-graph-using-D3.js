@@ -2,7 +2,6 @@ import argparse
 import os
 import shutil
 import json
-from collections import defaultdict
 from pyvis.network import Network
 
 class Node:
@@ -18,6 +17,7 @@ class Node:
         for entry in self._data['metrics']:
             self._metrics[entry['key']] = entry['value']
         
+
     def get_uid(self):
         return self._uid
 
@@ -72,64 +72,81 @@ def build_call_tree(curr, method_map, size_map):
     return curr_node
 
 def build_context_tree(curr, method_map, size_map):  
-    # NOTE: based on the paper https://dl.acm.org/doi/pdf/10.1145/258916.258924
-    # two nodes v and w in a call tree are equivalent iff:
-    # - v and w represent the same procedure
-    # - if any of the following are true:
-    #   (1) the tree parent of v is equivalent to the tree parent of w,
-    #   (2) v === w (this case is trivial; i.e. no need to handle?)
-    #   (3) there is a vertex u such that u represents the same procedure 
-    #       as v and w, and u is an ancestor of both v and w (here, a vertex 
-    #       is an ancestor of itself)
-    def prune_call_tree(curr_node, prev_node, path: dict, visited: set):
-        if curr_node.get_id() in path:  
-            ancestor_node = path[curr_node.get_id()]
-            if ancestor_node:
-                # handle case (3) above
-                # have ancestor node adopt all of current node's children
-                for child_node in curr_node.get_children():
-                    ancestor_node.add_child(child_node)
-                if prev_node:
-                    # remove edge from previous node to current node
-                    prev_node.remove_child(curr_node)
-                    # add back edge between prev_node and ancestor node
-                    prev_node.add_child(ancestor_node)
-            return 1
-        prune_count = 0
-        # add uid to visited so that we don't visit the same node repeated
-        visited.add(curr_node.get_uid())
-        # register current node in path; in case we run into an equivalent node later
+    # TODO: Fix recursion preprocessing bug
+    # - occurs when recursion is not just a method calling itself
+    #   but rather a method earlier in the exec path
+
+    def process_recursions(curr_node, path):
         path[curr_node.get_id()] = curr_node
+        delete_uids = list()
+        add_targets = list()
+        child_nodes = list(curr_node.get_children())
+        for child_node in child_nodes:
+            if child_node.get_id() in path and curr_node.get_child(child_node.get_uid()) is not None:
+                # print(f'found recursion from {curr_node.get_label()} to {child_node.get_label()}')
+                curr_node.remove_child(child_node)
+                for grand_child_node in child_node.get_children():
+                    path[child_node.get_id()].add_child(grand_child_node) 
+                curr_node.add_child(path[child_node.get_id()])                
+            else:
+                process_recursions(child_node, path)
+        # for uid in delete_uids:
+        #     child_node = curr_node.get_child(uid)
+        #     curr_node.remove_child_by_uid(uid)
+        #     if child_node is None:
+        #         continue
+        #     for grand_child_node in child_node.get_children():
+        #             path[child_node.get_id()].add_child(grand_child_node) 
+        # for child in add_targets:
+        #     curr_node.add_child(child)
+        path.pop(curr_node.get_id())
+    
+    def prune_call_tree(curr_node, visited):
+        if curr_node.get_uid() in visited:
+            return
+        visited.add(curr_node.get_uid())
         # print(f'pruning {curr_node.get_label()}...')
-        dups = defaultdict(list)
+        dups = {}
         # collect duplicates
         for child_node in curr_node.get_children():
-            if child_node.get_uid() in visited:
-                continue # skip since we already added a back edge this child node
-            dups[child_node.get_id()].append(child_node)
-        # handle case (1) above
-        for method_id in dups:
-            first = dups[method_id][0]
-            for i in range(1, len(dups[method_id])):
-                sybling = dups[method_id][i]
-                # adopt children from equivalent sybling
+            if child_node.get_id() not in dups:
+                dups[child_node.get_id()] = {'leaf': list(), 'nonleaf': list()}
+            
+            if len(child_node.children) == 0:
+                dups[child_node.get_id()]['leaf'].append(child_node)
+            else:
+                dups[child_node.get_id()]['nonleaf'].append(child_node)
+
+        # prune duplicates
+        for k in dups:
+            for i in range(1, len(dups[k]['leaf'])):
+                # remove duplicate leaf
+                curr_node.remove_child(dups[k]['leaf'][i])
+                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
+            if len(dups[k]['nonleaf']) == 0:
+                continue
+            first = dups[k]['nonleaf'][0]
+            for i in range(1, len(dups[k]['nonleaf'])):
+                sybling = dups[k]['nonleaf'][i]
+                # absorb child from sybling
                 for nephew_node in sybling.get_children():
                     first.add_child(nephew_node)
-                    # print(f'adopt: {nephew_node.get_label()} from {sybling.get_label()} in {first.get_label()}')
+                    # print(f'absorb: {nephew_node.get_label()} from {sybling.get_label()} in {first.get_label()}')
                 # remove sybling from parent
                 curr_node.remove_child(sybling)
-                # print(f'pruned: {child_node.get_label()} from {curr_node.get_label()}')
-                prune_count += 1
-            prune_count += prune_call_tree(first, curr_node, path, visited)
-        # unregister current node from path
-        path.pop(curr_node.get_id())
-        return prune_count
-    # build call tree first
+                # print(f'remove: {child_node.get_label()} from {curr_node.get_label()}')
+        
+        # prune lower level
+        for child_node in curr_node.get_children():
+            prune_call_tree(child_node, visited)
+        return curr_node
+    
     ct_root = build_call_tree(curr, method_map, size_map)
-    # repeatedly prune call tree until there is only 1 copy of each equivalent node from the call tree
-    while prune_call_tree(ct_root, None, dict(), set()) > 0:
-        pass
+    ct_root = prune_call_tree(ct_root, set())
+    process_recursions(ct_root, dict())
     return ct_root
+
+
 
 def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, show=False):
     visited = set()
@@ -153,43 +170,14 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
                 edge_count += 1
                 if edge_count >= max_edges:
                     return
-    # TODO: re-implement support for 'filter_menu' option.
     net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
     # options can be generated from: https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
     # TODO: instead of hard-coding values, we should load these options
     #       automatically from some .json file and generate the 'options' 
     #       string below
-    options = """
-        const options = {
-            "layout": {
-                "improvedLayout":true,
-                "clusterThreshold": 150,
-                "hierarchical": {
-                    "enabled": true,
-                    "levelSeparation": 150,
-                    "nodeSpacing": 200,
-                    "treeSpacing": 200,
-                    "blockShifting": true,
-                    "edgeMinimization": true,
-                    "parentCentralization": true,
-                    "direction": "UD",        
-                    "sortMethod": "directed",  
-                    "shakeTowards": "roots"  
-                }
-            },
-            "edges": {
-                "hoverWidth": 0,
-                "selectionWidth": 0,
-                "width": 1
-            },
-            "nodes": {
-                "labelHighlightBold": false,
-                "chosen": false,
-                "borderWidth": 2
-            },
-            "interaction": {"hover": true}
-        }
-    """
+    with open('options.json', 'r') as f:
+        options_data = json.load(f)
+    options = f'''const options = {json.dumps(options_data, indent=1)}''' 
     net.set_options(options)
     # net.show_buttons(filter_=['physics'])
     for root_node in root_list:
@@ -302,6 +290,7 @@ if __name__ == "__main__":
         root_list.append(root_node)
     print(f'generating: {base_html}...')
     # create vis.js output
+    
     visualize(
         root_list=root_list, 
         file_name=base_html, 
