@@ -205,7 +205,9 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
     # TODO: instead of hard-coding values, we should load these options
     #       automatically from some .json file and generate the 'options' 
     #       string below
-    with open('options.json', 'r') as f:
+
+    
+    with open(args.option, 'r') as f:
         options_data = json.load(f)
     options = f'''const options = {json.dumps(options_data, indent=1)}''' 
     net.set_options(options)
@@ -273,8 +275,8 @@ if __name__ == "__main__":
     parser.add_argument('--type', '-t', type=str, default='cct', help=f'type of visualization to generate, valid options: {VIS_TYPES}.')
     parser.add_argument('--maxDepth', '-D', type=int, default=1000000000, help=f'max depth in call graph data to visualize.')    
     parser.add_argument('--maxEdges', '-E', type=int, default=1000000000, help=f'max edges in call graph to visualize.')    
-    parser.add_argument('--sizeKey', '-k', type=str, default='methodSize', help=f'default key form metrics list to determine node size in visualization.')    
-
+    parser.add_argument('--sizeKey', '-k', type=str, default='methodSize', help=f'default key form metrics list to determine node size in visualization.')
+    parser.add_argument('--option', '-c',type=str, default='options.json', help=f'options file to make visualization configurations.')    
     args = parser.parse_args()
     if args.type not in VIS_TYPES:
         print(f'Invalid visualization type: {args.type}')
