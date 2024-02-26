@@ -21,12 +21,18 @@ class Node:
 
     def get_uid(self):
         return self._uid
+    
+    def set_uid(self, id):
+        self._uid=id
 
     def get_depth(self):
         return self.depth
 
     def add_child(self, child):
         self.children[child.get_uid()] = child
+    
+    def add_children(self,child):
+        self.children[child.get_id()]=child
     
     def remove_child_by_uid(self, uid: int):
         if uid in self.children:
@@ -70,6 +76,22 @@ def build_call_tree(curr, method_map, size_map):
     for child in curr['children']:
         curr_node.add_child(build_call_tree(child, method_map, size_map))
     return curr_node
+
+
+
+def build_call_graph(curr, method_map, size_map, existing_nodes={}):
+    if curr['id'] in existing_nodes:
+        return existing_nodes[curr['id']]
+    
+    curr_node = Node(data=method_map[curr['id']], size=size_map[curr['id']])
+    existing_nodes[curr['id']] = curr_node 
+
+    for child in curr['children']:
+        child_node = build_call_graph(child, method_map, size_map, existing_nodes)
+        curr_node.add_child(child_node)
+    
+    return curr_node
+
 
 def build_context_tree(curr, method_map, size_map):  
     # NOTE: based on the paper https://dl.acm.org/doi/pdf/10.1145/258916.258924
@@ -159,7 +181,7 @@ def visualize_call_tree(methods, node_sizes, paths, file_name, max_depth=1000000
                     return
 
     net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
-    with open('options.json', 'r') as f:
+    with open(args.option, 'r') as f:
         options_data = json.load(f)
     options = f'''const options = {json.dumps(options_data, indent=1)}''' 
     net.set_options(options)
@@ -266,7 +288,7 @@ if __name__ == "__main__":
         'cct': build_context_tree, 
         'ct': build_call_tree, 
         # 'cg': None, #TODO: implement generating call graph
-        'cg':build_call_tree
+        'cg':build_call_graph
     }
     parser = argparse.ArgumentParser(description='Script for generating customizable call graph visualizations using pyvis.')
     parser.add_argument('--input', '-i', type=str, required=True, help='input (.json) file to process with call graph info.') 
@@ -292,6 +314,7 @@ if __name__ == "__main__":
     min_size = float('inf')
     max_size = -float('inf')
     NODE_SIZE = dict()
+    visit=set()
     for k in METHODS:
         for metric_entry in METHODS[k]['metrics']:
             if metric_entry['key'] == args.sizeKey:
@@ -324,17 +347,17 @@ if __name__ == "__main__":
     print(f'generating: {base_html}...')
     # create vis.js output
     
-    if args.type == 'cg':
-        visualize_call_tree( METHODS, NODE_SIZE, PATHS, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
-    else:
-        visualize(root_list=root_list, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
+    # if args.type == 'cg':
+    #     visualize_call_tree( METHODS, NODE_SIZE, PATHS, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
+    # else:
+    #     visualize(root_list=root_list, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
     
-    # visualize(
-    #     root_list=root_list, 
-    #     file_name=base_html, 
-    #     max_depth=args.maxDepth, 
-    #     max_edges=args.maxEdges, 
-    #     show=False)
+    visualize(
+        root_list=root_list, 
+        file_name=base_html, 
+        max_depth=args.maxDepth, 
+        max_edges=args.maxEdges, 
+        show=False)
     # move lib/ directory to out/ folder
     p = os.path.dirname(os.path.abspath(__file__))
     if os.path.isdir(f'{out_dir}/lib'):

@@ -1,0 +1,29 @@
+{   
+    "layout": {
+        "improvedLayout":true,
+        "clusterThreshold": 150,
+        "hierarchical": {
+            "enabled": true,
+            "levelSeparation": 150,
+            "nodeSpacing": 200,
+            "treeSpacing": 200,
+            "blockShifting": true,
+            "edgeMinimization": true,
+            "parentCentralization": true,
+            "direction": "UD",        
+            "sortMethod": "directed",  
+            "shakeTowards": "roots"  
+        }
+    },
+    "edges": {
+        "hoverWidth": 0,
+        "selectionWidth": 0,
+        "width": 1
+    },
+    "nodes": {
+        "labelHighlightBold": false,
+        "chosen": false,
+        "borderWidth": 2
+    },
+    "interaction": {"hover": true}
+}
