@@ -21,18 +21,12 @@ class Node:
 
     def get_uid(self):
         return self._uid
-    
-    def set_uid(self, id):
-        self._uid=id
 
     def get_depth(self):
         return self.depth
 
     def add_child(self, child):
         self.children[child.get_uid()] = child
-    
-    def add_children(self,child):
-        self.children[child.get_id()]=child
     
     def remove_child_by_uid(self, uid: int):
         if uid in self.children:
@@ -77,19 +71,17 @@ def build_call_tree(curr, method_map, size_map):
         curr_node.add_child(build_call_tree(child, method_map, size_map))
     return curr_node
 
-
-
 def build_call_graph(curr, method_map, size_map, existing_nodes={}):
+    curr_node = None
     if curr['id'] in existing_nodes:
-        return existing_nodes[curr['id']]
-    
-    curr_node = Node(data=method_map[curr['id']], size=size_map[curr['id']])
-    existing_nodes[curr['id']] = curr_node 
+        curr_node = existing_nodes[curr['id']]
+    else:
+        curr_node = Node(data=method_map[curr['id']], size=size_map[curr['id']])
+        existing_nodes[curr['id']] = curr_node 
 
     for child in curr['children']:
         child_node = build_call_graph(child, method_map, size_map, existing_nodes)
         curr_node.add_child(child_node)
-    
     return curr_node
 
 
@@ -287,7 +279,6 @@ if __name__ == "__main__":
     VIS_TYPES = {
         'cct': build_context_tree, 
         'ct': build_call_tree, 
-        # 'cg': None, #TODO: implement generating call graph
         'cg':build_call_graph
     }
     parser = argparse.ArgumentParser(description='Script for generating customizable call graph visualizations using pyvis.')
