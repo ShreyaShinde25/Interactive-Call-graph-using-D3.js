@@ -58,8 +58,6 @@ def update_methods(json_methods, entry, method_map, next_method_id):
             "className": entry.get_class_name(),
             "methodName": entry.get_method_name(),
             "methodDescriptor": entry.get_value("method_descriptor"),
-            "pc": entry.get_value("pc"),
-            "execType": "interpreted" if entry.get_value("exec_type") is None else entry.get_value("exec_type"),
             "metrics": [
                 {"key": "methodSize", "value": entry.get_value("method_size")},
                 {"key": "cpu", "value": entry.get_value("cpu")}
