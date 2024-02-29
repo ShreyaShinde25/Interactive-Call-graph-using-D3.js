@@ -1,0 +1,339 @@
+{
+    "methods": [
+        {
+            "id": 0,
+            "className": "java.lang.System",
+            "methodName": "ensureProperties",
+            "methodDescriptor": "(Z)V",
+            "pc": "0",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "242"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "className": "java.lang.System",
+            "methodName": "afterClinitInitialization",
+            "methodDescriptor": "()V",
+            "pc": "28",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "227"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "className": "java.lang.Thread",
+            "methodName": "initialize",
+            "methodDescriptor": "(ZLjava.lang.ThreadGroup;Ljava.lang.Thread;Ljava.security.AccessControlContext;Z)V",
+            "pc": "43",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "200"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "className": "java.lang.Thread",
+            "methodName": "<init>",
+            "methodDescriptor": "(Ljava.lang.String;Ljava.lang.Object;IZ)V",
+            "pc": "122",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "142"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "className": "java.util.concurrent.ConcurrentHashMap",
+            "methodName": "<clinit>",
+            "methodDescriptor": "()V",
+            "pc": "24",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "196"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "className": "java.util.Properties",
+            "methodName": "<init>",
+            "methodDescriptor": "(Ljava.util.Properties;I)V",
+            "pc": "9",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "32"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "className": "java.util.Properties",
+            "methodName": "<init>",
+            "methodDescriptor": "()V",
+            "pc": "4",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "8"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "className": "java.util.concurrent.ConcurrentHashMap",
+            "methodName": "transfer",
+            "methodDescriptor": "([Ljava.util.concurrent.ConcurrentHashMap$Node;[Ljava.util.concurrent.ConcurrentHashMap$Node;)V",
+            "pc": "79",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "60"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "className": "java.util.concurrent.ConcurrentHashMap",
+            "methodName": "addCount",
+            "methodDescriptor": "(JI)V",
+            "pc": "266",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "23"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "className": "java.util.concurrent.ConcurrentHashMap",
+            "methodName": "putVal",
+            "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;Z)Ljava.lang.Object;",
+            "pc": "427",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "176"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "className": "java.util.concurrent.ConcurrentHashMap",
+            "methodName": "put",
+            "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
+            "pc": "4",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "8"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "className": "java.util.Properties",
+            "methodName": "put",
+            "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
+            "pc": "6",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "10"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "className": "java.lang.VersionProps",
+            "methodName": "init",
+            "methodDescriptor": "()V",
+            "pc": "35",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "76"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "className": "java.lang.VersionProps",
+            "methodName": "<clinit>",
+            "methodDescriptor": "()V",
+            "pc": "25",
+            "execType": "interpreted",
+            "metrics": [
+                {
+                    "key": "methodSize",
+                    "value": "29"
+                },
+                {
+                    "key": "cpu",
+                    "value": "0.0"
+                }
+            ]
+        }
+    ],
+    "paths": [
+        {
+            "id": 3,
+            "callSite": "0x1aa00",
+            "children": [
+                {
+                    "id": 2,
+                    "callSite": "122",
+                    "children": [
+                        {
+                            "id": 1,
+                            "callSite": "43",
+                            "children": [
+                                {
+                                    "id": 0,
+                                    "callSite": "28",
+                                    "children": [
+                                        {
+                                            "id": 6,
+                                            "callSite": "4",
+                                            "children": [
+                                                {
+                                                    "id": 5,
+                                                    "callSite": "4",
+                                                    "children": [
+                                                        {
+                                                            "id": 4,
+                                                            "callSite": "9",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": 11,
+                                            "callSite": "122",
+                                            "children": [
+                                                {
+                                                    "id": 10,
+                                                    "callSite": "6",
+                                                    "children": [
+                                                        {
+                                                            "id": 9,
+                                                            "callSite": "4",
+                                                            "children": [
+                                                                {
+                                                                    "id": 8,
+                                                                    "callSite": "427",
+                                                                    "children": [
+                                                                        {
+                                                                            "id": 7,
+                                                                            "callSite": "266",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": 13,
+                                            "callSite": "150",
+                                            "children": [
+                                                {
+                                                    "id": 12,
+                                                    "callSite": "25",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

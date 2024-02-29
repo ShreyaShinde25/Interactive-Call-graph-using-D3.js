@@ -1,0 +1,160 @@
+{
+    "methods":
+    [
+        {
+            "id": 0,
+            "classPath": "",
+            "methodName": "M",
+            "methodDescriptor": "()V",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 15
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "classPath": "",
+            "methodName": "A",
+            "methodDescriptor": "()V",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 5
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "classPath": "",
+            "methodName": "B",
+            "methodDescriptor": "()V",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 7
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "classPath": "",
+            "methodName": "C",
+            "methodDescriptor": "()V",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "classPath": "",
+            "methodName": "D",
+            "methodDescriptor": "()V",
+            "metrics": 
+            [
+                {
+                    "key": "methodSize",
+                    "value": 3
+                }
+            ]
+        }
+    ],
+    "paths": 
+    [
+        {
+            "id": 0,
+            "callSite": "0x1001",
+            "children": 
+            [
+                {
+                    "id": 1,
+                    "callSite": "3",
+                    "children": 
+                    [
+                    {
+                        "id": 2,
+                        "callSite": "3",
+                        "children": []
+                    },
+                    {
+                        "id": 3,
+                        "callSite": "6",
+                        "children": []
+                    }
+                    ]
+                }, 
+                {
+                    "id": 4,
+                    "callSite": "1",
+                    "children": 
+                    [
+                        {
+                            "id": 1,
+                            "callSite": "5",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "callSite": "3",
+                    "children": 
+                    [
+                        {
+                            "id": 3,
+                            "callSite": "1",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "callSite": "33",
+                    "children": 
+                    [
+                        {
+                            "id": 2,
+                            "callSite": "5",
+                            "children": []
+                        },
+                        {
+                            "id": 2,
+                            "callSite": "31",
+                            "children": []
+                        },
+                        {
+                            "id": 3,
+                            "callSite": "13",
+                            "children": []
+                        },
+                        {
+                            "id": 3,
+                            "callSite": "6",
+                            "children": 
+                            [
+                                {
+                                    "id": 1,
+                                    "callSite": "3",
+                                    "children": []
+                                },
+                                {
+                                    "id": 3,
+                                    "callSite": "3",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
