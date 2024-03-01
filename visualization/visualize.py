@@ -47,7 +47,7 @@ class Node:
         return self._data['id']
     
     def get_label(self):
-        label = f"{self._data['className'].split('.')[-1]}.{self._data['methodName']}"
+        label = f"{self._data['classPath'].split('.')[-1]}.{self._data['methodName']}"
         # label = str(self._data['id'])
         # label = self._data['className']
         if len(label) > Node.MAX_LABEL_SIZE:
@@ -57,7 +57,7 @@ class Node:
 
     def get_title(self):
         return "\n".join([
-            f"signature: {self._data['className']}.{self._data['methodName']}{self._data['methodDescriptor']}",
+            f"signature: {self._data['classPath']}.{self._data['methodName']}{self._data['methodDescriptor']}",
             f"callees: {len(self.children)}",
             f"methodSize: {self._metrics['methodSize']} bytecode size"
         ])
