@@ -3,7 +3,7 @@
     [
         {
             "id": 0,
-            "classPath": "",
+            "className": "",
             "methodName": "M",
             "methodDescriptor": "()V",
             "metrics": 
@@ -16,7 +16,7 @@
         },
         {
             "id": 1,
-            "classPath": "",
+            "className": "",
             "methodName": "A",
             "methodDescriptor": "()V",
             "metrics": 
@@ -29,7 +29,7 @@
         },
         {
             "id": 2,
-            "classPath": "",
+            "className": "",
             "methodName": "B",
             "methodDescriptor": "()V",
             "metrics": 
@@ -42,7 +42,7 @@
         },
         {
             "id": 3,
-            "classPath": "",
+            "className": "",
             "methodName": "C",
             "methodDescriptor": "()V",
             "metrics": 
@@ -55,7 +55,7 @@
         },
         {
             "id": 4,
-            "classPath": "",
+            "className": "",
             "methodName": "D",
             "methodDescriptor": "()V",
             "metrics": 
