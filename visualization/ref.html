@@ -55,6 +55,58 @@
                 padding-bottom: 0rem;
                 padding-left: 0rem;
             }
+
+            .sidepanel  {
+            width: 0px;
+            position: fixed;
+            z-index: 1;
+            height: auto;
+            top: 24px;
+            right: 15px;
+            background-color: #d4e5ea;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 6px;
+            padding-right: 12px;
+            }
+            .sidepanel ul {
+            padding: 8px 8px 8px 32px;
+            list-style-type: none;
+            text-decoration: none;
+            font-size: 20px;
+            color: #08326c;
+            display: block;
+            transition: 0.3s;
+            }
+            .sidepanel a {
+                padding: 1px 1px 1px -20px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #08326c;
+            display: block;
+            transition: 0.3s;
+            }
+            .sidepanel li:hover {
+            color: rgb(14, 76, 176);
+            cursor:pointer;
+            }
+
+            .sidepanel a:hover{
+                color: rgb(186, 17, 17);
+            
+            }
+
+            .sidepanel #title{
+                color: black;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+
+            .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            } 
             /* CUSTOM END */
         </style>
     </head>
@@ -64,8 +116,24 @@
             <!-- CUSTOM START -->
             <!-- NOTE: This canvas is where the back edges and labels are drawn -->
             <canvas id="overlay"></canvas>
+            </div>
+
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <ul> 
+                    <li id="title">
+                        Node description
+                    </li>
+                    <li id="node-info">
+                    </li>
+                </ul>
+              </div>
+              <script>
+                function closeNav() {
+                  document.getElementById("mySidepanel").style.width = "0";
+                  }
+              </script>
             <!-- CUSTOM END -->
-        </div>
         <script type="text/javascript">
             // initialize global variables.
             var edges;
@@ -307,10 +375,17 @@
                         }
                     } else {
                         network.canvas.body.container.style.cursor = ACTIVE_CURSOR;
+                        closeNav();
                     }
                 });
                 network.on("hoverNode", function (properties) {
                     var id = properties.node 
+                    obj=JSON.stringify(nodes.get(id));
+                        console.log(obj)
+                        parse_obj= JSON.parse(obj);
+                        Node_info=parse_obj.title;
+                        openNav(Node_info);
+
                     if (id in outMap || id in backEdges) {
                         network.canvas.body.container.style.cursor = INTERACTABLE_CURSOR;
                         // increase size of node on hover
@@ -537,10 +612,19 @@
                 network.on("afterDrawing", function (event) {
                     drawOverlay();
                 });
+
+
+                function openNav(){
+                document.getElementById("mySidepanel").style.width = "auto";
+                document.getElementById('node-info').innerHTML = Node_info;
+                }
+
                 // CUSTOM END ###
                 return network;
 
             }
+           
+
             drawGraph();
         </script>
     </body>
