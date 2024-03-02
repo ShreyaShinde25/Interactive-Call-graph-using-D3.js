@@ -25,5 +25,6 @@
         "chosen": false,
         "borderWidth": 2
     },
+
     "interaction": {"hover": true}
 }

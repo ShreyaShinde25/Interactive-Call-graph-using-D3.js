@@ -44,10 +44,14 @@ class Node:
         return self.children[uid]
 
     def get_id(self):
-        return self._data['id']
+        return self._data['id'] 
+    
+    def get_className(self):
+        className= f"{self._data['className']}"
+        return className
     
     def get_label(self):
-        label = f"{self._data['classPath'].split('.')[-1]}.{self._data['methodName']}"
+        label = f"{self._data['className'].split('.')[-1]}.{self._data['methodName']}"
         # label = str(self._data['id'])
         # label = self._data['className']
         if len(label) > Node.MAX_LABEL_SIZE:
@@ -57,7 +61,7 @@ class Node:
 
     def get_title(self):
         return "\n".join([
-            f"signature: {self._data['classPath']}.{self._data['methodName']}{self._data['methodDescriptor']}",
+            f"signature: {self._data['className']}.{self._data['methodName']}{self._data['methodDescriptor']}",
             f"callees: {len(self.children)}",
             f"methodSize: {self._metrics['methodSize']} bytecode size"
         ])
@@ -146,51 +150,6 @@ def build_context_tree(curr, method_map, size_map):
     return ct_root
 
 
-# method to visualize call graph
-def visualize_call_tree(methods, node_sizes, paths, file_name, max_depth=1000000000, max_edges=1000000000, show=False):
-    visited = set()
-    edge_count = 0
-
-    def populate(net, curr_node, depth):
-        nonlocal edge_count
-        if curr_node['id'] in visited:
-            return
-        if depth > max_depth:
-            return
-        visited.add(curr_node['id'])
-        net.add_node(
-            n_id=curr_node['id'],
-            title=f"{methods[curr_node['id']]['methodName']}\nSize: {node_sizes[curr_node['id']]}",
-            size=node_sizes[curr_node['id']],
-            label=methods[curr_node['id']]['methodName']
-        )
-        for child_node in curr_node.get('children', []):
-            populate(net, child_node, depth + 1)
-            if child_node['id'] in visited:
-                net.add_edge(curr_node['id'], child_node['id'])
-                edge_count += 1
-                if edge_count >= max_edges:
-                    return
-
-    net = Network(height="1000px", width="100%", directed=True, filter_menu=False, select_menu=False)
-    with open(args.option, 'r') as f:
-        options_data = json.load(f)
-    options = f'''const options = {json.dumps(options_data, indent=1)}''' 
-    net.set_options(options)
-
-    for root_node_data in paths:
-        populate(net, root_node_data, 0)
-
-    net.save_graph(file_name)
-
-    if show:
-        net.show(file_name, notebook=False)
-
-
-
-
-
-
 def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, show=False):
     visited = set()
     edge_count = 0
@@ -206,7 +165,8 @@ def visualize(root_list, file_name, max_depth=1000000000, max_edges=1000000000, 
             n_id=curr_node.get_uid(), 
             label=curr_node.get_label(), 
             size=curr_node.get_size(),
-            title=curr_node.get_title())
+            title=curr_node.get_title(),
+            group= curr_node.get_className())
         for child_node in curr_node.get_children():
             populate(child_node, depth+1)
             if child_node.get_uid() in visited:
