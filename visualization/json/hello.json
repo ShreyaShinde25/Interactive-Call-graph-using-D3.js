@@ -5,8 +5,6 @@
             "className": "java.lang.System",
             "methodName": "ensureProperties",
             "methodDescriptor": "(Z)V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -23,8 +21,6 @@
             "className": "java.lang.System",
             "methodName": "afterClinitInitialization",
             "methodDescriptor": "()V",
-            "pc": "28",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -41,8 +37,6 @@
             "className": "java.lang.Thread",
             "methodName": "initialize",
             "methodDescriptor": "(ZLjava.lang.ThreadGroup;Ljava.lang.Thread;Ljava.security.AccessControlContext;Z)V",
-            "pc": "43",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -59,8 +53,6 @@
             "className": "java.lang.Thread",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.Object;IZ)V",
-            "pc": "122",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -77,8 +69,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "24",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -95,8 +85,6 @@
             "className": "java.util.Properties",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.util.Properties;I)V",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -113,8 +101,6 @@
             "className": "java.util.Properties",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -131,8 +117,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "transfer",
             "methodDescriptor": "([Ljava.util.concurrent.ConcurrentHashMap$Node;[Ljava.util.concurrent.ConcurrentHashMap$Node;)V",
-            "pc": "79",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -149,8 +133,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "addCount",
             "methodDescriptor": "(JI)V",
-            "pc": "266",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -167,8 +149,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "putVal",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;Z)Ljava.lang.Object;",
-            "pc": "427",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -185,8 +165,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "put",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -203,8 +181,6 @@
             "className": "java.util.Properties",
             "methodName": "put",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -221,8 +197,6 @@
             "className": "java.lang.VersionProps",
             "methodName": "init",
             "methodDescriptor": "()V",
-            "pc": "35",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -239,8 +213,6 @@
             "className": "java.lang.VersionProps",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "25",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -257,8 +229,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "entrySet",
             "methodDescriptor": "()Ljava.util.Set;",
-            "pc": "17",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -275,8 +245,6 @@
             "className": "java.util.Properties",
             "methodName": "entrySet",
             "methodDescriptor": "()Ljava.util.Set;",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -293,8 +261,6 @@
             "className": "jdk.internal.misc.VM",
             "methodName": "saveAndRemoveProperties",
             "methodDescriptor": "(Ljava.util.Properties;)V",
-            "pc": "17",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -311,8 +277,6 @@
             "className": "java.lang.reflect.Modifier",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -329,8 +293,6 @@
             "className": "java.lang.Class",
             "methodName": "getMethodHelper",
             "methodDescriptor": "(ZZZLjava.util.List;Ljava.lang.String;[Ljava.lang.Class;)Ljava.lang.reflect.Method;",
-            "pc": "390",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -347,8 +309,6 @@
             "className": "java.lang.Class",
             "methodName": "getMethod",
             "methodDescriptor": "(Ljava.lang.String;[Ljava.lang.Class;)Ljava.lang.reflect.Method;",
-            "pc": "29",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -365,8 +325,6 @@
             "className": "java.lang.Class",
             "methodName": "getPrimitiveClass",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.Class;",
-            "pc": "179",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -383,8 +341,6 @@
             "className": "java.lang.Void",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -401,8 +357,6 @@
             "className": "java.lang.reflect.Array",
             "methodName": "newInstance",
             "methodDescriptor": "(Ljava.lang.Class;I)Ljava.lang.Object;",
-            "pc": "29",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -419,8 +373,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap$CollectionView",
             "methodName": "toArray",
             "methodDescriptor": "([Ljava.lang.Object;)[Ljava.lang.Object;",
-            "pc": "50",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -437,8 +389,6 @@
             "className": "java.util.Properties$EntrySet",
             "methodName": "toArray",
             "methodDescriptor": "([Ljava.lang.Object;)[Ljava.lang.Object;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -455,8 +405,6 @@
             "className": "java.util.Collections$SynchronizedCollection",
             "methodName": "toArray",
             "methodDescriptor": "([Ljava.lang.Object;)[Ljava.lang.Object;",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -473,8 +421,6 @@
             "className": "java.nio.charset.Charset",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -491,8 +437,6 @@
             "className": "java.lang.ThreadLocal",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -509,8 +453,6 @@
             "className": "sun.nio.cs.StandardCharsets",
             "methodName": "lookup",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.nio.charset.Charset;",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -527,8 +469,6 @@
             "className": "sun.nio.cs.StandardCharsets",
             "methodName": "charsetForName",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.nio.charset.Charset;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -545,8 +485,6 @@
             "className": "java.nio.charset.Charset",
             "methodName": "lookup2",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.nio.charset.Charset;",
-            "pc": "39",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -563,8 +501,6 @@
             "className": "java.nio.charset.Charset",
             "methodName": "lookup",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.nio.charset.Charset;",
-            "pc": "40",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -581,8 +517,6 @@
             "className": "java.nio.charset.Charset",
             "methodName": "isSupported",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -599,8 +533,6 @@
             "className": "java.lang.System",
             "methodName": "createConsole",
             "methodDescriptor": "(Ljava.io.FileDescriptor;Ljava.nio.charset.Charset;)Ljava.io.PrintStream;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -617,8 +549,6 @@
             "className": "java.io.OutputStreamWriter",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.io.OutputStream;Ljava.nio.charset.Charset;)V",
-            "pc": "23",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -635,8 +565,6 @@
             "className": "java.io.PrintStream",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.io.OutputStream;ZLjava.nio.charset.Charset;)V",
-            "pc": "27",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -653,8 +581,6 @@
             "className": "java.nio.charset.CodingErrorAction",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -671,8 +597,6 @@
             "className": "java.nio.charset.CharsetEncoder",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.nio.charset.Charset;FF[B)V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -689,8 +613,6 @@
             "className": "java.nio.charset.CharsetEncoder",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.nio.charset.Charset;FF)V",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -707,8 +629,6 @@
             "className": "sun.nio.cs.UTF_8$Encoder",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.nio.charset.Charset;)V",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -725,8 +645,6 @@
             "className": "sun.nio.cs.UTF_8",
             "methodName": "newEncoder",
             "methodDescriptor": "()Ljava.nio.charset.CharsetEncoder;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -743,8 +661,6 @@
             "className": "sun.nio.cs.StreamEncoder",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.io.OutputStream;Ljava.lang.Object;Ljava.nio.charset.Charset;)V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -761,8 +677,6 @@
             "className": "sun.nio.cs.StreamEncoder",
             "methodName": "forOutputStreamWriter",
             "methodDescriptor": "(Ljava.io.OutputStream;Ljava.lang.Object;Ljava.nio.charset.Charset;)Lsun.nio.cs.StreamEncoder;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -779,8 +693,6 @@
             "className": "sun.nio.cs.StreamEncoder",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.io.OutputStream;Ljava.lang.Object;Ljava.nio.charset.CharsetEncoder;)V",
-            "pc": "49",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -797,8 +709,6 @@
             "className": "java.nio.ByteBuffer",
             "methodName": "<init>",
             "methodDescriptor": "(IIII[BI)V",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -815,8 +725,6 @@
             "className": "java.nio.HeapByteBuffer",
             "methodName": "<init>",
             "methodDescriptor": "(II)V",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -833,8 +741,6 @@
             "className": "java.nio.ByteBuffer",
             "methodName": "allocate",
             "methodDescriptor": "(I)Ljava.nio.ByteBuffer;",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -851,8 +757,6 @@
             "className": "java.lang.ref.ReferenceQueue",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -869,8 +773,6 @@
             "className": "java.util.WeakHashMap",
             "methodName": "<init>",
             "methodDescriptor": "(IF)V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -887,8 +789,6 @@
             "className": "java.util.WeakHashMap",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -905,8 +805,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "initializeClassLoaders",
             "methodDescriptor": "()V",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -923,8 +821,6 @@
             "className": "java.util.Collections",
             "methodName": "synchronizedMap",
             "methodDescriptor": "(Ljava.util.Map;)Ljava.util.Map;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -941,8 +837,6 @@
             "className": "jdk.internal.loader.ClassLoaders",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -959,8 +853,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.Void;Ljava.lang.String;Ljava.lang.ClassLoader;)V",
-            "pc": "25",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -977,8 +869,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.ClassLoader;)V",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -995,8 +885,6 @@
             "className": "java.security.SecureClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.ClassLoader;)V",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1013,8 +901,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljdk.internal.loader.BuiltinClassLoader;Ljdk.internal.loader.URLClassPath;)V",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1031,8 +917,6 @@
             "className": "jdk.internal.loader.ClassLoaders$BootClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljdk.internal.loader.URLClassPath;)V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1049,8 +933,6 @@
             "className": "java.util.Set",
             "methodName": "of",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.util.Set;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1067,8 +949,6 @@
             "className": "java.lang.Module",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "30",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1085,8 +965,6 @@
             "className": "jdk.internal.loader.ClassLoaders$PlatformClassLoader",
             "methodName": "<init>",
             "methodDescriptor": "(Ljdk.internal.loader.ClassLoaders$BootClassLoader;)V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1103,8 +981,6 @@
             "className": "java.lang.VMAccess",
             "methodName": "findClassOrNull",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.ClassLoader;)Ljava.lang.Class;",
-            "pc": null,
-            "execType": "(Native Method)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1121,8 +997,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "loadClass",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.Class;",
-            "pc": "17",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1139,8 +1013,6 @@
             "className": "java.net.URL",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1157,8 +1029,6 @@
             "className": "jdk.internal.misc.Unsafe",
             "methodName": "ensureClassInitialized0",
             "methodDescriptor": "(Ljava.lang.Class;)V",
-            "pc": null,
-            "execType": "(Native Method)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1175,8 +1045,6 @@
             "className": "jdk.internal.misc.Unsafe",
             "methodName": "ensureClassInitialized",
             "methodDescriptor": "(Ljava.lang.Class;)V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1193,8 +1061,6 @@
             "className": "jdk.internal.misc.SharedSecrets",
             "methodName": "getJavaNetURLAccess",
             "methodDescriptor": "()Ljdk.internal.misc.JavaNetURLAccess;",
-            "pc": "11",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1211,8 +1077,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "162",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1229,8 +1093,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Z)V",
-            "pc": "62",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1247,8 +1109,6 @@
             "className": "java.io.ExpiringCache",
             "methodName": "<init>",
             "methodDescriptor": "(J)V",
-            "pc": "29",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1265,8 +1125,6 @@
             "className": "java.io.ExpiringCache",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1283,8 +1141,6 @@
             "className": "java.io.UnixFileSystem",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1301,8 +1157,6 @@
             "className": "java.io.DefaultFileSystem",
             "methodName": "getFileSystem",
             "methodDescriptor": "()Ljava.io.FileSystem;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1319,8 +1173,6 @@
             "className": "java.io.File",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1337,8 +1189,6 @@
             "className": "java.lang.String",
             "methodName": "lastIndexOf",
             "methodDescriptor": "(II)I",
-            "pc": "54",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1355,8 +1205,6 @@
             "className": "java.lang.String",
             "methodName": "lastIndexOf",
             "methodDescriptor": "(I)I",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1373,8 +1221,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "getClassAssertionStatusHelper",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "74",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1391,8 +1237,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "getClassAssertionStatus",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "13",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1409,8 +1253,6 @@
             "className": "java.lang.Class",
             "methodName": "desiredAssertionStatus",
             "methodDescriptor": "()Z",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1427,8 +1269,6 @@
             "className": "sun.net.www.ParseUtil",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1445,8 +1285,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "toFileURL",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.net.URL;",
-            "pc": "13",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1463,8 +1301,6 @@
             "className": "java.lang.Character",
             "methodName": "toLowerCase",
             "methodDescriptor": "(I)I",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1481,8 +1317,6 @@
             "className": "java.lang.Character",
             "methodName": "toLowerCase",
             "methodDescriptor": "(C)C",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1499,8 +1333,6 @@
             "className": "java.net.URL",
             "methodName": "isOverrideable",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "62",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1517,8 +1349,6 @@
             "className": "java.net.URL",
             "methodName": "getURLStreamHandler",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.net.URLStreamHandler;",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1535,8 +1365,6 @@
             "className": "java.net.URL",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;ILjava.lang.String;Ljava.net.URLStreamHandler;)V",
-            "pc": "317",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1553,8 +1381,6 @@
             "className": "java.net.URL",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;ILjava.lang.String;)V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1571,8 +1397,6 @@
             "className": "java.net.URL",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;Ljava.lang.String;)V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1589,8 +1413,6 @@
             "className": "sun.net.www.ParseUtil",
             "methodName": "fileToEncodedURL",
             "methodDescriptor": "(Ljava.io.File;)Ljava.net.URL;",
-            "pc": "84",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1607,8 +1429,6 @@
             "className": "java.util.Objects",
             "methodName": "checkIndex",
             "methodDescriptor": "(II)I",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1625,8 +1445,6 @@
             "className": "java.util.ArrayList",
             "methodName": "get",
             "methodDescriptor": "(I)Ljava.lang.Object;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1643,8 +1461,6 @@
             "className": "jdk.internal.module.ModuleBootstrap",
             "methodName": "initModulePatcher",
             "methodDescriptor": "()Ljdk.internal.module.ModulePatcher;",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1661,8 +1477,6 @@
             "className": "jdk.internal.module.ModuleBootstrap",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1679,8 +1493,6 @@
             "className": "jdk.internal.misc.SharedSecrets",
             "methodName": "getJavaNetUriAccess",
             "methodDescriptor": "()Ljdk.internal.misc.JavaNetUriAccess;",
-            "pc": "11",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1697,8 +1509,6 @@
             "className": "jdk.internal.module.SystemModuleFinders",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1715,8 +1525,6 @@
             "className": "jdk.internal.module.ModuleBootstrap",
             "methodName": "boot",
             "methodDescriptor": "()Ljava.lang.ModuleLayer;",
-            "pc": "196",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1733,8 +1541,6 @@
             "className": "jdk.internal.module.SystemModulesMap",
             "methodName": "defaultSystemModules",
             "methodDescriptor": "()Ljdk.internal.module.SystemModules;",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1751,8 +1557,6 @@
             "className": "jdk.internal.module.SystemModuleFinders",
             "methodName": "systemModules",
             "methodDescriptor": "(Ljava.lang.String;)Ljdk.internal.module.SystemModules;",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1769,8 +1573,6 @@
             "className": "jdk.internal.module.SystemModules$default",
             "methodName": "moduleDescriptors",
             "methodDescriptor": "()[Ljava.lang.module.ModuleDescriptor;",
-            "pc": "1486",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1787,8 +1589,6 @@
             "className": "jdk.internal.module.SystemModuleFinders",
             "methodName": "of",
             "methodDescriptor": "(Ljdk.internal.module.SystemModules;)Ljava.lang.module.ModuleFinder;",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1805,8 +1605,6 @@
             "className": "java.util.List",
             "methodName": "of",
             "methodDescriptor": "([Ljava.lang.Object;)Ljava.util.List;",
-            "pc": "39",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1823,8 +1621,6 @@
             "className": "java.util.ImmutableCollections$SetN",
             "methodName": "<init>",
             "methodDescriptor": "([Ljava.lang.Object;)V",
-            "pc": "72",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1841,8 +1637,6 @@
             "className": "java.util.Set",
             "methodName": "of",
             "methodDescriptor": "([Ljava.lang.Object;)Ljava.util.Set;",
-            "pc": "62",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1859,8 +1653,6 @@
             "className": "jdk.internal.module.Builder",
             "methodName": "provides",
             "methodDescriptor": "([Ljava.lang.module.ModuleDescriptor$Provides;)Ljdk.internal.module.Builder;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1877,8 +1669,6 @@
             "className": "jdk.internal.module.Builder",
             "methodName": "requires",
             "methodDescriptor": "([Ljava.lang.module.ModuleDescriptor$Requires;)Ljdk.internal.module.Builder;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1895,8 +1685,6 @@
             "className": "java.lang.module.ModuleDescriptor",
             "methodName": "modsHashCode",
             "methodDescriptor": "(Ljava.lang.Iterable;)I",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1913,8 +1701,6 @@
             "className": "java.lang.module.ModuleDescriptor$Requires",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1931,8 +1717,6 @@
             "className": "java.util.ImmutableCollections$SetN",
             "methodName": "probe",
             "methodDescriptor": "(Ljava.lang.Object;)I",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1949,8 +1733,6 @@
             "className": "jdk.internal.module.SystemModules$default",
             "methodName": "moduleHashes",
             "methodDescriptor": "()[Ljdk.internal.module.ModuleHashes;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1967,8 +1749,6 @@
             "className": "jdk.internal.module.SystemModuleFinders",
             "methodName": "hashSupplier",
             "methodDescriptor": "(Ljava.util.Map;Ljava.lang.String;)Ljdk.internal.module.ModuleHashes$HashSupplier;",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -1985,8 +1765,6 @@
             "className": "java.lang.String",
             "methodName": "hashCodeImplCompressed",
             "methodDescriptor": "([BII)I",
-            "pc": "34",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2003,8 +1781,6 @@
             "className": "java.lang.String",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "44",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2021,8 +1797,6 @@
             "className": "java.net.URI",
             "methodName": "hash",
             "methodDescriptor": "(ILjava.lang.String;)I",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2039,8 +1813,6 @@
             "className": "java.net.URI",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "51",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2057,8 +1829,6 @@
             "className": "java.util.Objects",
             "methodName": "hashCode",
             "methodDescriptor": "(Ljava.lang.Object;)I",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2075,8 +1845,6 @@
             "className": "jdk.internal.module.ModuleReferenceImpl",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "25",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2093,8 +1861,6 @@
             "className": "jdk.internal.module.SystemModuleFinders$SystemModuleFinder",
             "methodName": "<init>",
             "methodDescriptor": "([Ljava.lang.module.ModuleReference;[Ljava.util.Map$Entry;)V",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2111,8 +1877,6 @@
             "className": "java.util.Map",
             "methodName": "ofEntries",
             "methodDescriptor": "([Ljava.util.Map$Entry;)Ljava.util.Map;",
-            "pc": "93",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2129,8 +1893,6 @@
             "className": "java.nio.file.Paths",
             "methodName": "get",
             "methodDescriptor": "(Ljava.lang.String;[Ljava.lang.String;)Ljava.nio.file.Path;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2147,8 +1909,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "setJimageURL",
             "methodDescriptor": "()V",
-            "pc": "29",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2165,8 +1925,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader$LoadedModule",
             "methodName": "convertJrtToFileURL",
             "methodDescriptor": "()Ljava.net.URL;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2183,8 +1941,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader$LoadedModule",
             "methodName": "<init>",
             "methodDescriptor": "(Ljdk.internal.loader.BuiltinClassLoader;Ljava.lang.module.ModuleReference;)V",
-            "pc": "52",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2201,8 +1957,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "loadModule",
             "methodDescriptor": "(Ljava.lang.module.ModuleReference;)V",
-            "pc": "55",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2219,8 +1973,6 @@
             "className": "jdk.internal.loader.BootLoader",
             "methodName": "loadModule",
             "methodDescriptor": "(Ljava.lang.module.ModuleReference;)V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2237,8 +1989,6 @@
             "className": "sun.nio.fs.DefaultFileSystemProvider",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2255,8 +2005,6 @@
             "className": "java.nio.file.FileSystems",
             "methodName": "getDefault",
             "methodDescriptor": "()Ljava.nio.file.FileSystem;",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2273,8 +2021,6 @@
             "className": "java.nio.file.Path",
             "methodName": "of",
             "methodDescriptor": "(Ljava.lang.String;[Ljava.lang.String;)Ljava.nio.file.Path;",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2291,8 +2037,6 @@
             "className": "sun.nio.fs.LinuxFileSystemProvider",
             "methodName": "newFileSystem",
             "methodDescriptor": "(Ljava.lang.String;)Lsun.nio.fs.LinuxFileSystem;",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2309,8 +2053,6 @@
             "className": "sun.nio.fs.LinuxFileSystemProvider",
             "methodName": "newFileSystem",
             "methodDescriptor": "(Ljava.lang.String;)Lsun.nio.fs.UnixFileSystem;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2327,8 +2069,6 @@
             "className": "sun.nio.fs.UnixFileSystemProvider",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "13",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2345,8 +2085,6 @@
             "className": "java.lang.String",
             "methodName": "getBytes",
             "methodDescriptor": "(Ljava.nio.charset.Charset;)[B",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2363,8 +2101,6 @@
             "className": "sun.nio.fs.Util",
             "methodName": "toBytes",
             "methodDescriptor": "(Ljava.lang.String;)[B",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2381,8 +2117,6 @@
             "className": "sun.nio.fs.UnixFileSystem",
             "methodName": "<init>",
             "methodDescriptor": "(Lsun.nio.fs.UnixFileSystemProvider;Ljava.lang.String;)V",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2399,8 +2133,6 @@
             "className": "sun.nio.fs.LinuxFileSystem",
             "methodName": "<init>",
             "methodDescriptor": "(Lsun.nio.fs.UnixFileSystemProvider;Ljava.lang.String;)V",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2417,8 +2149,6 @@
             "className": "java.lang.String",
             "methodName": "regionMatchesInternal",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;[B[BIII)Z",
-            "pc": "105",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2435,8 +2165,6 @@
             "className": "java.lang.String",
             "methodName": "equals",
             "methodDescriptor": "(Ljava.lang.Object;)Z",
-            "pc": "104",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2453,8 +2181,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "get",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "149",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2471,8 +2197,6 @@
             "className": "java.util.Properties",
             "methodName": "getProperty",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.String;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2489,8 +2213,6 @@
             "className": "java.lang.System",
             "methodName": "loadLibrary",
             "methodDescriptor": "(Ljava.lang.String;)V",
-            "pc": "29",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2507,8 +2229,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher$1",
             "methodName": "run",
             "methodDescriptor": "()Ljava.lang.Void;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2525,8 +2245,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher$1",
             "methodName": "run",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2543,8 +2261,6 @@
             "className": "java.security.AccessController",
             "methodName": "doPrivileged",
             "methodDescriptor": "(Ljava.security.PrivilegedAction;)Ljava.lang.Object;",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2561,8 +2277,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2579,8 +2293,6 @@
             "className": "java.lang.StringCoding",
             "methodName": "hasNegatives",
             "methodDescriptor": "([BII)Z",
-            "pc": "17",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2597,8 +2309,6 @@
             "className": "java.lang.StringCoding",
             "methodName": "encodeUTF8",
             "methodDescriptor": "(B[BZ)[B",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2615,8 +2325,6 @@
             "className": "java.lang.StringCoding",
             "methodName": "encode",
             "methodDescriptor": "(Ljava.nio.charset.Charset;B[B)[B",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2633,8 +2341,6 @@
             "className": "com.ibm.oti.util.Util",
             "methodName": "getBytes",
             "methodDescriptor": "(Ljava.lang.String;)[B",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2651,8 +2357,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "loadLibraryWithPath",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.ClassLoader;Ljava.lang.String;)V",
-            "pc": "48",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2669,8 +2373,6 @@
             "className": "java.lang.ClassLoader",
             "methodName": "loadLibraryWithClassLoader",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.ClassLoader;)V",
-            "pc": "31",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2687,8 +2389,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher",
             "methodName": "init",
             "methodDescriptor": "()I",
-            "pc": null,
-            "execType": "(Native Method)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2705,8 +2405,6 @@
             "className": "sun.nio.fs.UnixPath",
             "methodName": "encode",
             "methodDescriptor": "(Lsun.nio.fs.UnixFileSystem;Ljava.lang.String;)[B",
-            "pc": "97",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2723,8 +2421,6 @@
             "className": "sun.nio.fs.UnixPath",
             "methodName": "<init>",
             "methodDescriptor": "(Lsun.nio.fs.UnixFileSystem;Ljava.lang.String;)V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2741,8 +2437,6 @@
             "className": "java.lang.String",
             "methodName": "compressedArrayCopy",
             "methodDescriptor": "([BI[BII)V",
-            "pc": "81",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2759,8 +2453,6 @@
             "className": "java.lang.String",
             "methodName": "getBytes",
             "methodDescriptor": "([BIB)V",
-            "pc": "40",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2777,8 +2469,6 @@
             "className": "java.lang.AbstractStringBuilder",
             "methodName": "putStringAt",
             "methodDescriptor": "(ILjava.lang.String;)V",
-            "pc": "25",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2795,8 +2485,6 @@
             "className": "java.lang.AbstractStringBuilder",
             "methodName": "append",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.AbstractStringBuilder;",
-            "pc": "30",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2813,8 +2501,6 @@
             "className": "java.lang.StringBuilder",
             "methodName": "append",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.StringBuilder;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2831,8 +2517,6 @@
             "className": "sun.nio.fs.UnixFileSystem",
             "methodName": "getPath",
             "methodDescriptor": "(Ljava.lang.String;[Ljava.lang.String;)Ljava.nio.file.Path;",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2849,8 +2533,6 @@
             "className": "java.util.IdentityHashMap",
             "methodName": "keySet",
             "methodDescriptor": "()Ljava.util.Set;",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2867,8 +2549,6 @@
             "className": "java.util.Collections$SetFromMap",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.util.Map;)V",
-            "pc": "32",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2885,8 +2565,6 @@
             "className": "java.util.Collections",
             "methodName": "newSetFromMap",
             "methodDescriptor": "(Ljava.util.Map;)Ljava.util.Set;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2903,8 +2581,6 @@
             "className": "jdk.internal.misc.TerminatingThreadLocal$1",
             "methodName": "initialValue",
             "methodDescriptor": "()Ljava.util.Collection;",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2921,8 +2597,6 @@
             "className": "jdk.internal.misc.TerminatingThreadLocal$1",
             "methodName": "initialValue",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2939,8 +2613,6 @@
             "className": "java.lang.ThreadLocal",
             "methodName": "setInitialValue",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2957,8 +2629,6 @@
             "className": "java.lang.ThreadLocal",
             "methodName": "get",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "34",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2975,8 +2645,6 @@
             "className": "jdk.internal.misc.TerminatingThreadLocal",
             "methodName": "register",
             "methodDescriptor": "(Ljdk.internal.misc.TerminatingThreadLocal;)V",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -2993,8 +2661,6 @@
             "className": "sun.nio.fs.NativeBuffers",
             "methodName": "getNativeBufferFromCache",
             "methodDescriptor": "(I)Lsun.nio.fs.NativeBuffer;",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3011,8 +2677,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher",
             "methodName": "copyToNativeBuffer",
             "methodDescriptor": "(Lsun.nio.fs.UnixPath;)Lsun.nio.fs.NativeBuffer;",
-            "pc": "11",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3029,8 +2693,6 @@
             "className": "sun.nio.fs.UnixNativeDispatcher",
             "methodName": "stat",
             "methodDescriptor": "(Lsun.nio.fs.UnixPath;)I",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3047,8 +2709,6 @@
             "className": "sun.nio.fs.UnixFileSystemProvider",
             "methodName": "isRegularFile",
             "methodDescriptor": "(Ljava.nio.file.Path;)Z",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3065,8 +2725,6 @@
             "className": "java.nio.file.Files",
             "methodName": "isRegularFile",
             "methodDescriptor": "(Ljava.nio.file.Path;[Ljava.nio.file.LinkOption;)Z",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3083,8 +2741,6 @@
             "className": "java.lang.ref.Cleaner",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3101,8 +2757,6 @@
             "className": "jdk.internal.ref.CleanerFactory",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3119,8 +2773,6 @@
             "className": "sun.nio.fs.NativeBuffer",
             "methodName": "<init>",
             "methodDescriptor": "(I)V",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3137,8 +2789,6 @@
             "className": "sun.nio.fs.NativeBuffers",
             "methodName": "allocNativeBuffer",
             "methodDescriptor": "(I)Lsun.nio.fs.NativeBuffer;",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3155,8 +2805,6 @@
             "className": "jdk.internal.ref.CleanerImpl",
             "methodName": "start",
             "methodDescriptor": "(Ljava.lang.ref.Cleaner;Ljava.util.concurrent.ThreadFactory;)V",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3173,8 +2821,6 @@
             "className": "java.lang.ref.Cleaner",
             "methodName": "create",
             "methodDescriptor": "(Ljava.util.concurrent.ThreadFactory;)Ljava.lang.ref.Cleaner;",
-            "pc": "21",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3191,8 +2837,6 @@
             "className": "java.lang.Thread",
             "methodName": "start",
             "methodDescriptor": "()V",
-            "pc": "53",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3209,8 +2853,6 @@
             "className": "com.ibm.jit.JITHelpers",
             "methodName": "intrinsicIndexOfLatin1",
             "methodDescriptor": "(Ljava.lang.Object;BII)I",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3227,8 +2869,6 @@
             "className": "java.lang.String",
             "methodName": "indexOf",
             "methodDescriptor": "(II)I",
-            "pc": "68",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3245,8 +2885,6 @@
             "className": "java.lang.String",
             "methodName": "indexOf",
             "methodDescriptor": "(I)I",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3263,8 +2901,6 @@
             "className": "java.net.URI$Parser",
             "methodName": "scan",
             "methodDescriptor": "(IILjava.lang.String;)I",
-            "pc": "23",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3281,8 +2917,6 @@
             "className": "java.net.URI$Parser",
             "methodName": "parseHierarchical",
             "methodDescriptor": "(II)I",
-            "pc": "77",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3299,8 +2933,6 @@
             "className": "java.net.URI$Parser",
             "methodName": "parse",
             "methodDescriptor": "(Z)V",
-            "pc": "108",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3317,8 +2949,6 @@
             "className": "java.net.URI",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.String;)V",
-            "pc": "19",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3335,8 +2965,6 @@
             "className": "sun.nio.fs.UnixUriUtils",
             "methodName": "toUri",
             "methodDescriptor": "(Lsun.nio.fs.UnixPath;)Ljava.net.URI;",
-            "pc": "178",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3353,8 +2981,6 @@
             "className": "sun.nio.fs.UnixPath",
             "methodName": "toUri",
             "methodDescriptor": "()Ljava.net.URI;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3371,8 +2997,6 @@
             "className": "java.util.ImmutableCollections$MapN$MapNIterator",
             "methodName": "next",
             "methodDescriptor": "()Ljava.util.Map$Entry;",
-            "pc": "55",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3389,8 +3013,6 @@
             "className": "java.util.ImmutableCollections$MapN$MapNIterator",
             "methodName": "next",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3407,8 +3029,6 @@
             "className": "java.util.AbstractMap$1$1",
             "methodName": "next",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3425,8 +3045,6 @@
             "className": "java.lang.module.Configuration",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.module.ModuleFinder;Ljava.util.Map;)V",
-            "pc": "56",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3443,8 +3061,6 @@
             "className": "java.lang.module.ModuleDescriptor$1",
             "methodName": "newConfiguration",
             "methodDescriptor": "(Ljava.lang.module.ModuleFinder;Ljava.util.Map;)Ljava.lang.module.Configuration;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3461,8 +3077,6 @@
             "className": "java.lang.J9VMInternals",
             "methodName": "fastIdentityHashCode",
             "methodDescriptor": "(Ljava.lang.Object;)I",
-            "pc": "130",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3479,8 +3093,6 @@
             "className": "java.lang.Object",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3497,8 +3109,6 @@
             "className": "java.lang.module.ResolvedModule",
             "methodName": "hashCode",
             "methodDescriptor": "()I",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3515,8 +3125,6 @@
             "className": "java.util.ImmutableCollections$MapN",
             "methodName": "probe",
             "methodDescriptor": "(Ljava.lang.Object;)I",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3533,8 +3141,6 @@
             "className": "java.util.ImmutableCollections$MapN",
             "methodName": "<init>",
             "methodDescriptor": "([Ljava.lang.Object;)V",
-            "pc": "78",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3551,8 +3157,6 @@
             "className": "java.util.HashMap",
             "methodName": "resize",
             "methodDescriptor": "()[Ljava.util.HashMap$Node;",
-            "pc": "42",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3569,8 +3173,6 @@
             "className": "java.util.HashMap",
             "methodName": "putVal",
             "methodDescriptor": "(ILjava.lang.Object;Ljava.lang.Object;ZZ)Ljava.lang.Object;",
-            "pc": "288",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3587,8 +3189,6 @@
             "className": "java.util.HashMap",
             "methodName": "put",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3605,8 +3205,6 @@
             "className": "java.util.HashSet",
             "methodName": "add",
             "methodDescriptor": "(Ljava.lang.Object;)Z",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3623,8 +3221,6 @@
             "className": "jdk.internal.module.ModuleLoaderMap",
             "methodName": "platformModules",
             "methodDescriptor": "()Ljava.util.Set;",
-            "pc": "227",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3641,8 +3237,6 @@
             "className": "jdk.internal.module.ModuleLoaderMap",
             "methodName": "mappingFunction",
             "methodDescriptor": "(Ljava.lang.module.Configuration;)Ljava.util.function.Function;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3659,8 +3253,6 @@
             "className": "jdk.internal.module.ModuleBootstrap",
             "methodName": "loadModules",
             "methodDescriptor": "(Ljava.lang.module.Configuration;Ljava.util.function.Function;)V",
-            "pc": "92",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3677,8 +3269,6 @@
             "className": "java.net.URL",
             "methodName": "fromURI",
             "methodDescriptor": "(Ljava.net.URI;)Ljava.net.URL;",
-            "pc": "122",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3695,8 +3285,6 @@
             "className": "java.net.URI",
             "methodName": "toURL",
             "methodDescriptor": "()Ljava.net.URL;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3713,8 +3301,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "putIfAbsent",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3731,8 +3317,6 @@
             "className": "java.util.HashMap",
             "methodName": "getNode",
             "methodDescriptor": "(ILjava.lang.Object;)Ljava.util.HashMap$Node;",
-            "pc": "146",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3749,8 +3333,6 @@
             "className": "java.util.HashMap",
             "methodName": "get",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3767,8 +3349,6 @@
             "className": "jdk.internal.module.ModuleLoaderMap$Mapper",
             "methodName": "apply",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.ClassLoader;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3785,8 +3365,6 @@
             "className": "jdk.internal.module.ModuleLoaderMap$Mapper",
             "methodName": "apply",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3803,8 +3381,6 @@
             "className": "java.lang.Module",
             "methodName": "defineModules",
             "methodDescriptor": "(Ljava.lang.module.Configuration;Ljava.util.function.Function;Ljava.lang.ModuleLayer;)Ljava.util.Map;",
-            "pc": "109",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3821,8 +3397,6 @@
             "className": "java.lang.ModuleLayer",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.module.Configuration;Ljava.util.List;Ljava.util.function.Function;)V",
-            "pc": "34",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3839,8 +3413,6 @@
             "className": "java.lang.ModuleLayer",
             "methodName": "defineModules",
             "methodDescriptor": "(Ljava.lang.module.Configuration;Ljava.util.List;Ljava.util.function.Function;)Ljava.lang.ModuleLayer$Controller;",
-            "pc": "40",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3857,8 +3429,6 @@
             "className": "java.lang.ModuleLayer",
             "methodName": "defineModules",
             "methodDescriptor": "(Ljava.lang.module.Configuration;Ljava.util.function.Function;)Ljava.lang.ModuleLayer;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3875,8 +3445,6 @@
             "className": "java.lang.Module",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.lang.ModuleLayer;Ljava.lang.ClassLoader;Ljava.lang.module.ModuleDescriptor;Ljava.net.URI;)V",
-            "pc": "104",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3893,8 +3461,6 @@
             "className": "java.util.ImmutableCollections$SetN$SetNIterator",
             "methodName": "nextIndex",
             "methodDescriptor": "()I",
-            "pc": "49",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3911,8 +3477,6 @@
             "className": "java.util.ImmutableCollections$SetN$SetNIterator",
             "methodName": "next",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3929,8 +3493,6 @@
             "className": "java.util.AbstractCollection",
             "methodName": "toArray",
             "methodDescriptor": "([Ljava.lang.Object;)[Ljava.lang.Object;",
-            "pc": "113",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3947,8 +3509,6 @@
             "className": "java.lang.Module",
             "methodName": "initExports",
             "methodDescriptor": "(Ljava.lang.Module;Ljava.util.Map;)V",
-            "pc": "186",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3965,8 +3525,6 @@
             "className": "java.util.HashMap",
             "methodName": "putVal",
             "methodDescriptor": "(ILjava.lang.Object;Ljava.lang.Object;ZZ)Ljava.lang.Object; (Bytecode PC: 20, Line: 625)",
-            "pc": null,
-            "execType": "(Compiled Code)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -3983,8 +3541,6 @@
             "className": "java.util.HashMap",
             "methodName": "hash",
             "methodDescriptor": "(Ljava.lang.Object;)I",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4001,8 +3557,6 @@
             "className": "java.lang.Module",
             "methodName": "initExportsAndOpens",
             "methodDescriptor": "(Ljava.lang.Module;Ljava.util.Map;Ljava.util.Map;Ljava.util.List;)V",
-            "pc": "372",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4019,8 +3573,6 @@
             "className": "java.lang.Access",
             "methodName": "createOrGetClassLoaderValueMap",
             "methodDescriptor": "(Ljava.lang.ClassLoader;)Ljava.util.concurrent.ConcurrentHashMap;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4037,8 +3589,6 @@
             "className": "jdk.internal.loader.AbstractClassLoaderValue",
             "methodName": "map",
             "methodDescriptor": "(Ljava.lang.ClassLoader;)Ljava.util.concurrent.ConcurrentHashMap;",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4055,8 +3605,6 @@
             "className": "jdk.internal.loader.AbstractClassLoaderValue",
             "methodName": "get",
             "methodDescriptor": "(Ljava.lang.ClassLoader;)Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4073,8 +3621,6 @@
             "className": "jdk.internal.module.ServicesCatalog",
             "methodName": "getServicesCatalog",
             "methodDescriptor": "(Ljava.lang.ClassLoader;)Ljdk.internal.module.ServicesCatalog;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4091,8 +3637,6 @@
             "className": "jdk.internal.module.ModuleBootstrap",
             "methodName": "addIllegalAccess",
             "methodDescriptor": "(Ljava.lang.module.ModuleFinder;Ljdk.internal.module.SystemModules;Ljava.lang.ModuleLayer;Z)V",
-            "pc": "548",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4109,8 +3653,6 @@
             "className": "jdk.internal.module.IllegalAccessLogger$Builder",
             "methodName": "logAccessToConcealedPackages",
             "methodDescriptor": "(Ljava.lang.Module;Ljava.util.Set;)Ljdk.internal.module.IllegalAccessLogger$Builder;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4127,8 +3669,6 @@
             "className": "java.lang.Module",
             "methodName": "implAddOpensToAllUnnamed",
             "methodDescriptor": "(Ljava.util.Iterator;)V",
-            "pc": "45",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4145,8 +3685,6 @@
             "className": "java.lang.Access",
             "methodName": "addOpensToAllUnnamed",
             "methodDescriptor": "(Ljava.lang.Module;Ljava.util.Iterator;)V",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4163,8 +3701,6 @@
             "className": "java.util.HashMap",
             "methodName": "entrySet",
             "methodDescriptor": "()Ljava.util.Set;",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4181,8 +3717,6 @@
             "className": "java.util.HashMap",
             "methodName": "putMapEntries",
             "methodDescriptor": "(Ljava.util.Map;Z)V",
-            "pc": "84",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4199,8 +3733,6 @@
             "className": "java.util.HashMap",
             "methodName": "<init>",
             "methodDescriptor": "(Ljava.util.Map;)V",
-            "pc": "13",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4217,8 +3749,6 @@
             "className": "java.util.ImmutableCollections$MapN",
             "methodName": "get",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4235,8 +3765,6 @@
             "className": "java.util.Map",
             "methodName": "getOrDefault",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4253,8 +3781,6 @@
             "className": "jdk.internal.module.ModuleBootstrap$2",
             "methodName": "next",
             "methodDescriptor": "()Ljava.lang.Object;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4271,8 +3797,6 @@
             "className": "java.util.HashMap$Node",
             "methodName": "<init>",
             "methodDescriptor": "(ILjava.lang.Object;Ljava.lang.Object;Ljava.util.HashMap$Node;)V",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4289,8 +3813,6 @@
             "className": "java.util.HashMap",
             "methodName": "newNode",
             "methodDescriptor": "(ILjava.lang.Object;Ljava.lang.Object;Ljava.util.HashMap$Node;)Ljava.util.HashMap$Node; (Bytecode PC: 9, Line: 1815)",
-            "pc": null,
-            "execType": "(Compiled Code)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4307,8 +3829,6 @@
             "className": "java.util.HashMap",
             "methodName": "putVal",
             "methodDescriptor": "(ILjava.lang.Object;Ljava.lang.Object;ZZ)Ljava.lang.Object; (Bytecode PC: 56, Line: 627)",
-            "pc": null,
-            "execType": "(Compiled Code)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4325,8 +3845,6 @@
             "className": "java.util.HashMap",
             "methodName": "putIfAbsent",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4343,8 +3861,6 @@
             "className": "jdk.internal.module.IllegalAccessLogger$Builder",
             "methodName": "logAccessToExportedPackages",
             "methodDescriptor": "(Ljava.lang.Module;Ljava.util.Set;)Ljdk.internal.module.IllegalAccessLogger$Builder;",
-            "pc": "15",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4361,8 +3877,6 @@
             "className": "jdk.internal.module.IllegalAccessLogger$Builder",
             "methodName": "complete",
             "methodDescriptor": "()V",
-            "pc": "30",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4379,8 +3893,6 @@
             "className": "java.lang.System",
             "methodName": "completeInitialization",
             "methodDescriptor": "()V",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4397,8 +3909,6 @@
             "className": "java.lang.invoke.MethodHandle",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "39",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4415,8 +3925,6 @@
             "className": "java.lang.System",
             "methodName": "initGPUAssist",
             "methodDescriptor": "()V",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4433,8 +3941,6 @@
             "className": "java.lang.J9VMInternals",
             "methodName": "completeInitialization",
             "methodDescriptor": "()V",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4451,8 +3957,6 @@
             "className": "com.ibm.jvm.Trace",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4469,8 +3973,6 @@
             "className": "java.lang.Shutdown",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4487,8 +3989,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "loadClassOrNull",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljava.lang.Class;",
-            "pc": "116",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4505,8 +4005,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "loadClass",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljava.lang.Class;",
-            "pc": "3",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4523,8 +4021,6 @@
             "className": "jdk.internal.loader.ClassLoaders$AppClassLoader",
             "methodName": "loadClass",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljava.lang.Class;",
-            "pc": "36",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4541,8 +4037,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "<init>",
             "methodDescriptor": "()V",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4559,8 +4053,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4577,8 +4069,6 @@
             "className": "openj9.internal.tools.attach.target.IPC",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4595,8 +4085,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "initializeAttachAPI",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4613,8 +4101,6 @@
             "className": "java.lang.Class",
             "methodName": "cacheField",
             "methodDescriptor": "(Ljava.lang.reflect.Field;)Ljava.lang.reflect.Field;",
-            "pc": "75",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4631,8 +4117,6 @@
             "className": "java.lang.Class",
             "methodName": "getDeclaredFieldInternal",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljava.lang.reflect.Field;",
-            "pc": "73",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4649,8 +4133,6 @@
             "className": "java.lang.Class",
             "methodName": "getDeclaredField",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.reflect.Field;",
-            "pc": "23",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4667,8 +4149,6 @@
             "className": "java.lang.Class",
             "methodName": "getEnumVars",
             "methodDescriptor": "()Ljava.lang.Class$EnumVars;",
-            "pc": "26",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4685,8 +4165,6 @@
             "className": "java.lang.Class",
             "methodName": "getEnumConstantsShared",
             "methodDescriptor": "()[Ljava.lang.Object;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4703,8 +4181,6 @@
             "className": "java.lang.Access",
             "methodName": "getEnumConstantsShared",
             "methodDescriptor": "(Ljava.lang.Class;)[Ljava.lang.Enum;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4721,8 +4197,6 @@
             "className": "java.util.EnumSet",
             "methodName": "getUniverse",
             "methodDescriptor": "(Ljava.lang.Class;)[Ljava.lang.Enum;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4739,8 +4213,6 @@
             "className": "java.util.EnumSet",
             "methodName": "noneOf",
             "methodDescriptor": "(Ljava.lang.Class;)Ljava.util.EnumSet;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4757,8 +4229,6 @@
             "className": "java.util.EnumSet",
             "methodName": "of",
             "methodDescriptor": "(Ljava.lang.Enum;Ljava.lang.Enum;Ljava.lang.Enum;Ljava.lang.Enum;)Ljava.util.EnumSet;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4775,8 +4245,6 @@
             "className": "java.lang.reflect.Executable",
             "methodName": "declaredAnnotations",
             "methodDescriptor": "()Ljava.util.Map;",
-            "pc": "61",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4793,8 +4261,6 @@
             "className": "java.lang.reflect.Executable",
             "methodName": "getAnnotation",
             "methodDescriptor": "(Ljava.lang.Class;)Ljava.lang.annotation.Annotation;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4811,8 +4277,6 @@
             "className": "java.lang.reflect.Method",
             "methodName": "getAnnotation",
             "methodDescriptor": "(Ljava.lang.Class;)Ljava.lang.annotation.Annotation;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4829,8 +4293,6 @@
             "className": "java.lang.reflect.AnnotatedElement",
             "methodName": "isAnnotationPresent",
             "methodDescriptor": "(Ljava.lang.Class;)Z",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4847,8 +4309,6 @@
             "className": "java.lang.reflect.AccessibleObject",
             "methodName": "isAnnotationPresent",
             "methodDescriptor": "(Ljava.lang.Class;)Z",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4865,8 +4325,6 @@
             "className": "jdk.internal.reflect.Reflection",
             "methodName": "isCallerSensitive",
             "methodDescriptor": "(Ljava.lang.reflect.Method;)Z",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4883,8 +4341,6 @@
             "className": "jdk.internal.reflect.ReflectionFactory",
             "methodName": "newMethodAccessor",
             "methodDescriptor": "(Ljava.lang.reflect.Method;)Ljdk.internal.reflect.MethodAccessor;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4901,8 +4357,6 @@
             "className": "java.lang.reflect.Method",
             "methodName": "acquireMethodAccessor",
             "methodDescriptor": "()Ljdk.internal.reflect.MethodAccessor;",
-            "pc": "33",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4919,8 +4373,6 @@
             "className": "java.lang.reflect.Method",
             "methodName": "invoke",
             "methodDescriptor": "(Ljava.lang.Object;[Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "52",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4937,8 +4389,6 @@
             "className": "java.lang.AbstractStringBuilder",
             "methodName": "append",
             "methodDescriptor": "(J)Ljava.lang.AbstractStringBuilder;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4955,8 +4405,6 @@
             "className": "java.lang.StringBuilder",
             "methodName": "append",
             "methodDescriptor": "(J)Ljava.lang.StringBuilder;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4973,8 +4421,6 @@
             "className": "openj9.internal.tools.attach.target.FileLock",
             "methodName": "lockFile",
             "methodDescriptor": "(ZLjava.lang.String;Z)Z",
-            "pc": "447",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -4991,8 +4437,6 @@
             "className": "openj9.internal.tools.attach.target.CommonDirectory",
             "methodName": "tryObtainControllerLock",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "49",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5009,8 +4453,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "createFiles",
             "methodDescriptor": "(Ljava.lang.String;)Z",
-            "pc": "24",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5027,8 +4469,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "initialize",
             "methodDescriptor": "()Z",
-            "pc": "304",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5045,8 +4485,6 @@
             "className": "openj9.internal.tools.attach.target.AttachHandler",
             "methodName": "run",
             "methodDescriptor": "()V",
-            "pc": "42",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5063,8 +4501,6 @@
             "className": "java.io.File",
             "methodName": "listFiles",
             "methodDescriptor": "(Ljava.io.FileFilter;)[Ljava.io.File;",
-            "pc": "92",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5081,8 +4517,6 @@
             "className": "openj9.internal.tools.attach.target.CommonDirectory",
             "methodName": "deleteStaleDirectories",
             "methodDescriptor": "(Ljava.lang.String;)V",
-            "pc": "52",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5099,8 +4533,6 @@
             "className": "java.lang.String",
             "methodName": "toLowerCase",
             "methodDescriptor": "()Ljava.lang.String;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5117,8 +4549,6 @@
             "className": "sun.net.util.URLUtil",
             "methodName": "urlNoFragString",
             "methodDescriptor": "(Ljava.net.URL;)Ljava.lang.String;",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5135,8 +4565,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "getLoader",
             "methodDescriptor": "(I)Ljdk.internal.loader.URLClassPath$Loader;",
-            "pc": "61",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5153,8 +4581,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "getResource",
             "methodDescriptor": "(Ljava.lang.String;ZLjava.lang.ClassLoader;)Ljdk.internal.loader.Resource;",
-            "pc": "42",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5171,8 +4597,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "getResource",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljdk.internal.loader.Resource;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5189,8 +4613,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "findClassOnClassPathOrNull",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.Class;",
-            "pc": "41",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5207,8 +4629,6 @@
             "className": "java.lang.Class",
             "methodName": "forNameImpl",
             "methodDescriptor": "(Ljava.lang.String;ZLjava.lang.ClassLoader;)Ljava.lang.Class;",
-            "pc": null,
-            "execType": "(Native Method)",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5225,8 +4645,6 @@
             "className": "java.lang.Class",
             "methodName": "forName",
             "methodDescriptor": "(Ljava.lang.String;ZLjava.lang.ClassLoader;)Ljava.lang.Class;",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5243,8 +4661,6 @@
             "className": "sun.launcher.LauncherHelper",
             "methodName": "loadMainClass",
             "methodDescriptor": "(ILjava.lang.String;)Ljava.lang.Class;",
-            "pc": "93",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5261,8 +4677,6 @@
             "className": "sun.launcher.LauncherHelper",
             "methodName": "checkAndLoadMain",
             "methodDescriptor": "(ZILjava.lang.String;)Ljava.lang.Class;",
-            "pc": "42",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5279,8 +4693,6 @@
             "className": "sun.util.locale.BaseLocale",
             "methodName": "createInstance",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;)Lsun.util.locale.BaseLocale;",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5297,8 +4709,6 @@
             "className": "java.util.Locale",
             "methodName": "createConstant",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;)Ljava.util.Locale;",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5315,8 +4725,6 @@
             "className": "java.util.Locale",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "30",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5333,8 +4741,6 @@
             "className": "openj9.internal.tools.attach.target.TargetDirectory",
             "methodName": "createMyDirectory",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljava.lang.String;",
-            "pc": "143",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5351,8 +4757,6 @@
             "className": "openj9.internal.tools.attach.target.IPC",
             "methodName": "mkdirWithPermissions",
             "methodDescriptor": "(Ljava.lang.String;I)I",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5369,8 +4773,6 @@
             "className": "sun.util.locale.BaseLocale$Key",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5387,8 +4789,6 @@
             "className": "sun.util.locale.LocaleObjectCache",
             "methodName": "put",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5405,8 +4805,6 @@
             "className": "openj9.internal.tools.attach.target.IPC",
             "methodName": "checkOwnerAccessOnly",
             "methodDescriptor": "(Ljava.lang.String;)V",
-            "pc": "56",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5423,8 +4821,6 @@
             "className": "java.lang.String",
             "methodName": "charAt",
             "methodDescriptor": "(I)C",
-            "pc": "44",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5441,8 +4837,6 @@
             "className": "sun.util.locale.BaseLocale$Key",
             "methodName": "<init>",
             "methodDescriptor": "(Lsun.util.locale.BaseLocale;)V",
-            "pc": "119",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5459,8 +4853,6 @@
             "className": "sun.nio.fs.UnixFileSystemProvider",
             "methodName": "readAttributes",
             "methodDescriptor": "(Ljava.nio.file.Path;Ljava.lang.Class;[Ljava.nio.file.LinkOption;)Ljava.nio.file.attribute.BasicFileAttributes;",
-            "pc": "46",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5477,8 +4869,6 @@
             "className": "sun.nio.fs.LinuxFileSystemProvider",
             "methodName": "readAttributes",
             "methodDescriptor": "(Ljava.nio.file.Path;Ljava.lang.Class;[Ljava.nio.file.LinkOption;)Ljava.nio.file.attribute.BasicFileAttributes;",
-            "pc": "31",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5495,8 +4885,6 @@
             "className": "java.nio.file.Files",
             "methodName": "readAttributes",
             "methodDescriptor": "(Ljava.nio.file.Path;Ljava.lang.Class;[Ljava.nio.file.LinkOption;)Ljava.nio.file.attribute.BasicFileAttributes;",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5513,8 +4901,6 @@
             "className": "java.nio.file.Files",
             "methodName": "getPosixFilePermissions",
             "methodDescriptor": "(Ljava.nio.file.Path;[Ljava.nio.file.LinkOption;)Ljava.util.Set;",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5531,8 +4917,6 @@
             "className": "jdk.internal.loader.URLClassPath",
             "methodName": "getLoader",
             "methodDescriptor": "(Ljava.net.URL;)Ljdk.internal.loader.URLClassPath$Loader;",
-            "pc": "6",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5549,8 +4933,6 @@
             "className": "jdk.internal.loader.URLClassPath$FileLoader",
             "methodName": "getResource",
             "methodDescriptor": "(Ljava.lang.String;Z)Ljdk.internal.loader.Resource;",
-            "pc": "142",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5567,8 +4949,6 @@
             "className": "sun.nio.cs.StandardCharsets",
             "methodName": "aliasMap",
             "methodDescriptor": "()Ljava.util.Map;",
-            "pc": "10",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5585,8 +4965,6 @@
             "className": "sun.nio.cs.StandardCharsets",
             "methodName": "canonicalize",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.lang.String;",
-            "pc": "49",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5603,8 +4981,6 @@
             "className": "java.lang.StringCoding",
             "methodName": "lookupCharset",
             "methodDescriptor": "(Ljava.lang.String;)Ljava.nio.charset.Charset;",
-            "pc": "1",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5621,8 +4997,6 @@
             "className": "java.lang.StringCoding",
             "methodName": "encode",
             "methodDescriptor": "(Ljava.lang.String;B[B)[B",
-            "pc": "54",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5639,8 +5013,6 @@
             "className": "java.lang.String",
             "methodName": "getBytes",
             "methodDescriptor": "(Ljava.lang.String;)[B",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5657,8 +5029,6 @@
             "className": "openj9.internal.tools.attach.target.Advertisement",
             "methodName": "createAdvertisementFile",
             "methodDescriptor": "(Ljava.lang.String;Ljava.lang.String;)V",
-            "pc": "58",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5675,8 +5045,6 @@
             "className": "java.security.SecureClassLoader",
             "methodName": "getProtectionDomain",
             "methodDescriptor": "(Ljava.security.CodeSource;)Ljava.security.ProtectionDomain;",
-            "pc": "11",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5693,8 +5061,6 @@
             "className": "java.security.SecureClassLoader",
             "methodName": "defineClass",
             "methodDescriptor": "(Ljava.lang.String;[BIILjava.security.CodeSource;)Ljava.lang.Class;",
-            "pc": "9",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5711,8 +5077,6 @@
             "className": "jdk.internal.loader.BuiltinClassLoader",
             "methodName": "defineClass",
             "methodDescriptor": "(Ljava.lang.String;Ljdk.internal.loader.Resource;)Ljava.lang.Class;",
-            "pc": "130",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5729,8 +5093,6 @@
             "className": "java.security.Permissions",
             "methodName": "getPermissionCollection",
             "methodDescriptor": "(Ljava.security.Permission;Z)Ljava.security.PermissionCollection;",
-            "pc": "40",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5747,8 +5109,6 @@
             "className": "java.security.Permissions",
             "methodName": "add",
             "methodDescriptor": "(Ljava.security.Permission;)V",
-            "pc": "20",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5765,8 +5125,6 @@
             "className": "sun.security.util.LazyCodeSourcePermissionCollection",
             "methodName": "add",
             "methodDescriptor": "(Ljava.security.Permission;)V",
-            "pc": "22",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5783,8 +5141,6 @@
             "className": "jdk.internal.loader.ClassLoaders$AppClassLoader",
             "methodName": "getPermissions",
             "methodDescriptor": "(Ljava.security.CodeSource;)Ljava.security.PermissionCollection;",
-            "pc": "16",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5801,8 +5157,6 @@
             "className": "java.security.SecureClassLoader$1",
             "methodName": "apply",
             "methodDescriptor": "(Ljava.security.SecureClassLoader$CodeSourceKey;)Ljava.security.ProtectionDomain;",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5819,8 +5173,6 @@
             "className": "java.security.SecureClassLoader$1",
             "methodName": "apply",
             "methodDescriptor": "(Ljava.lang.Object;)Ljava.lang.Object;",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5837,8 +5189,6 @@
             "className": "java.util.concurrent.ConcurrentHashMap",
             "methodName": "computeIfAbsent",
             "methodDescriptor": "(Ljava.lang.Object;Ljava.util.function.Function;)Ljava.lang.Object;",
-            "pc": "117",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5855,8 +5205,6 @@
             "className": "java.nio.charset.StandardCharsets",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "42",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5873,8 +5221,6 @@
             "className": "sun.nio.cs.StandardCharsets",
             "methodName": "cache",
             "methodDescriptor": "()Ljava.util.Map;",
-            "pc": "60",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5891,8 +5237,6 @@
             "className": "java.security.SecureClassLoader$DebugHolder",
             "methodName": "<clinit>",
             "methodDescriptor": "()V",
-            "pc": "2",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5909,8 +5253,6 @@
             "className": "jdk.internal.misc.Unsafe",
             "methodName": "getAndAddInt",
             "methodDescriptor": "(Ljava.lang.Object;JI)I",
-            "pc": "18",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5927,8 +5269,6 @@
             "className": "java.util.concurrent.atomic.AtomicInteger",
             "methodName": "decrementAndGet",
             "methodDescriptor": "()I",
-            "pc": "8",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5945,8 +5285,6 @@
             "className": "java.lang.Class$ReflectCache",
             "methodName": "release",
             "methodDescriptor": "()V",
-            "pc": "4",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5963,8 +5301,6 @@
             "className": "java.lang.Class",
             "methodName": "cacheMethod",
             "methodDescriptor": "(Ljava.lang.reflect.Method;)Ljava.lang.reflect.Method;",
-            "pc": "172",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5981,8 +5317,6 @@
             "className": "sun.launcher.LauncherHelper",
             "methodName": "validateMainClass",
             "methodDescriptor": "(Ljava.lang.Class;)V",
-            "pc": "14",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -5999,8 +5333,6 @@
             "className": "HelloWorld",
             "methodName": "rec",
             "methodDescriptor": "(I)I",
-            "pc": "7",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6017,8 +5349,6 @@
             "className": "HelloWorld",
             "methodName": "multiLine",
             "methodDescriptor": "(I)I",
-            "pc": "75",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6035,8 +5365,6 @@
             "className": "HelloWorld",
             "methodName": "recMethod",
             "methodDescriptor": "(I)I",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6053,8 +5381,6 @@
             "className": "HelloWorld",
             "methodName": "main",
             "methodDescriptor": "([Ljava.lang.String;)V",
-            "pc": "13",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6071,8 +5397,6 @@
             "className": "HelloWorld",
             "methodName": "multiInput",
             "methodDescriptor": "(IIIII)I",
-            "pc": "12",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6089,8 +5413,6 @@
             "className": "java.lang.ApplicationShutdownHooks",
             "methodName": "runHooks",
             "methodDescriptor": "()V",
-            "pc": "36",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6107,8 +5429,6 @@
             "className": "java.lang.ApplicationShutdownHooks$1",
             "methodName": "run",
             "methodDescriptor": "()V",
-            "pc": "0",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6125,8 +5445,6 @@
             "className": "java.lang.Shutdown",
             "methodName": "runHooks",
             "methodDescriptor": "()V",
-            "pc": "66",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
@@ -6143,8 +5461,6 @@
             "className": "java.lang.Shutdown",
             "methodName": "shutdown",
             "methodDescriptor": "()V",
-            "pc": "5",
-            "execType": "interpreted",
             "metrics": [
                 {
                     "key": "methodSize",
