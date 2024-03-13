@@ -1,0 +1,32 @@
+
+
+ME_KEY_ID = "id"
+ME_KEY_CLASS_NAME = "className"
+ME_KEY_METHOD_NAME = "methodName"
+ME_KEY_METHOD_DESCRIPTOR = "methodDescriptor"
+ME_KEY_METRICS = "metrics"
+
+
+STATS_KEY_METHODS = "methods"
+STATS_KEY_EXEC_TYPES = "execTypes"
+STATS_KEY_INVOKES = "invokes"
+STATS_KEY_ROOTS = "roots"
+STATS_KEY_LAMBDAS = "lambdas"
+STATS_KEY_LAMBDA_COUNT = "lambdaCount"
+STATS_KEY_METHOD_COUNT = "methodCount"
+STATS_KEY_INVOKE_COUNT = "invokeCount"
+
+DIFF_KEY_FILE_NAME_1 = "file1"
+DIFF_KEY_FILE_NAME_2 = "file2"
+DIFF_KEY_SHARED_METHODS = "sharedMethods"
+DIFF_KEY_DIFF_METHODS = "diffMethods"
+DIFF_KEY_DIFF_METHOD_COUNT = "diffMethodCount"
+DIFF_KEY_SHARED_METHOD_COUNT = "sharedMethodCount"
+DIFF_KEY_SHARED_INVOKES = "sharedInvokes"
+DIFF_KEY_DIFF_INVOKES = "diffInvokes"
+DIFF_KEY_DIFF_INVOKE_COUNT = "diffInvokeCount"
+DIFF_KEY_SHARED_INVOKE_COUNT = "sharedInvokeCount"
+DIFF_KEY_DIFF_LAMBDA_METHODS = "diffLambdaMethods"
+DIFF_KEY_DIFF_LAMBDA_COUNT = "diffLambdaMethodCount"
+DIFF_KEY_DIFF_LAMBDA_INVOKES = "diffLambdaInvokes"
+DIFF_KEY_DIFF_LAMBDA_INVOKE_COUNT = "diffLambdaInvokeCount"

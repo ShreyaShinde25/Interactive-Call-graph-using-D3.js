@@ -5,7 +5,7 @@ import os
 from collections import defaultdict
 
 # can be tested at https://regexr.com/7snrp
-PATTERN = r'(?P<ts>\d{2}\:\d{2}\:\d{2}\.\d+)(\*|\s)+(?P<thread>\w+)\s+(?P<tracepoint>(\w|\.)+)\s(.+)\[(?P<stack_pos>\d+)\]\s(?P<class_method_name>.+)(?P<input_params>\(.*\))(?P<return_type>.+)\s(\(Bytecode\sPC\:\s(?P<pc>\d+)\,\sLine\:\s(?P<line_no>\d+)\))?(\sinvkCD\:\s(?P<invoke_count_down>\d+)\,)?(?P<exec_type>\((Compiled Code|Native Method)\))?(\sstrtCnt\:\s(?P<start_sample_count>\d+)\,\sgblCnt\:\s(?P<global_sample_count>\d+)\,\scpu\:\s(?P<cpu>\d+\.\d+)\%\,)?\s(?P<method_size>\d+)\sbcsz'
+PATTERN = r'(?P<ts>\d{2}\:\d{2}\:\d{2}\.\d+)(\*|\s)+(?P<thread>\w+)\s+(?P<tracepoint>(\w|\.)+)\s(.+)\[(?P<stack_pos>\d+)\]\s(?P<class_method_name>.+)(?P<input_params>\(\S*\))(?P<return_type>\S+)\s(\(Bytecode\sPC\:\s(?P<pc>\d+)\,\sLine\:\s(?P<line_no>\d+)\)\s)?(invkCD\:\s(?P<invoke_count_down>\d+)\,)?(?P<exec_type>\((Compiled Code|Native Method)\))?(\sstrtCnt\:\s(?P<start_sample_count>\d+)\,\sgblCnt\:\s(?P<global_sample_count>\d+)\,\scpu\:\s(?P<cpu>\d+\.\d+)\%\,)?\s(?P<method_size>\d+)\sbcsz'
 
 class LogStackEntry:
     def __init__(self, data):
@@ -35,6 +35,12 @@ class LogStackEntry:
     def get_stack_pos(self):
         return self.get_value("stack_pos")
 
+    def get_exec_type(self):
+        t = self.get_value("exec_type")
+        if t:
+            t = t.lower().split(" ")[0]
+        return t if t else "interpreted"
+    
     def get_value(self, key):
         return self._data[key] if key in self._data else None
 
@@ -42,7 +48,8 @@ def parse_line_for_data(line):
     try:
         match = re.search(PATTERN, line)
         if match:
-            return LogStackEntry(match.groupdict())
+            entry = LogStackEntry(match.groupdict())
+            return entry
         else:
             print(f"No match found: {line}")
             return None
@@ -79,6 +86,7 @@ def update_paths(json_paths, call_stack, method_map):
         current_entry = call_stack[i]
         current_id = method_map[current_entry.get_signature()]
         call_site = prev_entry.get_call_site() if prev_entry else current_entry.get_thread()
+        exec_type = current_entry.get_exec_type()
         found = False
         for entry in current_level:
             # match criteria:
@@ -90,7 +98,7 @@ def update_paths(json_paths, call_stack, method_map):
                 break
         if not found:
             # print(f'new entry: {current_entry.get_signature()}' )
-            new_entry = {"id": current_id, "callSite": call_site, "children": list()}
+            new_entry = {"id": current_id, "callSite": call_site, "execType": exec_type, "children": list()}
             current_level.append(new_entry)
             current_level = new_entry["children"]
         prev_entry = current_entry
