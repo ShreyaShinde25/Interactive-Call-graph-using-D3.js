@@ -241,7 +241,7 @@ if __name__ == "__main__":
     }
     parser = argparse.ArgumentParser(description='Script for generating customizable call graph visualizations using pyvis.')
     parser.add_argument('--input', '-i', type=str, required=True, help='input (.json) file to process with call graph info.') 
-    parser.add_argument('--out', '-o', type=str, default='', help='output (.html) file containing call graph visualization.')    
+    parser.add_argument('--output', '-o', type=str, default='', help='output (.html) file containing call graph visualization.')    
     parser.add_argument('--ref', '-r', type=str, default='ref.html', help='reference (.html) file containing custom javascript to inject.')    
     parser.add_argument('--type', '-t', type=str, default='cct', help=f'type of visualization to generate, valid options: {VIS_TYPES}.')
     parser.add_argument('--maxDepth', '-D', type=int, default=1000000000, help=f'max depth in call graph data to visualize.')    
@@ -280,10 +280,10 @@ if __name__ == "__main__":
         NODE_SIZE[k] = (MAX_DISPLAY_SIZE-MIN_DISPLAY_SIZE) * (NODE_SIZE[k]-min_size)/(max_size-min_size) + MIN_DISPLAY_SIZE
 
     # configure file names    
-    base_html = f'{out_dir}/{args.type}-base-{args.out}'
-    out_html = f'{out_dir}/{args.type}-{args.out}'
-    if args.out == '':
-        json_name = args.input.split('/')[-1].split('.json')[0]
+    base_html = f'{out_dir}/{args.type}-base-{args.output}'
+    out_html = f'{out_dir}/{args.type}-{args.output}'
+    if args.output == '':
+        json_name = args.input.split('/')[-1].split('.')[0]
         base_html = f'{out_dir}/{args.type}-base-{json_name}.html'
         out_html = f'{out_dir}/{args.type}-{json_name}.html'
     print(f'parsing: {args.input}...')
@@ -295,12 +295,6 @@ if __name__ == "__main__":
         root_list.append(root_node)
     print(f'generating: {base_html}...')
     # create vis.js output
-    
-    # if args.type == 'cg':
-    #     visualize_call_tree( METHODS, NODE_SIZE, PATHS, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
-    # else:
-    #     visualize(root_list=root_list, file_name=base_html, max_depth=args.maxDepth, max_edges=args.maxEdges, show=False)
-    
     visualize(
         root_list=root_list, 
         file_name=base_html, 
