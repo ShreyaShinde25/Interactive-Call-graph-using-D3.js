@@ -1,9 +1,11 @@
 import re
 import json
+import argparse
+import os
 from collections import defaultdict
 
 # can be tested at https://regexr.com/7snrp
-PATTERN = r'(?P<ts>\d{2}\:\d{2}\:\d{2}\.\d{3})(\*|\s)+(?P<thread>\w+)\s+(?P<tracepoint>(\w|\.)+)\s(.+)\[(?P<stack_pos>\d+)\]\s(?P<class_method_name>.+)(?P<input_params>\(.*\))(?P<return_type>.+)\s(\(Bytecode\sPC\:\s(?P<pc>\d+)\,\sLine\:\s(?P<line_no>\d+)\))?(\sinvkCD\:\s(?P<invoke_count_down>\d+)\,)?(?P<exec_type>\((Compiled Code|Native Method)\))?(\sstrtCnt\:\s(?P<start_sample_count>\d+)\,\sgblCnt\:\s(?P<global_sample_count>\d+)\,\scpu\:\s(?P<cpu>\d+\.\d+)\%\,)?\s(?P<method_size>\d+)\sbcsz'
+PATTERN = r'(?P<ts>\d{2}\:\d{2}\:\d{2}\.\d+)(\*|\s)+(?P<thread>\w+)\s+(?P<tracepoint>(\w|\.)+)\s(.+)\[(?P<stack_pos>\d+)\]\s(?P<class_method_name>.+)(?P<input_params>\(.*\))(?P<return_type>.+)\s(\(Bytecode\sPC\:\s(?P<pc>\d+)\,\sLine\:\s(?P<line_no>\d+)\))?(\sinvkCD\:\s(?P<invoke_count_down>\d+)\,)?(?P<exec_type>\((Compiled Code|Native Method)\))?(\sstrtCnt\:\s(?P<start_sample_count>\d+)\,\sgblCnt\:\s(?P<global_sample_count>\d+)\,\scpu\:\s(?P<cpu>\d+\.\d+)\%\,)?\s(?P<method_size>\d+)\sbcsz'
 
 class LogStackEntry:
     def __init__(self, data):
@@ -120,21 +122,32 @@ def read_in_call_stacks(file, yield_tracepoint):
             yield call_stacks[thread]
 
 def main():
+    parser = argparse.ArgumentParser(description='Script for converting JVM tracepoint output into JSON format which can be used for caller-callee visualizations.')
+    parser.add_argument('--input', '-i', type=str, required=True, help='path to input (.log, .fmt) file to process with tracepoint output.') 
+    parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will contain execution path information.')    
+    args = parser.parse_args()
+    out_dir = 'out'
+    if os.path.isdir(out_dir) == False:
+        os.mkdir(out_dir) 
     method_map = {}
     next_method_id = 0
     json_methods = []
     json_paths = []
 
-    with open('hello_trace0.log', 'r') as file:
+    with open(args.input, 'r') as file:
         for call_stack in read_in_call_stacks(file, "j9jit.93"):
             next_method_id = process_call_stack(call_stack, method_map, next_method_id, json_methods, json_paths)
-
+    
+    # structured based on outline in README
     json_output = {
         "methods": json_methods,
         "paths": json_paths
     }
-
-    with open('output.json', 'w') as json_file:
+    output_json = f"{out_dir}/{args.output}"
+    if args.output == '':
+        log_name = args.input.split('/')[-1].split('.')[0]
+        output_json = f'{out_dir}/{log_name}.json'
+    with open(output_json, 'w') as json_file:
         json.dump(json_output, json_file, indent=4)
 
 if __name__ == "__main__":
