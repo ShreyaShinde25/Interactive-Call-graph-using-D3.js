@@ -38,7 +38,7 @@ class LogStackEntry:
     def get_exec_type(self):
         t = self.get_value("exec_type")
         if t:
-            t = t.lower().split(" ")[0]
+            t = t.lower().split(" ")[0].replace("(", "")
         return t if t else "interpreted"
     
     def get_value(self, key):
