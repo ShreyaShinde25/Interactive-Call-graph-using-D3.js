@@ -4,10 +4,10 @@ import os
 from collections import deque
 from collections import defaultdict
 import consts
+import util
 
 def get_method_signature(method_data):
-    return f"{method_data['className']}.{method_data['methodName']}.{method_data['methodDescriptor']}"
-
+    return f"{method_data['className']}.{method_data['methodName']}{method_data['methodDescriptor']}"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script summarizing stats related to callers-callees from a single program run.')
@@ -31,11 +31,12 @@ if __name__ == "__main__":
     methods = data['methods']
     METHODS = {m['id']: m for m in data['methods']}
     paths = data['paths']
-    METHOD_FREQ = defaultdict(int)
+    METHOD_FREQ = defaultdict(int) # keep track of all methods
     EXEC_TYPE_FREQ = defaultdict(int)
     INVOKE_FREQ = defaultdict(int)
     ROOT_FREQ = defaultdict(int)
-    LAMBDAS = defaultdict(int)
+    LAMBDA_FREQ = defaultdict(int) # keep track of only lambda methods
+    REFLECT_METHOD_FREQ = defaultdict(int) # keep track of only reflection generated methods
     for root in paths:
         q = deque()
         q.append(root)
@@ -46,8 +47,13 @@ if __name__ == "__main__":
                 entry = q.popleft()
                 method_data = METHODS[entry["id"]]
                 method_signature = get_method_signature(method_data)
-                if "$$Lambda$" in method_signature:
-                    LAMBDAS[method_signature] += 1
+                # count lambda methods separately
+                if "$$Lambda$" in method_signature: 
+                    LAMBDA_FREQ[method_signature] += 1
+                # count reflection generated methods separately
+                elif "jdk.internal.reflect.Generated" in method_signature: 
+                    REFLECT_METHOD_FREQ[method_signature] += 1
+                # count total methods 
                 METHOD_FREQ[method_signature] += 1
                 EXEC_TYPE_FREQ[entry["execType"]] += 1
                 for child in entry["children"]:
@@ -59,12 +65,14 @@ if __name__ == "__main__":
                     INVOKE_FREQ[edge_id] += 1
     with open(stats_json, 'w') as f:
         stats = {
-            consts.STATS_KEY_METHODS: dict(sorted(METHOD_FREQ.items(), key=lambda item: item[1], reverse=True)), 
-            consts.STATS_KEY_EXEC_TYPES: dict(sorted(EXEC_TYPE_FREQ.items(), key=lambda item: item[1], reverse=True)),
-            consts.STATS_KEY_INVOKES: dict(sorted(INVOKE_FREQ.items(), key=lambda item: item[1], reverse=True)), 
-            consts.STATS_KEY_ROOTS: dict(sorted(ROOT_FREQ.items(), key=lambda item: item[1], reverse=True)),
-            consts.STATS_KEY_LAMBDAS: dict(sorted(LAMBDAS.items(), key=lambda item: item[1], reverse=True)),
-            consts.STATS_KEY_LAMBDA_COUNT: len(LAMBDAS),
+            consts.STATS_KEY_METHODS: util.sort_dict(METHOD_FREQ), 
+            consts.STATS_KEY_EXEC_TYPES: util.sort_dict(EXEC_TYPE_FREQ),
+            consts.STATS_KEY_INVOKES: util.sort_dict(INVOKE_FREQ), 
+            consts.STATS_KEY_ROOTS: util.sort_dict(ROOT_FREQ),
+            consts.STATS_KEY_LAMBDAS: util.sort_dict(LAMBDA_FREQ),
+            consts.STATS_KEY_REFLECT_METHODS: util.sort_dict(REFLECT_METHOD_FREQ),
+            consts.STATS_KEY_LAMBDA_COUNT: len(LAMBDA_FREQ),
+            consts.STATS_KEY_REFLECT_METHOD_COUNT: len(REFLECT_METHOD_FREQ),
             consts.STATS_KEY_METHOD_COUNT: len(METHOD_FREQ),
             consts.STATS_KEY_INVOKE_COUNT: len(INVOKE_FREQ),
         }

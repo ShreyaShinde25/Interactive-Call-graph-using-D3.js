@@ -1,7 +1,7 @@
 #!/bin/bash
 DACAPO_JAR=./dacapo-23.11-chopin.jar
 JAVA=../jdk/bin/java
-for I in 1 2 3 4 5
+for I in $(seq 1 5)
 do 
     { echo "${1}_trace93-96_${I}.trc"; } &>> ${1}_time.log
     { time $JAVA -jar $DACAPO_JAR ${1}; } &>> ${1}_time.log
