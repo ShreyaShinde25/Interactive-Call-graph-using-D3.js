@@ -16,9 +16,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    out_dir = 'out'
-    if os.path.isdir(out_dir) == False:
-        os.mkdir(out_dir) 
+    out_dir = consts.OUT_DIR
+    util.mkdir(consts.OUT_DIR)
+
     stats_json = f"{out_dir}/{args.output}"
     if args.output == '':
         file_name = args.input.split('/')[-1].split('.')[0]
@@ -60,8 +60,8 @@ if __name__ == "__main__":
                     q.append(child)
                     child_method_data = METHODS[child["id"]]
                     child_method_signature = get_method_signature(child_method_data)
-                    # edge_id = f"{method_signature}->{child_method_signature}:{child['callSite']}"
-                    edge_id = f"{method_signature}->{child_method_signature}"
+                    edge_id = f"{method_signature}->{child_method_signature}:{child['callSite']}"
+                    # edge_id = f"{method_signature}->{child_method_signature}"
                     INVOKE_FREQ[edge_id] += 1
     with open(stats_json, 'w') as f:
         stats = {

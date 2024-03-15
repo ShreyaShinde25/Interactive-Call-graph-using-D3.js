@@ -11,34 +11,15 @@ def generate_stats_file(input_file, out_dir, output_name):
     result = subprocess.run(cmd.split(" "))
     return f"{out_dir}/{output_name}_stats.json"
 
+def distrib_by_upper_bounds(data, upper_bounds):
+    bucket_map = {f"<={k}":0 for k in upper_bounds}
+    for k in data:
+        for upper in upper_bounds:
+            if data[k] <= upper:
+                bucket_map[f"<={upper}"] += 1
+    return bucket_map
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Script comparing caller-callee relationships between program runs.')
-    parser.add_argument('--input1', '-i1', type=str, required=True, help='path to the first input (.json) file to process with caller-callee data.')
-    parser.add_argument('--input2', '-i2', type=str, required=True, help='path to the second input (.json) file to process with caller-callee data.')
-    parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will contain results from the comparison.') 
-
-    args = parser.parse_args()
-
-    out_dir = 'out'
-    if os.path.isdir(out_dir) == False:
-        os.mkdir(out_dir) 
-    diff_json = f"{out_dir}/{args.output}"
-    if args.output == '':
-        file_name1 = args.input1.split('/')[-1].split('.')[0].replace("_stats", "")
-        file_name2 = args.input2.split('/')[-1].split('.')[0].replace("_stats", "")
-        diff_json = f"{out_dir}/diff_{file_name1}_{file_name2}.json"
-
-    # generate stats files
-    stats_json_path1 = generate_stats_file(args.input1, out_dir, file_name1)
-    stats_json_path2 = generate_stats_file(args.input2, out_dir, file_name2)
-    stats1 = None
-    stats2 = None
-    with open(stats_json_path1, 'r') as f:
-        stats1 = json.load(f)
-    with open(stats_json_path2, 'r') as f:
-        stats2 = json.load(f)
-    
+def run_diff(stats1, stats2):
     diff = {
         consts.DIFF_KEY_FILE_NAME_1: file_name1,
         consts.DIFF_KEY_FILE_NAME_2: file_name2,
@@ -109,6 +90,39 @@ if __name__ == "__main__":
     diff[consts.DIFF_KEY_LAMBDA_INVOKES] = util.sort_dict(diff[consts.DIFF_KEY_LAMBDA_INVOKES])
     diff[consts.DIFF_KEY_REFLECT_METHODS] = util.sort_dict(diff[consts.DIFF_KEY_REFLECT_METHODS])
     diff[consts.DIFF_KEY_REFLECT_INVOKES] = util.sort_dict(diff[consts.DIFF_KEY_REFLECT_INVOKES])
+    diff[consts.DIFF_KEY_METHOD_FREQ_DISTRIB] = distrib_by_upper_bounds(diff[consts.DIFF_KEY_METHODS], (1,2,5,10,50))
+    diff[consts.DIFF_KEY_INVOKE_FREQ_DISTRIB] = distrib_by_upper_bounds(diff[consts.DIFF_KEY_INVOKES], (1,2,5,10,50))
+
+    return diff
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Script comparing caller-callee relationships between program runs.')
+    parser.add_argument('--input1', '-i1', type=str, required=True, help='path to the first input (.json) file to process with caller-callee data.')
+    parser.add_argument('--input2', '-i2', type=str, required=True, help='path to the second input (.json) file to process with caller-callee data.')
+    parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will contain results from the comparison.') 
+
+    args = parser.parse_args()
+
+    out_dir = consts.OUT_DIR
+    util.mkdir(out_dir)
+
+    diff_json = f"{out_dir}/{args.output}"
+    if args.output == '':
+        file_name1 = util.get_file_name(args.input1).replace("_stats", "")
+        file_name2 = util.get_file_name(args.input2).replace("_stats", "")
+        diff_json = f"{out_dir}/diff_{file_name1}_{file_name2}.json"
+
+    # generate stats files
+    stats_json_path1 = generate_stats_file(args.input1, out_dir, file_name1)
+    stats_json_path2 = generate_stats_file(args.input2, out_dir, file_name2)
+    stats1 = None
+    stats2 = None
+    with open(stats_json_path1, 'r') as f:
+        stats1 = json.load(f)
+    with open(stats_json_path2, 'r') as f:
+        stats2 = json.load(f)
+    
+    diff = run_diff(stats1, stats2)
 
     with open(diff_json, 'w') as f:
         json.dump(diff, f, indent=4)

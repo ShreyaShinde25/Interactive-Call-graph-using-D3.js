@@ -1,4 +1,4 @@
-
+OUT_DIR = "out"
 
 ME_KEY_ID = "id"
 ME_KEY_CLASS_NAME = "className"
@@ -40,3 +40,6 @@ DIFF_KEY_REFLECT_METHODS = "diffReflectMethods"
 DIFF_KEY_REFLECT_COUNT = "diffReflectMethodCount"
 DIFF_KEY_REFLECT_INVOKES = "diffReflectInvokes"
 DIFF_KEY_REFLECT_INVOKE_COUNT = "diffReflectInvokeCount"
+
+DIFF_KEY_METHOD_FREQ_DISTRIB = "diffMethodFreqDistrib"
+DIFF_KEY_INVOKE_FREQ_DISTRIB = "diffInvokeFreqDistrib"
