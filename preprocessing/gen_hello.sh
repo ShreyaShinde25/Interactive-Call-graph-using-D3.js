@@ -1,7 +1,7 @@
 #!/bin/bash
 MSP=1
 LOG_DIR=./logs
-cd ./run
+cd ./sample_apps
 # this script runs the program and generates the tracepoint outputs
 ./hello.sh ${MSP}
 cd ..
