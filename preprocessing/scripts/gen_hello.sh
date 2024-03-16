@@ -5,10 +5,10 @@ APP_DIR=apps # app directory
 JAVA=jdk/bin/java # custom java binary
 JAVAC=jdk/bin/javac # custom javac binary
 cd ..
-mkdir "./${LOG_DIR}"
+mkdir "${LOG_DIR}"
 chmod +x ./jdk/bin/*
-cd "./${APP_DIR}"
-"./$JAVAC" HelloWorld.java
+cd "${APP_DIR}"
+"../$JAVAC" HelloWorld.java
 for I in $(seq 1 5)
 do
     # log tracepoint data to file

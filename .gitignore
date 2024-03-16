@@ -6,3 +6,4 @@ scratch/
 plots/
 __pycache__/
 dacapo-23.11-chopin*
+*.class
