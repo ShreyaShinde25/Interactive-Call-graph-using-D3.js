@@ -6,7 +6,7 @@
 
 1. Download the custom JDK from: https://ibm.box.com/s/zr0b91rfozrnwsm5n50od4m3stxa3dci. After downloading, extract the contents of the .zip file to `preprocessing`. Once complete, the custom JDK should be located under the directory named `preprocessing/jdk`. (e.g. the `java` binary of the JDK should be located under the path `preprocessing/jdk/bin`)
 
-2. [*Optinal*] Download the Dacapo benchmark mark from: https://github.com/dacapobench/dacapobench/releases/tag/v23.11-chopin. 
+2. [*Optional*] Download the Dacapo benchmark mark from: https://github.com/dacapobench/dacapobench/releases/tag/v23.11-chopin. 
 The downloaded .zip file should be extracted to the directory `preprocessing/apps`. There should be 2 main components extracted: a folder named `dacapo-23.11-chopin` and a jar file named ` dacapo-23.11-chopin.jar`
 
 ## Visualization Input Data Generation
