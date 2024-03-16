@@ -1,5 +1,6 @@
 out/
 lib/
+jdk/
 logs/
 scratch/
 plots/
