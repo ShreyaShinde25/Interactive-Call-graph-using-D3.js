@@ -113,5 +113,3 @@ After completing the setup above, visualization data can be generated using the 
     - For recursive methods, this may mean the recursion stops after just one child is added (i.e. this means the recursive call is only made from a single position in the method)
 
 
-- See ```example.json``` for reference
-
