@@ -1,5 +1,7 @@
 out/
 lib/
 logs/
-
+scratch/
+plots/
 __pycache__/
+dacapo-23.11-chopin*

@@ -3,31 +3,13 @@ import json
 import os
 from collections import deque
 from collections import defaultdict
-import consts
+import const
 import util
 
 def get_method_signature(method_data):
     return f"{method_data['className']}.{method_data['methodName']}{method_data['methodDescriptor']}"
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Script summarizing stats related to callers-callees from a single program run.')
-    parser.add_argument('--input', '-i', type=str, required=True, help='path to input (.json) file to process with caller-callee data.')
-    parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will stats from analysis.') 
-
-    args = parser.parse_args()
-
-    out_dir = consts.OUT_DIR
-    util.mkdir(consts.OUT_DIR)
-
-    stats_json = f"{out_dir}/{args.output}"
-    if args.output == '':
-        file_name = args.input.split('/')[-1].split('.')[0]
-        stats_json = f"{out_dir}/{file_name}_stats.json"
-
-
-    with open(args.input, 'r') as f:
-        data = json.load(f)
-    
+def gen_stats(data):
     methods = data['methods']
     METHODS = {m['id']: m for m in data['methods']}
     paths = data['paths']
@@ -63,19 +45,46 @@ if __name__ == "__main__":
                     edge_id = f"{method_signature}->{child_method_signature}:{child['callSite']}"
                     # edge_id = f"{method_signature}->{child_method_signature}"
                     INVOKE_FREQ[edge_id] += 1
+    stats = {
+        const.STATS_KEY_METHODS: util.sort_dict(METHOD_FREQ), 
+        const.STATS_KEY_EXEC_TYPES: util.sort_dict(EXEC_TYPE_FREQ),
+        const.STATS_KEY_INVOKES: util.sort_dict(INVOKE_FREQ), 
+        const.STATS_KEY_ROOTS: util.sort_dict(ROOT_FREQ),
+        const.STATS_KEY_LAMBDAS: util.sort_dict(LAMBDA_FREQ),
+        const.STATS_KEY_REFLECT_METHODS: util.sort_dict(REFLECT_METHOD_FREQ),
+        const.STATS_KEY_LAMBDA_COUNT: len(LAMBDA_FREQ),
+        const.STATS_KEY_REFLECT_METHOD_COUNT: len(REFLECT_METHOD_FREQ),
+        const.STATS_KEY_METHOD_COUNT: len(METHOD_FREQ),
+        const.STATS_KEY_INVOKE_COUNT: len(INVOKE_FREQ),
+        const.STATS_KEY_METHOD_FREQ_COUNT: sum(METHOD_FREQ.values()),
+        const.STATS_KEY_INVOKE_FREQ_COUNT: sum(INVOKE_FREQ.values()),
+        const.STATS_KEY_LAMBDA_FREQ_COUNT: sum(LAMBDA_FREQ.values()),
+        const.STATS_KEY_REFLECT_METHOD_FREQ_COUNT: sum(REFLECT_METHOD_FREQ.values()),
+    }
+    return stats
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Script summarizing stats related to callers-callees from a single program run.')
+    parser.add_argument('--input', '-i', type=str, required=True, help='path to input (.json) file to process with caller-callee data.')
+    parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will stats from analysis.') 
+
+    args = parser.parse_args()
+
+    out_dir = const.OUT_DIR
+    util.mkdir(const.OUT_DIR)
+
+    stats_json = f"{out_dir}/{args.output}"
+    if args.output == '':
+        file_name = args.input.split('/')[-1].split('.')[0]
+        stats_json = f"{out_dir}/stats_{file_name}.json"
+
+    with open(args.input, 'r') as f:
+        data = json.load(f)
+    
+    stats = gen_stats(data)
+
     with open(stats_json, 'w') as f:
-        stats = {
-            consts.STATS_KEY_METHODS: util.sort_dict(METHOD_FREQ), 
-            consts.STATS_KEY_EXEC_TYPES: util.sort_dict(EXEC_TYPE_FREQ),
-            consts.STATS_KEY_INVOKES: util.sort_dict(INVOKE_FREQ), 
-            consts.STATS_KEY_ROOTS: util.sort_dict(ROOT_FREQ),
-            consts.STATS_KEY_LAMBDAS: util.sort_dict(LAMBDA_FREQ),
-            consts.STATS_KEY_REFLECT_METHODS: util.sort_dict(REFLECT_METHOD_FREQ),
-            consts.STATS_KEY_LAMBDA_COUNT: len(LAMBDA_FREQ),
-            consts.STATS_KEY_REFLECT_METHOD_COUNT: len(REFLECT_METHOD_FREQ),
-            consts.STATS_KEY_METHOD_COUNT: len(METHOD_FREQ),
-            consts.STATS_KEY_INVOKE_COUNT: len(INVOKE_FREQ),
-        }
         json.dump(stats, f, indent=4)
 
 

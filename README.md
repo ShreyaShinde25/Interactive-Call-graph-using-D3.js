@@ -1,6 +1,28 @@
 # Interactive-Call-graph-using-D3.js
 
-## Input Data Format (*Per Graph*)
+
+## Project Setup (Optional)
+
+Download the latest release of the Dacapo benchmark mark from: https://github.com/dacapobench/dacapobench/releases. 
+The downloaded .zip file should be extracted to the directory `preprocessing/apps`. There should be 2 main components extracted:
+- A folder named `dacapo-***/`
+- A jar file named ` dacapo-***.jar`
+
+## Example
+
+### Visualization Input Data Generation (HelloWorld)
+1. Navigate to the directory `preprocessing/scripts`
+2. Run the script named `gen_hello.sh` (which runs a HelloWorld program)
+3. Visualization input data for the HelloWorld program should be available in the directory `preprocessing/out` with the names `hello_trace_***.json`
+
+
+### Visualization Input Data Generation (Dacapo)
+0. Download the Dacapo benchmark based on instructions from [Project Setup](#project-setup-(optional)).
+1. Navigate to the directory `preprocessing/scripts`
+2. Run the script named `gen_dacapo.sh <benchmark_name>` (which runs a Dacapo benchmark)
+3. Visualization input data for the benchmark program should be available in the directory `preprocessing/out` with the names `<benchmark_name>_trace_***.json`
+
+## Visualization Input Data Format (*Per Graph*)
 - Input data should be as a **list** in JSON format
 - Input data should be divided into 2 sections ```methods``` and ```paths```
 ```

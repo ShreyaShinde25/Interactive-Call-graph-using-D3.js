@@ -4,7 +4,7 @@ import argparse
 import os
 from collections import defaultdict
 import util
-import consts
+import const
 
 # can be tested at https://regexr.com/7snrp
 PATTERN = r'(?P<ts>\d{2}\:\d{2}\:\d{2}\.\d+)(\*|\s)+(?P<thread>\w+)\s+(?P<tracepoint>(\w|\.)+)\s(.+)\[(?P<stack_pos>\d+)\]\s(?P<class_method_name>.+)(?P<input_params>\(\S*\))(?P<return_type>\S+)\s(\(Bytecode\sPC\:\s(?P<pc>\d+)\,\sLine\:\s(?P<line_no>\d+)\)\s)?(invkCD\:\s(?P<invoke_count_down>\d+)\,)?(?P<exec_type>\((Compiled Code|Native Method)\))?(\sstrtCnt\:\s(?P<start_sample_count>\d+)\,\sgblCnt\:\s(?P<global_sample_count>\d+)\,\scpu\:\s(?P<cpu>\d+\.\d+)\%\,)?\s(?P<method_size>\d+)\sbcsz'
@@ -136,7 +136,7 @@ def main():
     parser.add_argument('--input', '-i', type=str, required=True, help='path to input (.log, .fmt) file to process with tracepoint output.') 
     parser.add_argument('--output', '-o', type=str, default='', help='output (.json) file name which will contain execution path information.')    
     args = parser.parse_args()
-    util.mkdir(consts.OUT_DIR) 
+    util.mkdir(const.OUT_DIR) 
     method_map = {}
     next_method_id = 0
     json_methods = []
@@ -151,10 +151,10 @@ def main():
         "methods": json_methods,
         "paths": json_paths
     }
-    output_json = f"{consts.OUT_DIR}/{args.output}"
+    output_json = f"{const.OUT_DIR}/{args.output}"
     if args.output == '':
         log_name = util.get_file_name(args.input)
-        output_json = f'{consts.OUT_DIR}/{log_name}.json'
+        output_json = f'{const.OUT_DIR}/{log_name}.json'
     with open(output_json, 'w') as json_file:
         json.dump(json_output, json_file, indent=4)
 
