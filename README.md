@@ -7,20 +7,18 @@
 1. Download the custom JDK from: https://ibm.box.com/s/zr0b91rfozrnwsm5n50od4m3stxa3dci. After downloading, extract the contents of the .zip file to `preprocessing`. Once complete, the custom JDK should be located under the directory named `preprocessing/jdk`. (e.g. the `java` binary of the JDK should be located under the path `preprocessing/jdk/bin`)
 
 2. [*Optinal*] Download the Dacapo benchmark mark from: https://github.com/dacapobench/dacapobench/releases/tag/v23.11-chopin. 
-The downloaded .zip file should be extracted to the directory `preprocessing/apps`. There should be 2 main components extracted:
-- A folder named `dacapo-23.11-chopin`
-- A jar file named ` dacapo-23.11-chopin.jar`
+The downloaded .zip file should be extracted to the directory `preprocessing/apps`. There should be 2 main components extracted: a folder named `dacapo-23.11-chopin` and a jar file named ` dacapo-23.11-chopin.jar`
 
-## Example
+## Visualization Input Data Generation
 
-After completing the setup above, you should be able to generate visualization data using the provided scripts.
+After completing the setup above, visualization data can be generated using the provided scripts under `preprocessing/scripts`.
 
-### Visualization Input Data Generation (HelloWorld)
+### HelloWorld Program
 1. Navigate to the directory `preprocessing/scripts`
 2. Run the script named `gen_hello.sh` (which runs a HelloWorld program)
 3. Visualization input data for the HelloWorld program should be available in the directory `preprocessing/out` with the names `hello_trace_***.json`
 
-### Visualization Input Data Generation (Dacapo)
+### Dacapo Benchmarks
 0. Download the Dacapo benchmark based on instructions from Step 2 in [Project Setup](#project-setup-(optional)).
 1. Navigate to the directory `preprocessing/scripts`
 2. Run the script named `gen_dacapo.sh <benchmark_name>` (which runs a Dacapo benchmark)
