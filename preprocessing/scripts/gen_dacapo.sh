@@ -8,6 +8,7 @@ TARGET=$1
 REPS=$2
 cd ..
 mkdir ${LOG_DIR}
+chmod +x jdk/bin/*
 rm "${LOG_DIR}/${TARGET}_time.log"
 cd ${APP_DIR}
 

@@ -5,46 +5,7 @@ import os
 import json
 import stats
 import util
-import numpy as np
-import matplotlib.pyplot as plt
 
-
-def gen_heatmap(title, metric_label, n, file_diffs, files, value_func,show=False):
-    diff_data = [[0]*n for _ in range(n)]
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                continue
-            diff_data[i][j] = value_func(file_diffs[files[i]][files[j]])
-    diff_data = np.array(diff_data)
-    fig, ax = plt.subplots()
-    im = ax.imshow(diff_data)
-
-    # Show all ticks and label them with the respective list entries
-    ax.set_xticks(np.arange(n), labels=files)
-    ax.set_yticks(np.arange(n), labels=files)
-
-    # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-            rotation_mode="anchor")
-
-    # Loop over data dimensions and create text annotations.
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                continue
-            text = ax.text(j, i, diff_data[i, j], ha="center", va="center")
-    # Add the color bar
-    cbar = ax.figure.colorbar(im, ax = ax)
-    cbar.ax.set_ylabel(metric_label, rotation = -90, va = "bottom")
-
-    ax.set_title(title)
-    fig.tight_layout()
-    plt.ylabel('f1')
-    plt.xlabel('f2')
-    plt.savefig(f"{const.PLOT_DIR}/{title}.png")
-    if show:
-        plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script performing pairwise diff of caller-callee relationships between program runs.')
@@ -57,17 +18,13 @@ if __name__ == "__main__":
     files.sort()
     n = len(files)
     print(files)
-    out_dir = const.OUT_DIR
-    util.mkdir(out_dir)
+    util.mkdir(const.OUT_DIR)
     util.mkdir(const.PLOT_DIR)
-    stats_table = {}
+    stats_data_map = {}
     # generate stats for each input file
     for file_name in files:
         with open(f"{args.dir}/{file_name}.json", 'r') as f:
-            stats1 = stats.gen_stats(json.load(f))
-        with open(f"{out_dir}/stats_{file_name}.json", 'w') as f:
-            json.dump(stats1, f, indent=4)
-        stats_table[file_name] = stats1
+            stats_data_map[file_name] = stats.gen_stats(json.load(f), file_name=file_name, save_to_disk=True)
     file_diffs = {f: {} for f in files}
     for i in range(n):
         for j in range(n):
@@ -75,41 +32,100 @@ if __name__ == "__main__":
                 continue
             print(f"diff: {files[i]} vs {files[j]}")
             file_diffs[files[i]][files[j]] = diff.gen_diff(
-                                                stats_table[files[i]], 
-                                                stats_table[files[j]],
+                                                stats_data_map[files[i]], 
+                                                stats_data_map[files[j]],
                                                 files[i],
-                                                files[j])
-
-    gen_heatmap(f"{args.prefix}: Method Freq. Count Ratios",
-                "f1-only Method Freq. Count:Total f1 Method Freq. Count",
-                n, 
+                                                files[j],
+                                                save_to_disk=False)
+    ROUNDING = 3
+    util.heatmap(f"{args.prefix}: Shared Method Count Ratios",
+                "Shared Method Count : Total f1 Method Count",
                 file_diffs, 
                 files, 
-                lambda data: round(data[const.DIFF_KEY_F1_ONLY_METHOD_FREQ_COUNT]/data[const.DIFF_KEY_F1_METHOD_FREQ_COUNT],5),
+                lambda data: round(data[const.DIFF_KEY_SHARED_METHOD_COUNT]/data[const.DIFF_KEY_F1_ALL_METHOD_COUNT],ROUNDING),
                 show=args.show)
     
-    gen_heatmap(f"{args.prefix}: Method Count Ratios",
-                "f1-only Method Count:Total f1 Method Count",
-                n, 
+    util.heatmap(f"{args.prefix}: Unique Method Count Ratios",
+                "f1-only Method Count : Total f1 Method Count",
                 file_diffs, 
                 files, 
-                lambda data: round(data[const.DIFF_KEY_F1_ONLY_METHOD_COUNT]/data[const.DIFF_KEY_F1_METHOD_COUNT],5),
-                show=args.show)
-    
-
-    gen_heatmap(f"{args.prefix}: Invoke Count Ratios",
-                "f1-only Invoke Count:Total f1 Invoke Count",
-                n, 
-                file_diffs, 
-                files, 
-                lambda data: round(data[const.DIFF_KEY_F1_ONLY_INVOKE_COUNT]/data[const.DIFF_KEY_F1_INVOKE_COUNT],5),
+                lambda data: round(data[const.DIFF_KEY_F1_ONLY_DEFAULT_METHOD_COUNT]/data[const.DIFF_KEY_F1_ALL_METHOD_COUNT],ROUNDING),
                 show=args.show)
 
-    gen_heatmap(f"{args.prefix}: Invoke Freq. Count Ratios",
-                "f1-only Invoke Freq. Count:Total f1 Invoke Freq. Count",
-                n, 
+    util.heatmap(f"{args.prefix}: Unique Method Freq. Sum Ratios",
+                "f1-only Method Freq. Sum : Total f1 Method Freq. Sum",
                 file_diffs, 
                 files, 
-                lambda data: round(data[const.DIFF_KEY_F1_ONLY_INVOKE_FREQ_COUNT]/data[const.DIFF_KEY_F1_INVOKE_FREQ_COUNT],5),
+                lambda data: round(data[const.DIFF_KEY_F1_ONLY_DEFAULT_METHOD_FREQ_SUM]/data[const.DIFF_KEY_F1_ALL_METHOD_FREQ_SUM],ROUNDING),
                 show=args.show)
     
+    util.heatmap(f"{args.prefix}: Unique Method with Freq. <= 1 Ratios",
+                "f1-only Method w. Freq. <=1 : f1-only Method Count",
+                file_diffs, 
+                files, 
+                lambda data: round(data[const.DIFF_KEY_F1_ONLY_DEFAULT_METHOD_FREQ_DISTRIB]["<=1"]/data[const.DIFF_KEY_F1_ONLY_DEFAULT_METHOD_COUNT],ROUNDING),
+                show=args.show) 
+
+    util.heatmap(f"{args.prefix}: Shared Invoke Count Ratios",
+                "Shared Invoke Count : Total f1 Invoke Count",
+                file_diffs, 
+                files, 
+                lambda data: round(data[const.DIFF_KEY_SHARED_INVOKE_COUNT]/data[const.DIFF_KEY_F1_INVOKE_COUNT],ROUNDING),
+                show=args.show)
+    
+    util.heatmap(f"{args.prefix}: Unique Invoke Count Ratios",
+                "f1-only Invoke Count : Total f1 Invoke Count",
+                file_diffs, 
+                files, 
+                lambda data: round(data[const.DIFF_KEY_SHARED_INVOKE_COUNT]/data[const.DIFF_KEY_F1_INVOKE_COUNT],ROUNDING),
+                show=args.show)
+
+    util.heatmap(f"{args.prefix}: Unique Invoke Freq. Sum Ratios",
+                "f1-only Invoke Freq. Sum : Total f1 Invoke Freq. Sum",
+                file_diffs, 
+                files, 
+                lambda data: round(data[const.DIFF_KEY_F1_ONLY_INVOKE_FREQ_SUM]/data[const.DIFF_KEY_F1_INVOKE_FREQ_SUM],ROUNDING),
+                show=args.show)
+
+    util.heatmap(f"{args.prefix}: Unique Invoke with Freq. <= 1 Ratios",
+                "f1-only Invoke w. Freq. <=1 : f1-only Invoke Count",
+                file_diffs, 
+                files, 
+                lambda data: round(data[const.DIFF_KEY_F1_ONLY_INVOKE_FREQ_DISTRIB]["<=1"]/data[const.DIFF_KEY_F1_ONLY_INVOKE_COUNT],ROUNDING),
+                show=args.show) 
+
+    DISTRIB_KEYS = [f"<={v}" for v in const.DISTRIB_BOUNDS]
+    d = {k: [stats_data_map[f][const.STATS_KEY_ALL_METHOD_FREQ_DISTRIB][k] for f in files] for k in DISTRIB_KEYS}
+    util.grouped_barchart(title=f"{args.prefix}: Method Freq. Distribution",
+                     metric_label="Frequency",
+                     data=d,
+                     files=files,
+                     show=args.show,)
+    d = {k: [stats_data_map[f][const.STATS_KEY_ALL_INVOKE_FREQ_DISTRIB][k] for f in files] for k in DISTRIB_KEYS}
+    util.grouped_barchart(title=f"{args.prefix}: Invoke Freq. Distribution",
+                     metric_label="Frequency",
+                     data=d,
+                     files=files,
+                     show=args.show,)
+    
+    METHOD_TYPES = {
+        "reflect": const.STATS_KEY_REFLECT_METHOD_COUNT, 
+        "lambda": const.STATS_KEY_LAMBDA_METHOD_COUNT, 
+        "default": const.STATS_KEY_DEFAULT_INVOKE_COUNT}
+    d = {k: [stats_data_map[f][METHOD_TYPES[k]] for f in files] for k in METHOD_TYPES}
+    util.stacked_barchart(title=f"{args.prefix}: Method Count Breakdown",
+                     metric_label="Count",
+                     data=d,
+                     files=files,
+                     show=args.show,)
+    METHOD_TYPES = {
+        "reflect": const.STATS_KEY_REFLECT_METHOD_FREQ_SUM, 
+        "lambda": const.STATS_KEY_LAMBDA_MEHTOD_FREQ_SUM,
+        "default": const.STATS_KEY_DEFAULT_METHODS_FREQ_SUM}
+
+    d = {k: [stats_data_map[f][METHOD_TYPES[k]] for f in files] for k in METHOD_TYPES}
+    util.stacked_barchart(title=f"{args.prefix}: Method Freq. Sum Breakdown",
+                     metric_label="Frequency",
+                     data=d,
+                     files=files,
+                     show=args.show,)
